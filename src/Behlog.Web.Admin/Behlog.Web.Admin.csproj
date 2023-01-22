@@ -39,5 +39,9 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Behlog.Web.Admin.Models\Behlog.Web.Admin.Models.csproj" />
+    </ItemGroup>
+
 
 </Project>

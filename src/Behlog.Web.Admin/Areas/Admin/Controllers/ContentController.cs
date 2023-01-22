@@ -1,4 +1,5 @@
 using Behlog.Core.Models;
+using Behlog.Extensions;
 
 namespace Behlog.Web.Admin.Controllers;
 
@@ -38,6 +39,17 @@ public class ContentController : Controller
 
         return View(result);
     }
+
+
+    [HttpGet("{langCode}/{contentTypeName}")]
+    public async Task<IActionResult> New(string langCode, string contentTypeName)
+    {
+        if (langCode.IsNullOrEmptySpace()) return BadRequest();
+        if (contentTypeName.IsNullOrEmptySpace()) return BadRequest();
+
+        return View();
+    }
+    
     
     
 }
