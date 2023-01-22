@@ -1,8 +1,13 @@
-﻿namespace Behlog.Web.Admin.Models;
+﻿using Behlog.Cms.Domain;
+
+namespace Behlog.Web.Admin.Models;
 
 
 public class CreateContentViewModel : BaseViewModel
 {
+    public Guid LangId { get; set; }
+    public Guid ContentTypeId { get; set; }
+
     [Required]
     [MaxLength(1000)]
     public string Title { get; set; }
@@ -20,5 +25,7 @@ public class CreateContentViewModel : BaseViewModel
     [MaxLength(1000)]
     public string AltTitle { get; set; }
     
+    public ContentBodyTypeEnum BodyType { get; set; }
     
+    public int OrderNum { get; set; }
 }

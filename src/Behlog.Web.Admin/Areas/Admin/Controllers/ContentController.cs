@@ -1,3 +1,4 @@
+using Behlog.Cms.Domain;
 using Behlog.Core.Models;
 using Behlog.Extensions;
 
@@ -47,9 +48,38 @@ public class ContentController : Controller
         if (langCode.IsNullOrEmptySpace()) return BadRequest();
         if (contentTypeName.IsNullOrEmptySpace()) return BadRequest();
 
+        var langId = BehlogSupportedLanguages.GetIdByCode(langCode);
+        var contentType = await _behlog.PublishAsync(new QueryContentTypeBySystemName(
+            contentTypeName, langId)).ConfigureAwait(false);
+        if (contentType is null) return NotFound();
+
+        var model = new CreateContentViewModel
+        {
+            LangId = langId,
+            ContentTypeId = contentType.Id
+        };
+        
         return View();
     }
-    
-    
+
+    [HttpPost]
+    public async Task<IActionResult> New(CreateContentViewModel model)
+    {
+        if (model is null) return BadRequest();
+
+        if (!ModelState.IsValid)
+        {
+            model.AddError(""); //TODO : from resource
+            return View(model);
+        }
+        
+        
+        // var command = new CreateContentCommand(
+        //     _website.Id, model.Title, model.Slug, model.ContentTypeId, model.LangId,
+        //     model.Body, model.BodyType, model.Summary, model.AltTitle, model.OrderNum,
+        //     )
+
+        return View(model);
+    }
     
 }
