@@ -1,7 +1,7 @@
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
-[Route("[area]/account")]
+[Route("[area]")]
 [Authorize]
 public class HomeController : Controller
 {
