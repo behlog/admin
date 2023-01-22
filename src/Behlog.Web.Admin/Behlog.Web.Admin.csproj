@@ -20,7 +20,23 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Areas\Admin" />
       <Folder Include="wwwroot" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Behlog.Cms">
+        <HintPath>..\..\..\cms\src\Behlog.Cms\bin\Debug\net6.0\Behlog.Cms.dll</HintPath>
+      </Reference>
+      <Reference Include="Behlog.Core">
+        <HintPath>..\..\..\core\src\bin\Debug\net6.0\Behlog.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Behlog.Web.Core">
+        <HintPath>..\..\..\web\src\Behlog.Web.Core\bin\Debug\net6.0\Behlog.Web.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Idyfa.Core">
+        <HintPath>..\..\..\..\Idyfa\src\Idyfa.Core\bin\Debug\net6.0\Idyfa.Core.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 

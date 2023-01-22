@@ -22,4 +22,15 @@ public static class ServiceProvider
         
         return builder;
     }
+
+
+    public static IEndpointRouteBuilder AddBehlogAdminRoutes(this IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapAreaControllerRoute(
+            name: "admin",
+            areaName: "",
+            pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+
+        return endpoints;
+    }
 }
