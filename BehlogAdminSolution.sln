@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{691958E2-54E1-4C93-8441-B353829CBBF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behlog.Web.Admin", "src\Behlog.Web.Admin\Behlog.Web.Admin.csproj", "{0AC93934-1A7F-41F4-A740-9DD32F392B8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0AC93934-1A7F-41F4-A740-9DD32F392B8B} = {691958E2-54E1-4C93-8441-B353829CBBF9}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AC93934-1A7F-41F4-A740-9DD32F392B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AC93934-1A7F-41F4-A740-9DD32F392B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AC93934-1A7F-41F4-A740-9DD32F392B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AC93934-1A7F-41F4-A740-9DD32F392B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
