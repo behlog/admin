@@ -7,25 +7,21 @@ namespace Behlog.Web.Admin.Controllers;
 [Area(WebsiteAreaNames.Admin)]
 [Route("[area]/content")]
 [Authorize]
-public class ContentController : Controller
+public class ContentController : BaseAdminController
 {
-    private readonly IBehlogMediator _behlog;
-    private readonly BehlogWebsite _website;
 
-    
-    public ContentController(IBehlogMediator behlog, BehlogWebsite website)
+    public ContentController(IBehlogMediator behlog, BehlogWebsite website) 
+        : base(behlog, website)
     {
-        _behlog = behlog ?? throw new ArgumentNullException(nameof(behlog));
-        _website = website ?? throw new ArgumentNullException(nameof(website));
     }
 
     [HttpGet("{langCode}/{contentTypeName}/{page:int=1}")]
     public async Task<IActionResult> Index(string langCode, string contentTypeName, int page = 1)
     {
-        var langId = BehlogSupportedLanguages.GetIdByCode(langCode);
-        var contentType = await _behlog.PublishAsync(
-            new QueryContentTypeBySystemName(contentTypeName, langId)).ConfigureAwait(false);
-
+        var langId = FindLangId(langCode);
+        var contentType = await FindContentTypeAsync(langId, contentTypeName);
+        if (contentType is null) return NotFound();
+        
         var options = new QueryOptions
         {
             OrderBy = "id",
@@ -81,5 +77,6 @@ public class ContentController : Controller
 
         return View(model);
     }
+
     
 }
