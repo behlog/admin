@@ -1,6 +1,6 @@
 namespace Behlog.Web.Admin.Models;
 
-public class CreateContentCategoryViewModel
+public class CreateContentCategoryViewModel : BaseViewModel
 {
     public Guid LangId { get; set; }
     public Guid ContentTypeId { get; set; }

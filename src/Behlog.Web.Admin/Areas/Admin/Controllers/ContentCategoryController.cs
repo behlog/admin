@@ -48,7 +48,34 @@ public class ContentCategoryController : BaseAdminController
 
         return View(model);
     }
-    
-    
-    
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> New(CreateContentCategoryViewModel model)
+    {
+        model.ThrowExceptionIfArgumentIsNull(nameof(model));
+        if (!ModelState.IsValid)
+        {
+            model.AddError(""); //TODO : read from resources
+            return View(model);
+        }
+
+        var command = new CreateContentCategoryCommand(
+            model.Title, model.AltTitle, model.Slug, model.LangId,
+            model.ParentId, model.Description, model.ContentTypeId, _website.Id);
+
+        var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+        if (result.HasError)
+        {
+            foreach (var err in result.Errors)
+            {
+                model.AddError(err.Message ,err.FieldName);
+            }
+
+            return View(model);
+        }
+        
+        //TODO : redirects to Edit mode
+
+        return View(model);
+    }
 }
