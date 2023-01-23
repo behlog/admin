@@ -17,7 +17,8 @@ public class ContentCategoryController : BaseAdminController
         var langId = FindLangId(langCode);
         var contentType = await FindContentTypeAsync(langId, contentTypeName);
         if (contentType is null) return NotFound();
-
+        
+        
 
         return View();
     }
