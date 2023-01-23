@@ -78,4 +78,14 @@ public class ContentCategoryController : BaseAdminController
 
         return View(model);
     }
+
+    [HttpGet("edit/{id:guid}")]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        var query = new QueryContentCategoryById(id);
+        var category = await _behlog.PublishAsync(query).ConfigureAwait(false);
+
+        var model = UpdateContentCategoryViewModel.LoadFrom(category);
+        return View(model);
+    }
 }
