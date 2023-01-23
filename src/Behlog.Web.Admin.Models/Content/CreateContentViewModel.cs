@@ -1,6 +1,4 @@
-﻿using Behlog.Cms.Domain;
-
-namespace Behlog.Web.Admin.Models;
+﻿namespace Behlog.Web.Admin.Models;
 
 
 public class CreateContentViewModel : BaseViewModel

@@ -22,13 +22,11 @@ public class ContentController : BaseAdminController
         var contentType = await FindContentTypeAsync(langId, contentTypeName);
         if (contentType is null) return NotFound();
         
-        var options = new QueryOptions
-        {
-            OrderBy = "id",
-            OrderDesc = true,
-            PageNumber = page,
-            PageSize = 10
-        };
+        var options = QueryOptions.New()
+            .WithPageNumber(page)
+            .WithPageSize(10)
+            .WillOrderBy("id")
+            .WillOrderDesc();
         
         var query = new QueryContentByWebsiteAndContentType(
             _website.Id, langId, contentType.Id, null, options);

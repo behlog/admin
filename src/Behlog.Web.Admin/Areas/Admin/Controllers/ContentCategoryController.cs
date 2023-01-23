@@ -1,3 +1,5 @@
+using Behlog.Core.Models;
+
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
@@ -17,9 +19,36 @@ public class ContentCategoryController : BaseAdminController
         var langId = FindLangId(langCode);
         var contentType = await FindContentTypeAsync(langId, contentTypeName);
         if (contentType is null) return NotFound();
-        
-        
 
-        return View();
+        var query = new QueryContentCategoriesFiltered(
+            _website.Id, langId, contentType.Id, null,
+            QueryOptions.New()
+                .WithPageNumber(page)
+                .WithPageSize(10)
+                .WillOrderBy("id")
+                .WillOrderDesc()
+        );
+
+        var model = await _behlog.PublishAsync(query).ConfigureAwait(false);
+
+        return View(model);
     }
+
+    [HttpGet("{langCode}/{contentTypeName}")]
+    public async Task<IActionResult> New(string langCode, string contentTypeName)
+    {
+        var langId = FindLangId(langCode);
+        var contentType = await FindContentTypeAsync(langId, contentTypeName);
+        if (contentType is null) return NotFound();
+
+        var model = new CreateContentCategoryViewModel
+        {
+            LangId = langId, ContentTypeId = contentType.Id
+        };
+
+        return View(model);
+    }
+    
+    
+    
 }
