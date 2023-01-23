@@ -94,4 +94,35 @@ public class ContentCategoryController : BaseAdminController
         var model = UpdateContentCategoryViewModel.LoadFrom(category);
         return View(model);
     }
+
+    [HttpPost("edit/{id:guid}")]
+    public async Task<IActionResult> Edit(Guid id, UpdateContentCategoryViewModel model)
+    {
+        model.ThrowExceptionIfArgumentIsNull(nameof(model));
+
+        if (!ModelState.IsValid)
+        {
+            model.AddError(""); //TODO : read from resource
+            return View(model);
+        }
+
+        var command = new UpdateContentCategoryCommand(
+            model.Id, model.Title, model.AltTitle, model.Slug, 
+            model.LangId, model.ParentId, model.Description, model.Enabled);
+
+        var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+        if (result.HasError)
+        {
+            foreach (var err in result.Errors)
+            {
+                model.AddError(err.Message, err.FieldName);
+            }
+
+            return View(model);
+        }
+        
+        //TODO : redirect to index?
+        return View(model);
+    }
+    
 }
