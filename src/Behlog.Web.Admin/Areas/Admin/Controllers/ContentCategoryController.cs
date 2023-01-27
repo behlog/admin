@@ -85,7 +85,7 @@ public class ContentCategoryController : BaseAdminController
         var query = new QueryContentCategoryById(id);
         var category = await _behlog.PublishAsync(query).ConfigureAwait(false);
 
-        if (category.Status == EntityStatusEnum.Deleted)
+        if (category.Status == EntityStatus.Deleted)
         {
             //TODO : it's better to have an custom exception for soft deleted entities.
             throw new InvalidOperationException("Trying to edit an entity which has been deleted before!");

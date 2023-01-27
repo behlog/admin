@@ -43,7 +43,7 @@ public class UpdateContentCategoryViewModel : BaseViewModel
         {
             Id = result.Id,
             Description = result.Description,
-            Enabled = result.Status == EntityStatusEnum.Enabled,
+            Enabled = result.Status == EntityStatus.Enabled,
             Slug = result.Slug,
             Title = result.Title,
             AltTitle = result.AltTitle,
