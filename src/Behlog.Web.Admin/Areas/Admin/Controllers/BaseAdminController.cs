@@ -5,7 +5,10 @@ public abstract class BaseAdminController : Controller
 {
     protected readonly IBehlogMediator _behlog;
     protected readonly BehlogWebsite _website;
-
+    
+    public BaseAdminController()
+    {
+    }
 
     public BaseAdminController(IBehlogMediator behlog, BehlogWebsite website)
     {

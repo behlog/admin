@@ -7,6 +7,10 @@ namespace Behlog.Web.Admin.Controllers;
 [Authorize]
 public class ContentCategoryController : BaseAdminController
 {
+
+    public ContentCategoryController()
+    {
+    }
     
     public ContentCategoryController(IBehlogMediator behlog, BehlogWebsite website) 
         : base(behlog, website)
