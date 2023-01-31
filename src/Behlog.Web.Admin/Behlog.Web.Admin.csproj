@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
     </PropertyGroup>
 
 
@@ -17,10 +18,11 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.13" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot" />
+        <EmbeddedResource Include="wwwroot\**\*" />
     </ItemGroup>
 
     <ItemGroup>

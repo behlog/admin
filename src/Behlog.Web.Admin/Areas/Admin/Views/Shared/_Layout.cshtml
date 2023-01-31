@@ -20,10 +20,27 @@
           	font-feature-settings: "cv03", "cv04", "cv11";
           }
         </style>
+
+        @await RenderSectionAsync("header", required: false)
 </head>
 <body>
+<script src="~/admin-assets/js/behlog-theme.min.js?1669759017"></script>
 
-@RenderBody()
+<div class="page">
 
+    <partial name="_topHeader" />
+    
+    <partial name="_adminNavbar" />
+    
+    <div class="page-wrapper">
+        @RenderBody()
+    </div>
+</div>
+
+    <!-- Tabler Core -->
+    <script src="~/admin-assets/js/tabler.min.js?1669759017" defer></script>
+    <script src="~/admin-assets/js/behlog.min.js?1669759017" defer></script>
+
+    @await RenderSectionAsync("footer", required: false)
 </body>
 </html>

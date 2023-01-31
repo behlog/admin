@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ServiceProvider
 {
 
-    public static IMvcBuilder AddBehlogAdminArea(IMvcBuilder builder)
+    public static IMvcBuilder AddBehlogAdminArea(this IMvcBuilder builder)
     {
         var assembly = typeof(HomeController).Assembly;
         
@@ -28,7 +28,7 @@ public static class ServiceProvider
     {
         endpoints.MapAreaControllerRoute(
             name: "admin",
-            areaName: "",
+            areaName: WebsiteAreaNames.Admin,
             pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
 
         return endpoints;
