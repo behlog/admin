@@ -1,0 +1,92 @@
+@model CreateContentCategoryViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">
+                    دسته بندی جدید - @Model.ContentTypeTitle
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body">
+
+    <div class="container-xl">
+        <form class="card" id="theForm" method="POST"
+              asp-controller="ContentCategory" asp-action="New" asp-area="@WebsiteAreaNames.Admin"
+              asp-route-contentTypeName="@Model.ContentTypeName" asp-route-langCode="@Model.LangCode"
+              asp-antiforgery="true">
+
+            <div class="card-header">
+                <h3>
+                    دسته بندی جدید
+                </h3>
+            </div>
+            <div class="card-body">
+
+                <div class="mb-3 row">
+                    <label class="col-3 col-form-label required">
+                        عنوان
+                    </label>
+                    <div class="col">
+                        <input asp-for="Title" type="text" class="form-control" placeholder="عنوان دسته بندی"/>
+                        <span asp-validation-for="Title"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-3 col-form-label">
+                        عنوان جایگزین
+                    </label>
+                    <div class="col">
+                        <input asp-for="AltTitle" type="text" class="form-control" placeholder="عنوان جایگزین"/>
+                        <span asp-validation-for="AltTitle"></span>
+                        <small class="form-hint">
+                            عنوان دیگر این دسته بندی
+                        </small>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-3 col-form-label required">
+                        نامک
+                    </label>
+                    <div class="col">
+                        <input asp-for="Slug" type="text" class="form-control" placeholder="نامک برای استفاده در URL"/>
+                        <span asp-validation-for="Slug"></span>
+                        <small class="form-hint">
+                            نامک به عنوان آدرس در URL برای دسترسی به این
+                        </small>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-3 col-form-label required">
+                        توضیحات
+                    </label>
+                    <div class="col">
+                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="توضیحات...">
+                            </textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer text-end">
+                <div class="d-flex">
+                    <a href="#" class="btn btn-link">بی خیال</a>
+                    <button type="submit" class="btn btn-primary ms-auto">ارسال</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

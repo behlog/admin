@@ -38,7 +38,7 @@ public class ContentCategoryController : BaseAdminController
         return View(model);
     }
 
-    [HttpGet("{langCode}/{contentTypeName}")]
+    [HttpGet("new/{langCode}/{contentTypeName}")]
     public async Task<IActionResult> New(string langCode, string contentTypeName)
     {
         var langId = FindLangId(langCode);
@@ -47,14 +47,28 @@ public class ContentCategoryController : BaseAdminController
 
         var model = new CreateContentCategoryViewModel
         {
-            LangId = langId, ContentTypeId = contentType.Id
+            LangId = langId, 
+            LangCode = langCode,
+            LangTitle = FindLangTitle(langCode),
+            ContentTypeId = contentType.Id,
+            ContentTypeName = contentType.SystemName,
+            ContentTypeTitle = contentType.Title,
+            //TODO : Add support for Parent
         };
 
         return View(model);
     }
 
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> New(CreateContentCategoryViewModel model)
+    [HttpGet("new")]
+    public async Task<IActionResult> New()
+    {
+        
+    }
+    
+
+    [HttpPost("new/{langCode}/{contentTypeName}"), ValidateAntiForgeryToken]
+    public async Task<IActionResult> New(
+        string langCode, string contentTypeName, CreateContentCategoryViewModel model)
     {
         model.ThrowExceptionIfArgumentIsNull(nameof(model));
         if (!ModelState.IsValid)
@@ -64,7 +78,7 @@ public class ContentCategoryController : BaseAdminController
         }
 
         var command = new CreateContentCategoryCommand(
-            model.Title, model.AltTitle, model.Slug, model.LangId,
+            model.Title, model.AltTitle, model.Slug!, model.LangId,
             model.ParentId, model.Description, model.ContentTypeId, _website.Id);
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);

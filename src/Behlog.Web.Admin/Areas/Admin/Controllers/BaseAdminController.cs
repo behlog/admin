@@ -25,7 +25,14 @@ public abstract class BaseAdminController : Controller
         return BehlogSupportedLanguages.GetIdByCode(langCode);
     }
 
+    protected string FindLangTitle(string langCode)
+    {
+        if (langCode.IsNullOrEmptySpace()) 
+            throw new ArgumentNullException(nameof(langCode));
 
+        return BehlogSupportedLanguages.GetTitleByCode(langCode);
+    }
+    
     protected async Task<ContentTypeResult> FindContentTypeAsync(Guid langId, string contentTypeName)
     {
         if (contentTypeName.IsNullOrEmptySpace())
