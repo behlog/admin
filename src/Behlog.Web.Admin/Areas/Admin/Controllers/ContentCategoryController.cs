@@ -62,7 +62,8 @@ public class ContentCategoryController : BaseAdminController
     [HttpGet("new")]
     public async Task<IActionResult> New()
     {
-        
+        //TODO : add model
+        return View();
     }
     
 
