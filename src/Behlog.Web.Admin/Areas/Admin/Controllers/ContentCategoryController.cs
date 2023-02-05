@@ -27,10 +27,8 @@ public class ContentCategoryController : BaseAdminController
         var query = new QueryContentCategoriesFiltered(
             _website.Id, langId, contentType.Id, null,
             QueryOptions.New()
-                .WithPageNumber(page)
-                .WithPageSize(10)
-                .WillOrderBy("id")
-                .WillOrderDesc()
+                .WithPageNumber(page).WithPageSize(10)
+                .WillOrderBy("id").WillOrderDesc()
         );
 
         var model = await _behlog.PublishAsync(query).ConfigureAwait(false);

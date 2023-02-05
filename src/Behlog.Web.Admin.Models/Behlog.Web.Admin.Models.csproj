@@ -16,10 +16,17 @@
       <Reference Include="Behlog.Web.Core">
         <HintPath>..\..\..\web\src\Behlog.Web.Core\bin\Debug\net6.0\Behlog.Web.Core.dll</HintPath>
       </Reference>
+      <Reference Include="Behlog.Web.Services">
+        <HintPath>..\..\..\web\src\Behlog.Web.Services\bin\Debug\net6.0\Behlog.Web.Services.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Languages" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
     </ItemGroup>
 
 </Project>

@@ -23,10 +23,8 @@ public class ContentController : BaseAdminController
         if (contentType is null) return NotFound();
         
         var options = QueryOptions.New()
-            .WithPageNumber(page)
-            .WithPageSize(10)
-            .WillOrderBy("id")
-            .WillOrderDesc();
+            .WithPageNumber(page).WithPageSize(10)
+            .WillOrderBy("id").WillOrderDesc();
         
         var query = new QueryContentByWebsiteAndContentType(
             _website.Id, langId, contentType.Id, null, options);
@@ -36,7 +34,7 @@ public class ContentController : BaseAdminController
     }
 
 
-    [HttpGet("{langCode}/{contentTypeName}")]
+    [HttpGet("new/{langCode}/{contentTypeName}")]
     public async Task<IActionResult> New(string langCode, string contentTypeName)
     {
         if (langCode.IsNullOrEmptySpace()) return BadRequest();

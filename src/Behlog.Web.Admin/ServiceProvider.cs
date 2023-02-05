@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.FileProviders;
+using Behlog.Web.Admin.ViewModelProviders;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-
 public static class ServiceProvider
 {
-
+    /// <summary>
+    /// Adds Behlog Admin Area as an ASP.NET CORE MVC module.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <returns></returns>
     public static IMvcBuilder AddBehlogAdminArea(this IMvcBuilder builder)
     {
         var assembly = typeof(HomeController).Assembly;
@@ -23,7 +26,23 @@ public static class ServiceProvider
         return builder;
     }
 
+    /// <summary>
+    /// Adds Behlog Admin services.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddBehlogAdminServices(this IServiceCollection services)
+    {
+        services.AddScoped<IAdminContentViewModelProvider, AdminContentViewModelProvider>();
 
+        return services;
+    }
+    
+    /// <summary>
+    /// Adds Behlog Admin routing.
+    /// </summary>
+    /// <param name="endpoints"></param>
+    /// <returns></returns>
     public static IEndpointRouteBuilder AddBehlogAdminRoutes(this IEndpointRouteBuilder endpoints)
     {
         endpoints.MapAreaControllerRoute(
