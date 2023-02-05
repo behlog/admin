@@ -1,8 +1,8 @@
 @model CreateContentViewModel
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "نوشته جدید - " + Model.ContentTypeTitle;
 }
-
 
 <div class="page-header d-print-none">
     <div class="container-xl">
@@ -34,7 +34,13 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                                            
+                                <div class="mb-3">
+                                    <label asp-for="CategorySelect" class="form-label">دسته بندی</label>
+                                    <select type="text" class="form-select" 
+                                            placeholder="انتخاب دسته بندی" 
+                                            id="select-category" asp-items="Model.CategorySelect.ToSelectList()">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -52,6 +58,21 @@
                             </div>
                             
                             <div class="card-body">
+                                <div class="mb-3">
+                                    <label asp-for="Title" class="form-label">عنوان</label>
+                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته" />
+                                    <span asp-validation-for="Title" class="invalid-feedback"></span>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label asp-for="Slug" class="form-label">نامک</label>
+                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته" />
+                                    <span asp-validation-for="Slug" class="invalid-feedback"></span>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <textarea asp-for="Body" rows="10" class="form-control"></textarea>
+                                </div>
                                 
                             </div>
                             
@@ -63,3 +84,8 @@
         </form>
     </div>
 </div>
+
+@section footer
+{
+    <script src="~/behlog/libs/tom-select/dist/js/tom-select.base.min.js" defer></script>
+}
