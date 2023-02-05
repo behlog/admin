@@ -1,6 +1,7 @@
 using Behlog.Cms.Domain;
 using Behlog.Core.Models;
 using Behlog.Extensions;
+using Behlog.Web.Admin.ViewModelProviders;
 
 namespace Behlog.Web.Admin.Controllers;
 
@@ -9,10 +10,15 @@ namespace Behlog.Web.Admin.Controllers;
 [Authorize]
 public class ContentController : BaseAdminController
 {
-
-    public ContentController(IBehlogMediator behlog, BehlogWebsite website) 
+    private readonly IAdminContentViewModelProvider _contentViewModelProvider;
+    
+    public ContentController(
+        IBehlogMediator behlog, BehlogWebsite website, 
+        IAdminContentViewModelProvider contentViewModelProvider) 
         : base(behlog, website)
     {
+        _contentViewModelProvider = contentViewModelProvider 
+                                    ?? throw new ArgumentNullException(nameof(contentViewModelProvider));
     }
 
     [HttpGet("{langCode}/{contentTypeName}/{page:int=1}")]
@@ -40,18 +46,10 @@ public class ContentController : BaseAdminController
         if (langCode.IsNullOrEmptySpace()) return BadRequest();
         if (contentTypeName.IsNullOrEmptySpace()) return BadRequest();
 
-        var langId = BehlogSupportedLanguages.GetIdByCode(langCode);
-        var contentType = await _behlog.PublishAsync(new QueryContentTypeBySystemName(
-            contentTypeName, langId)).ConfigureAwait(false);
-        if (contentType is null) return NotFound();
+        var model = await _contentViewModelProvider
+            .NewCreateViewModel(langCode, contentTypeName).ConfigureAwait(false);
 
-        var model = new CreateContentViewModel
-        {
-            LangId = langId,
-            ContentTypeId = contentType.Id
-        };
-        
-        return View();
+        return View(model);
     }
 
     [HttpPost]

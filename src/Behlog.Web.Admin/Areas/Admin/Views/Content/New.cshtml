@@ -1,0 +1,65 @@
+@model CreateContentViewModel
+@{
+    ViewData["Title"] = "نوشته جدید - " + Model.ContentTypeTitle;
+}
+
+
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">
+                    نوشته جدید - @Model.ContentTypeTitle
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body">
+    <div class="container-xl">
+        
+        
+        <form class="row row-cards" id="createForm" method="POST"
+              asp-controller="Content" asp-action="New" asp-area="@WebsiteAreaNames.Admin"
+              asp-antiforgery="true">
+
+            <div class="col-lg-4">
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    تنظیمات
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    نوشته جدید
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
