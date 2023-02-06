@@ -1,4 +1,4 @@
-namespace Behlog.Web.Admin.Models.Content;
+namespace Behlog.Web.Admin.Models;
 
 public class AdminContentFileViewModel
 {

@@ -58,14 +58,32 @@ public class ContentController : BaseAdminController
             return View(model);
         }
         
-        
-        // var command = new CreateContentCommand(
-        //     _website.Id, model.Title, model.Slug, model.ContentTypeId, model.LangId,
-        //     model.Body, model.BodyType, model.Summary, model.AltTitle, model.OrderNum,
-        //     )
+        var command = new CreateContentCommand(
+            _website.Id, model.Title, model.Slug!, model.ContentTypeId, model.LangId,
+            model.Body!, model.BodyType, model.Summary!, model.AltTitle!, model.OrderNum,
+            model.CategorySelect?.Items.Select(_ => Guid.Parse(_.Value))!,
+            model.Meta?.Select(_ => _.ToCommand()).ToList()!,
+            model.Files?.Select(_=> _.ToCommand())!
+        );
 
+        var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+        if (result.HasError)
+        {
+            model.WithValidationErrors(result.Errors);
+            model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
+            return View(model);
+        }
+
+        //TODO : redirect to Edit page
         return View(model);
     }
 
-    
+    [HttpGet("edit/{id:guid}")]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        var content = await _behlog.PublishAsync(new QueryContentById(id)).ConfigureAwait(false);
+        if (content is null) return NotFound();
+
+        throw new NotImplementedException();
+    }
 }

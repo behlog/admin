@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+using Behlog.Cms.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Behlog.Web.Admin.Models;
 
-
-public class CreateContentViewModel : BaseViewModel
+public class UpdateContentViewModel
 {
-    public CreateContentViewModel()
-    {
-        Files = new List<AdminContentFileViewModel>();
-        Meta = new List<AdminMetaViewModel>();
-    }
-    
+    public Guid Id { get; set; }
     public Guid LangId { get; set; }
     public string? LangCode { get; set; }
     public string? LangTitle { get; set; }
@@ -18,7 +13,6 @@ public class CreateContentViewModel : BaseViewModel
     public string? ContentTypeName { get; set; }
     public string? ContentTypeTitle { get; set; }
     
-
     [Required]
     [MaxLength(1000)]
     public string Title { get; set; }
@@ -27,6 +21,8 @@ public class CreateContentViewModel : BaseViewModel
     public string? Slug { get; set; }
     
     public string? Body { get; set; }
+    
+    public string? CoverPhotoFilePath { get; set; }
     
     public IFormFile? CoverPhotoFile { get; set; }
     
@@ -52,5 +48,24 @@ public class CreateContentViewModel : BaseViewModel
     {
         CategorySelect = categories ?? throw new ArgumentNullException(nameof(categories));
     }
-    
+
+    public static UpdateContentViewModel LoadFrom(ContentResult result)
+    {
+        if (result is null) throw new ArgumentNullException(nameof(result));
+
+        return new UpdateContentViewModel
+        {
+            Id = result.Id,
+            Body = result.Body,
+            Files = result.Files?.Select(_ => new AdminContentFileViewModel
+            {
+                Description = _.Description,
+                Title = _.Title,
+                FileId = _.FileId,
+                FileName = _.FileName
+            }).ToList() ?? new List<AdminContentFileViewModel>(),
+            Slug = result.Slug,
+            
+        };
+    }
 }
