@@ -18,11 +18,45 @@
 
 <div class="page-body">
     <div class="container-xl">
-        
-        
+
+
         <form class="row row-cards" id="createForm" method="POST"
               asp-controller="Content" asp-action="New" asp-area="@WebsiteAreaNames.Admin"
               asp-antiforgery="true">
+
+            <div class="col-lg-8">
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    نوشته جدید
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label asp-for="Title" class="form-label">عنوان</label>
+                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته"/>
+                                    <span asp-validation-for="Title" class="invalid-feedback"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Slug" class="form-label">نامک</label>
+                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته"/>
+                                    <span asp-validation-for="Slug" class="invalid-feedback"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <textarea asp-for="Body" rows="10" class="form-control"></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-lg-4">
                 <div class="row row-cards">
@@ -36,8 +70,8 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label asp-for="CategorySelect" class="form-label">دسته بندی</label>
-                                    <select type="text" class="form-select" 
-                                            placeholder="انتخاب دسته بندی" 
+                                    <select type="text" class="form-select"
+                                            placeholder="انتخاب دسته بندی"
                                             id="select-category" asp-items="Model.CategorySelect.ToSelectList()">
                                     </select>
                                 </div>
@@ -47,40 +81,6 @@
                 </div>
             </div>
 
-            <div class="col-lg-8">
-                <div class="row row-cards">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    نوشته جدید
-                                </div>
-                            </div>
-                            
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label asp-for="Title" class="form-label">عنوان</label>
-                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته" />
-                                    <span asp-validation-for="Title" class="invalid-feedback"></span>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label asp-for="Slug" class="form-label">نامک</label>
-                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته" />
-                                    <span asp-validation-for="Slug" class="invalid-feedback"></span>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <textarea asp-for="Body" rows="10" class="form-control"></textarea>
-                                </div>
-                                
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
         </form>
     </div>
 </div>

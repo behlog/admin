@@ -112,8 +112,8 @@ public class ContentCategoryController : BaseAdminController
         }
 
         var command = new UpdateContentCategoryCommand(
-            model.Id, model.Title, model.AltTitle, model.Slug, 
-            model.LangId, model.ParentId, model.Description, model.Enabled);
+            model.Id, model.Title, model.AltTitle!, model.Slug!, 
+            model.LangId, model.ParentId, model.Description!, model.Enabled);
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)

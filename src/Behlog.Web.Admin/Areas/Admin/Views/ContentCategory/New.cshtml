@@ -37,6 +37,45 @@
                 <input type="hidden" asp-for="LangTitle" />
                 <input type="hidden" asp-for="ContentTypeTitle" />
                 
+                <div class="card">
+                  <div class="card-status-top bg-danger"></div>
+                  <div class="card-body">
+                    <h3 class="card-title">خطا</h3>
+                      <p class="text-muted">
+                          لطفا خطاهای فرم را دست کنید.
+                          این چه وضعشه داداشی گلم
+                      </p>
+                  </div>
+                </div>
+                
+                <div class="card text-primary-fg" style="margin-top:30px">
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>خطا! </strong> @Model.ErrorMessages
+                        
+                        یه سری خطا قراره بدم
+                        خب اینجا میدم داشی گلده
+                        
+                    </div>
+                </div>
+                
+                @if (!Model.HasError)
+                {
+                    <div class="row">
+                        <div class="card bg-warning text-primary-fg">
+                          <div class="ribbon bg-red">خطا</div>
+                          <div class="card-body">
+                            @* <h3 class="card-title">Card with background and icon</h3> *@
+                            <p>
+                                @Html.Raw(Model.ErrorMessages)
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                }
+                
                 <div class="mb-3 row">
                     <label class="col-3 col-form-label required">
                         عنوان
