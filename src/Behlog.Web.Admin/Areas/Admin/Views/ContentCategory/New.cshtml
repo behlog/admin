@@ -30,14 +30,20 @@
                 </h3>
             </div>
             <div class="card-body">
-
+                <input type="hidden" asp-for="LangId" />
+                <input type="hidden" asp-for="ContentTypeId" />
+                <input type="hidden" asp-for="ContentTypeName" />
+                <input type="hidden" asp-for="LangCode" />
+                <input type="hidden" asp-for="LangTitle" />
+                <input type="hidden" asp-for="ContentTypeTitle" />
+                
                 <div class="mb-3 row">
                     <label class="col-3 col-form-label required">
                         عنوان
                     </label>
                     <div class="col">
                         <input asp-for="Title" type="text" class="form-control" placeholder="عنوان دسته بندی"/>
-                        <span asp-validation-for="Title"></span>
+                        <span asp-validation-for="Title" class="invalid-feedback"></span>
                     </div>
                 </div>
 
@@ -47,7 +53,7 @@
                     </label>
                     <div class="col">
                         <input asp-for="AltTitle" type="text" class="form-control" placeholder="عنوان جایگزین"/>
-                        <span asp-validation-for="AltTitle"></span>
+                        <span asp-validation-for="AltTitle" class="invalid-feedback"></span>
                         <small class="form-hint">
                             عنوان دیگر این دسته بندی
                         </small>
@@ -60,9 +66,9 @@
                     </label>
                     <div class="col">
                         <input asp-for="Slug" type="text" class="form-control" placeholder="نامک برای استفاده در URL"/>
-                        <span asp-validation-for="Slug"></span>
+                        <span asp-validation-for="Slug" class="invalid-feedback"></span>
                         <small class="form-hint">
-                            نامک به عنوان آدرس در URL برای دسترسی به این
+                            نامک به عنوان آدرس در URL برای دسترسی به این دسته بندی
                         </small>
                     </div>
                 </div>

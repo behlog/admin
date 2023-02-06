@@ -1,8 +1,3 @@
-using Behlog.Cms.Domain;
-using Behlog.Core.Models;
-using Behlog.Extensions;
-using Behlog.Web.Admin.ViewModelProviders;
-
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]

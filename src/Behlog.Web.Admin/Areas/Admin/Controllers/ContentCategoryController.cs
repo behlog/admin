@@ -3,11 +3,12 @@ using Behlog.Core.Models;
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
-[Route("[area]/content/category")]
+[Route("[area]/ContentCategory")]
 [Authorize]
 public class ContentCategoryController : BaseAdminController
 {
-
+    public const string Name = "ContentCategory";
+    
     public ContentCategoryController()
     {
     }
@@ -57,17 +58,11 @@ public class ContentCategoryController : BaseAdminController
         return View(model);
     }
 
-    [HttpGet("new")]
-    public async Task<IActionResult> New()
-    {
-        //TODO : add model
-        return View();
-    }
-    
-
     [HttpPost("new/{langCode}/{contentTypeName}"), ValidateAntiForgeryToken]
     public async Task<IActionResult> New(
-        string langCode, string contentTypeName, CreateContentCategoryViewModel model)
+        [FromRoute]string langCode,
+        [FromRoute]string contentTypeName,
+        [FromForm]CreateContentCategoryViewModel model)
     {
         model.ThrowExceptionIfArgumentIsNull(nameof(model));
         if (!ModelState.IsValid)
@@ -83,17 +78,12 @@ public class ContentCategoryController : BaseAdminController
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)
         {
-            foreach (var err in result.Errors)
-            {
-                model.AddError(err.Message ,err.FieldName);
-            }
-
+            model.WithValidationErrors(result.Errors);
+            model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
             return View(model);
         }
-        
-        //TODO : redirects to Edit mode
 
-        return View(model);
+        return RedirectToAction("Edit", new { id = result.Value.Id });
     }
 
     [HttpGet("edit/{id:guid}")]

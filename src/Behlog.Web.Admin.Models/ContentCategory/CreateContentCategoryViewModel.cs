@@ -17,11 +17,11 @@ public class CreateContentCategoryViewModel : BaseViewModel
     }
 
     public Guid LangId { get; set; }
-    public string LangTitle { get; set; }
-    public string LangCode { get; set; }
+    public string? LangTitle { get; set; }
+    public string? LangCode { get; set; }
     public Guid ContentTypeId { get; set; }
-    public string ContentTypeName { get; set; }
-    public string ContentTypeTitle { get; set; }
+    public string? ContentTypeName { get; set; }
+    public string? ContentTypeTitle { get; set; }
     public Guid? ParentId { get; set; }
     
     [Required]
@@ -43,22 +43,18 @@ public class CreateContentCategoryViewModel : BaseViewModel
     public string? ParentTitle { get; set; }
     
     
-    public SelectListViewModel LanguageSelect { get; private set; }
+    public SelectListViewModel? LanguageSelect { get; private set; }
     
-    public SelectListViewModel ContentTypeSelect { get; private set; }
+    public SelectListViewModel? ContentTypeSelect { get; private set; }
 
 
     public void SetLanguages(SelectListViewModel model)
     {
-        if (model is null) throw new ArgumentNullException(nameof(model));
-
-        LanguageSelect = model;
+        LanguageSelect = model ?? throw new ArgumentNullException(nameof(model));
     }
 
     public void SetContentTypes(SelectListViewModel model)
     {
-        if (model is null) throw new ArgumentNullException(nameof(model));
-
-        ContentTypeSelect = model;
+        ContentTypeSelect = model ?? throw new ArgumentNullException(nameof(model));
     }
 }

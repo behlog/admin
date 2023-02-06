@@ -8,7 +8,11 @@ public class UpdateContentCategoryViewModel : BaseViewModel
 {
     public Guid Id { get; set; }
     public Guid LangId { get; set; }
+    public string? LangCode { get; set; }
+    public string? LangTitle { get; set; }
     public Guid ContentTypeId { get; set; }
+    public string? ContentTypeName { get; set; }
+    public string? ContentTypeTitle { get; set; }
     public Guid? ParentId { get; set; }
     
     [Required]
@@ -48,9 +52,13 @@ public class UpdateContentCategoryViewModel : BaseViewModel
             Title = result.Title,
             AltTitle = result.AltTitle,
             LangId = result.LangId,
+            LangCode = result.LangCode,
+            LangTitle = result.LangTitle,
             ParentId = result.ParentId,
             // ParentTitle = TODO : read parent title if existed,
             ContentTypeId = result.ContentTypeId.Value,
+            ContentTypeName = result.ContentTypeSystemName,
+            ContentTypeTitle = result.ContentTypeTitle
         };
     }
 }
