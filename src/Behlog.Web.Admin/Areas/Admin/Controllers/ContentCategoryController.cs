@@ -1,5 +1,3 @@
-using Behlog.Core.Models;
-
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
@@ -120,11 +118,8 @@ public class ContentCategoryController : BaseAdminController
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)
         {
-            foreach (var err in result.Errors)
-            {
-                model.AddError(err.Message, err.FieldName);
-            }
-
+            model.WithValidationErrors(result.Errors);
+            model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
             return View(model);
         }
         
