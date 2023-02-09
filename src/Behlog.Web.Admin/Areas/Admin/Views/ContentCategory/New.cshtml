@@ -8,7 +8,7 @@
         <div class="row breadcrumbs-top">
             <div class="col-12">
                 <h5 class="content-header-title float-left pr-1">
-                    @ViewData["Title"]
+                    ویرایش
                 </h5>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb p-0 mb-0">
@@ -106,8 +106,12 @@
                             </div>
 
                         <div class="col-12 d-flex justify-content-start pt-1">
-                            <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
-                            <a asp-page="/meter/index" asp-area="Admin" class="btn btn-light-secondary mr-1 mb-1">بازگشت</a>
+                            <button type="submit" class="btn btn-success mr-1 mb-1">ذخیره</button>
+                            <a asp-controller="ContentCategory" asp-action="Index" 
+                               asp-route-langCode="@Model.LangCode" asp-route-contentType="@Model.ContentTypeName" 
+                               asp-area="Admin" class="btn btn-light-secondary mr-1 mb-1">
+                               بازگشت
+                           </a>
                         </div>
                     </form>
                 </div>
