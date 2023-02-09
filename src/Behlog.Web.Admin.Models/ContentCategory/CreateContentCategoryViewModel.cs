@@ -34,7 +34,7 @@ public class CreateContentCategoryViewModel : BaseViewModel
     [MaxLength(256)]
     public string? Slug { get; set; }
     
-    [MaxLength()]
+    [MaxLength(2000)]
     public string? Description { get; set; }
     
     /// <summary>
