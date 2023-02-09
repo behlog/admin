@@ -36,13 +36,13 @@
 - Daterange CSS
 -------------------------------------------------------------------*/
 
-@import url(font/primary-iran-sans.css);
-@import url(font/secondary-iran-sans.css);
+@import url(font/primary-iran-yekan.css);
+@import url(font/secondary-iran-yekan.css);
 
 /* Template Css */
 /* ----------- */
 html {
-	font-size: 15px;
+	font-size: 14px;
 	height: 100%;
 }
 
