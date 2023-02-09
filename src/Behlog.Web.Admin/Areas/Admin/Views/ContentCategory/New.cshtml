@@ -35,6 +35,11 @@
 <div class="content-body">
     <section>
         <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    @ViewData["Title"]
+                </h4>
+            </div>
             <div class="card-content">
                 <div class="card-body">
                     @if (Model.HasError) {
@@ -52,7 +57,7 @@
                         <input type="hidden" asp-for="LangCode" />
                         <input type="hidden" asp-for="LangTitle" />
                         <input type="hidden" asp-for="ContentTypeTitle" />
-                        <div class="row">
+                        
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required">
                                     عنوان
@@ -100,6 +105,9 @@
                                 </div>
                             </div>
 
+                        <div class="col-12 d-flex justify-content-start pt-1">
+                            <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                            <a asp-page="/meter/index" asp-area="Admin" class="btn btn-light-secondary mr-1 mb-1">بازگشت</a>
                         </div>
                     </form>
                 </div>
@@ -107,125 +115,4 @@
         </div>
 
     </section>
-</div>
-
-
-<div class="page-body">
-
-    <div class="container-xl">
-        <form class="card" id="theForm" method="POST"
-              asp-controller="ContentCategory" asp-action="New" asp-area="@WebsiteAreaNames.Admin"
-              asp-route-contentTypeName="@Model.ContentTypeName" asp-route-langCode="@Model.LangCode"
-              asp-antiforgery="true">
-
-            <div class="card-header">
-                <h3>
-                    دسته بندی جدید
-                </h3>
-            </div>
-            <div class="card-body">
-                <input type="hidden" asp-for="LangId" />
-                <input type="hidden" asp-for="ContentTypeId" />
-                <input type="hidden" asp-for="ContentTypeName" />
-                <input type="hidden" asp-for="LangCode" />
-                <input type="hidden" asp-for="LangTitle" />
-                <input type="hidden" asp-for="ContentTypeTitle" />
-                
-                <div class="card">
-                  <div class="card-status-top bg-danger"></div>
-                  <div class="card-body">
-                    <h3 class="card-title">خطا</h3>
-                      <p class="text-muted">
-                          لطفا خطاهای فرم را دست کنید.
-                          این چه وضعشه داداشی گلم
-                      </p>
-                  </div>
-                </div>
-                
-                <div class="card text-primary-fg" style="margin-top:30px">
-                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <strong>خطا! </strong> @Model.ErrorMessages
-                        
-                        یه سری خطا قراره بدم
-                        خب اینجا میدم داشی گلده
-                        
-                    </div>
-                </div>
-                
-                @if (!Model.HasError)
-                {
-                    <div class="row">
-                        <div class="card bg-warning text-primary-fg">
-                          <div class="ribbon bg-red">خطا</div>
-                          <div class="card-body">
-                            @* <h3 class="card-title">Card with background and icon</h3> *@
-                            <p>
-                                @Html.Raw(Model.ErrorMessages)
-                            </p>
-                          </div>
-                        </div>
-                    </div>
-                }
-                
-                <div class="mb-3 row">
-                    <label class="col-3 col-form-label required">
-                        عنوان
-                    </label>
-                    <div class="col">
-                        <input asp-for="Title" type="text" class="form-control" placeholder="عنوان دسته بندی"/>
-                        <span asp-validation-for="Title" class="invalid-feedback"></span>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-3 col-form-label">
-                        عنوان جایگزین
-                    </label>
-                    <div class="col">
-                        <input asp-for="AltTitle" type="text" class="form-control" placeholder="عنوان جایگزین"/>
-                        <span asp-validation-for="AltTitle" class="invalid-feedback"></span>
-                        <small class="form-hint">
-                            عنوان دیگر این دسته بندی
-                        </small>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-3 col-form-label required">
-                        نامک
-                    </label>
-                    <div class="col">
-                        <input asp-for="Slug" type="text" class="form-control" placeholder="نامک برای استفاده در URL"/>
-                        <span asp-validation-for="Slug" class="invalid-feedback"></span>
-                        <small class="form-hint">
-                            نامک به عنوان آدرس در URL برای دسترسی به این دسته بندی
-                        </small>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-3 col-form-label required">
-                        توضیحات
-                    </label>
-                    <div class="col">
-                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="توضیحات...">
-                            </textarea>
-                        <span asp-validation-for="Description"></span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card-footer text-end">
-                <div class="d-flex">
-                    <a href="#" class="btn btn-link">بی خیال</a>
-                    <button type="submit" class="btn btn-primary ms-auto">ارسال</button>
-                </div>
-            </div>
-
-        </form>
-    </div>
-
 </div>
