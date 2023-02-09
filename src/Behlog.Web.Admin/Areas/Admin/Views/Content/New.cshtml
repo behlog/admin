@@ -4,88 +4,74 @@
     ViewData["Title"] = "نوشته جدید - " + Model.ContentTypeTitle;
 }
 
-<div class="page-header d-print-none">
-    <div class="container-xl">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-                <h2 class="page-title">
-                    نوشته جدید - @Model.ContentTypeTitle
-                </h2>
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h5 class="content-header-title float-left pr-1">
+                    @ViewData["Title"]
+                </h5>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index" asp-area="@WebsiteAreaNames.Admin"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Content" asp-action="Index"
+                               asp-route-lang="@Model.LangCode" asp-route-contentType="@Model.ContentTypeName" 
+                               asp-area="Admin">
+                                @Model.ContentTypeTitle
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            @ViewData["Title"]
+                        </li>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="page-body">
-    <div class="container-xl">
-
-
-        <form class="row row-cards" id="createForm" method="POST"
-              asp-controller="Content" asp-action="New" asp-area="@WebsiteAreaNames.Admin"
-              asp-antiforgery="true">
-
-            <div class="col-lg-8">
-                <div class="row row-cards">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    نوشته جدید
+<div class="content-body">
+    <section>
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body">
+                    @if (Model.HasError) {
+                        <div class="alert alert-danger" role="alert">
+                            <a href="#" class="close" data-dismiss="alert">×</a>
+                            @Html.Raw(Model.ErrorMessages)
+                        </div>
+                    }
+                    <form id="my-form" asp-controller="Content" asp-action="New" method="post" class="material-form" asp-antiforgery="true">
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته" />
+                                    <label asp-for="Title" class="control-label">عنوان</label><i class="bar"></i>
+                                    <span asp-validation-for="Title"></span>
                                 </div>
                             </div>
 
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label asp-for="Title" class="form-label">عنوان</label>
-                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته"/>
-                                    <span asp-validation-for="Title" class="invalid-feedback"></span>
-                                </div>
-
-                                <div class="mb-3">
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته" />
                                     <label asp-for="Slug" class="form-label">نامک</label>
-                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته"/>
-                                    <span asp-validation-for="Slug" class="invalid-feedback"></span>
+                                    <span asp-validation-for="Slug"></span>
                                 </div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <textarea asp-for="Body" rows="10" class="form-control"></textarea>
-                                </div>
-
+                            <div class="col-12 d-flex justify-content-start pt-1">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1">ارسال</button>
+                                <a asp-controller="Content" asp-action="Index" class="btn btn-light-secondary mr-1 mb-1">بازگشت</a>
                             </div>
 
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-4">
-                <div class="row row-cards">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    تنظیمات
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label asp-for="CategorySelect" class="form-label">دسته بندی</label>
-                                    <select type="text" class="form-select"
-                                            placeholder="انتخاب دسته بندی"
-                                            id="select-category" asp-items="Model.CategorySelect.ToSelectList()">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
+    </section>
 </div>
-
-@section footer
-{
-    <script src="~/behlog/libs/tom-select/dist/js/tom-select.base.min.js" defer></script>
-}
