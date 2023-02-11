@@ -48,7 +48,7 @@
                             @Html.Raw(Model.ErrorMessages)
                         </div>
                     }
-                    <form id="my-form" class="material-form" asp-controller="ContentCategory" asp-action="New" 
+                    <form id="my-form" class="material-form" asp-controller="@ContentCategoryController.Name" asp-action="New" 
                             asp-area="@WebsiteAreaNames.Admin" asp-route-contentTypeName="@Model.ContentTypeName" 
                             asp-route-langCode="@Model.LangCode" asp-antiforgery="true">
                         <input type="hidden" asp-for="LangId" />

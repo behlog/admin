@@ -8,19 +8,12 @@
         <div class="row breadcrumbs-top">
             <div class="col-12">
                 <h5 class="content-header-title float-left pr-1">
-                    ویرایش
+                    @ViewData["Title"]
                 </h5>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb p-0 mb-0">
                         <li class="breadcrumb-item">
                             <a asp-controller="Home" asp-action="Index" asp-area="@WebsiteAreaNames.Admin"><i class="bx bx-home-alt"></i></a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a asp-controller="Content" asp-action="Index"
-                               asp-route-lang="@Model.LangCode" asp-route-contentType="@Model.ContentTypeName"
-                               asp-area="Admin">
-                                لیست دسته بندی ها @Model.ContentTypeTitle
-                            </a>
                         </li>
                         <li class="breadcrumb-item active">
                             @ViewData["Title"]
@@ -43,13 +36,47 @@
             <div class="card-content">
                 <div class="card-body">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item current">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" aria-controls="home" role="tab" aria-selected="true">
+                        @{
+                            var tabPersianClass = "";
+                            var ariaPersian = "false";
+                            var tabEnglishClass = "";
+                            var ariaEnglish = "false";
+                            if(Model.LangCode.ToUpper() == PersianLanguage.Code.ToUpper()) {
+                                tabPersianClass = "active";
+                                ariaPersian = "true";
+                            }
+                            else if(Model.LangCode.ToUpper() == EnglishLanguage.Code.ToUpper()) {
+                                tabEnglishClass = "active";
+                                ariaEnglish = "true";
+                            }
+                        }
+                        <li class="nav-item @tabPersianClass">
+                            <a class="nav-link active" id="tab-persian" data-toggle="tab" href="#persian" aria-controls="persian" role="tab" aria-selected="@ariaPersian">
                                 <i class="bx bx-home align-middle"></i>
-                                <span class="align-middle">خانه</span>
+                                <span class="align-middle">
+                                    @PersianLanguage.Title
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @tabEnglishClass">
+                            <a class="nav-link active" id="tab-english" data-toggle="tab" href="#english" aria-controls="english" role="tab" aria-selected="@ariaEnglish">
+                                <i class="bx bx-home align-middle"></i>
+                                <span class="align-middle">
+                                    @PersianLanguage.Title
+                                </span>
                             </a>
                         </li>
                     </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane @tabPersianClass" id="persian" aria-labelledby="tab-persian" role="tabpanel">
+
+                        </div>
+
+                        <div class="tab-pane @tabEnglishClass" id="english" aria-labelledby="tab-english" role="tabpanel">
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
