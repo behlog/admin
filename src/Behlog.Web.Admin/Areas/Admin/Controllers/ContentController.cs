@@ -42,7 +42,7 @@ public class ContentController : BaseAdminController
         if (contentTypeName.IsNullOrEmptySpace()) return BadRequest();
 
         var model = await _contentViewModelProvider
-            .NewCreateViewModel(langCode, contentTypeName).ConfigureAwait(false);
+            .NewCreateViewModelAsync(langCode, contentTypeName).ConfigureAwait(false);
 
         return View(model);
     }
@@ -61,9 +61,10 @@ public class ContentController : BaseAdminController
         var command = new CreateContentCommand(
             _website.Id, model.Title, model.Slug!, model.ContentTypeId, model.LangId,
             model.Body!, model.BodyType, model.Summary!, model.AltTitle!, model.OrderNum,
-            model.CategorySelect?.Items.Select(_ => Guid.Parse(_.Value))!,
+            model.Categories,
             model.Meta?.Select(_ => _.ToCommand()).ToList()!,
-            model.Files?.Select(_=> _.ToCommand())!
+            model.Files?.Select(_=> _.ToCommand())!,
+            model.Tags
         );
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
@@ -84,6 +85,43 @@ public class ContentController : BaseAdminController
         var content = await _behlog.PublishAsync(new QueryContentById(id)).ConfigureAwait(false);
         if (content is null) return NotFound();
 
-        throw new NotImplementedException();
+        var model = await _contentViewModelProvider.LoadUpdateViewModelAsync(content).ConfigureAwait(false);
+        
+        return View(model);
     }
+
+    [HttpPost("edit/{id:guid}"), ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(Guid id, UpdateContentViewModel model)
+    {
+        if (model is null) return BadRequest();
+
+        if (!ModelState.IsValid)
+        {
+            model.AddError(""); //TODO : from resource
+            return View(model);
+        }
+
+        var command = new UpdateContentCommand(model.Id)
+        {
+            Body = model.Body,
+            //Password = TODO : add password to model
+            Slug = model.Slug,
+            Summary = model.Summary,
+            Title = model.Title,
+            AltTitle = model.AltTitle,
+            BodyType = model.BodyType,
+            // IconName = model.icon TODO : add iconName
+            LangId = model.LangId,
+            // IsDraft = model.isd
+            OrderNum = model.OrderNum,
+            // ViewPath = model.view
+            // PublishDate =
+            ContentTypeId = model.ContentTypeId,
+            Categories = model.Categories?.ToList(),
+            // Files = model.Files?.
+        };
+        
+        return View(model);
+    }
+    
 }

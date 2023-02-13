@@ -23,16 +23,20 @@ public class ContentCategoryController : BaseAdminController
         var contentType = await FindContentTypeAsync(langId, contentTypeName);
         if (contentType is null) return NotFound();
 
-        var query = new QueryContentCategoriesFiltered(
-            _website.Id, langId, contentType.Id, null,
-            QueryOptions.New()
-                .WithPageNumber(page).WithPageSize(10)
-                .WillOrderBy("id").WillOrderDesc()
-        );
+        var query = new QueryContentCategoryByParentId(); 
+        
+        // var query = new QueryContentCategoriesFiltered(
+        //     _website.Id, langId, contentType.Id, null,
+        //     QueryOptions.New()
+        //         .WithPageNumber(page).WithPageSize(10)
+        //         .WillOrderBy("id").WillOrderDesc()
+        // );
 
+        //TODO : read the first level only
+        
         var model = await _behlog.PublishAsync(query).ConfigureAwait(false);
 
-        return View(model);
+        return View(new AdminContentCategoryIndexViewModel());
     }
 
     [HttpGet("new/{langCode}/{contentTypeName}")]

@@ -36,7 +36,7 @@ public class CreateContentViewModel : BaseViewModel
     [MaxLength(1000)]
     public string? AltTitle { get; set; }
     
-    public ContentBodyTypeEnum BodyType { get; set; }
+    public ContentBodyType BodyType { get; set; }
     
     public int OrderNum { get; set; }
     
@@ -46,11 +46,19 @@ public class CreateContentViewModel : BaseViewModel
 
     public SelectListViewModel CategorySelect { get; private set; }
     
-    public List<Guid> SelectedCategories { get; set; }
+    public List<Guid> Categories { get; set; }
+    
+    public List<Guid> Tags { get; set; }
+    
+    public SelectListViewModel TagSelect { get; private set; }
 
-    public void SetCategories(SelectListViewModel categories)
+    public void SetCategorySelect(SelectListViewModel categories)
     {
         CategorySelect = categories ?? throw new ArgumentNullException(nameof(categories));
     }
-    
+
+    public void SetTagSelect(SelectListViewModel tags)
+    {
+        TagSelect = tags ?? throw new ArgumentNullException(nameof(TagSelect));
+    }
 }

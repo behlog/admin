@@ -16,7 +16,12 @@ public interface IAdminContentViewModelProvider
     /// </summary>
     /// <param name="langCode"></param>
     /// <param name="contentTypeName"></param>
-    Task<CreateContentViewModel> NewCreateViewModel(string langCode, string contentTypeName);
+    Task<CreateContentViewModel> NewCreateViewModelAsync(string langCode, string contentTypeName);
+
+    /// <summary>
+    /// Provides <see cref="UpdateContentViewModel"/> with the data loaded from <see cref="ContentResult"/>
+    /// </summary>
+    Task<UpdateContentViewModel> LoadUpdateViewModelAsync(ContentResult content);
 }
 
 public class AdminContentViewModelProvider : IAdminContentViewModelProvider
@@ -33,7 +38,7 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
     }
 
     /// <inheritdoc /> 
-    public async Task<CreateContentViewModel> NewCreateViewModel(string langCode, string contentTypeName)
+    public async Task<CreateContentViewModel> NewCreateViewModelAsync(string langCode, string contentTypeName)
     {
         if (langCode.IsNullOrEmpty()) throw new ArgumentNullException(nameof(langCode));
         if (contentTypeName.IsNullOrEmpty()) throw new ArgumentNullException(nameof(contentTypeName));
@@ -54,8 +59,20 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
             ContentTypeTitle = contentType.Title
         };
         
-        model.SetCategories(await _contentCategoryProvider
+        model.SetCategorySelect(await _contentCategoryProvider
             .GetSelectListAsync(langId, contentTypeName).ConfigureAwait(false));
+
+        return await Task.FromResult(model);
+    }
+
+    /// <inheritdoc /> 
+    public async Task<UpdateContentViewModel> LoadUpdateViewModelAsync(ContentResult content)
+    {
+        content.ThrowExceptionIfArgumentIsNull(nameof(content));
+        
+        var model = UpdateContentViewModel.LoadFrom(content);
+        model.SetCategorySelect(await _contentCategoryProvider
+            .GetSelectListAsync(content.LangId, content.ContentTypeName).ConfigureAwait(false));
 
         return await Task.FromResult(model);
     }

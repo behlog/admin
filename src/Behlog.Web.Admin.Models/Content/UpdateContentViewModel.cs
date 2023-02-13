@@ -1,9 +1,8 @@
-using Behlog.Cms.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Behlog.Web.Admin.Models;
 
-public class UpdateContentViewModel
+public class UpdateContentViewModel : BaseViewModel
 {
     public Guid Id { get; set; }
     public Guid LangId { get; set; }
@@ -32,19 +31,23 @@ public class UpdateContentViewModel
     [MaxLength(1000)]
     public string? AltTitle { get; set; }
     
-    public ContentBodyTypeEnum BodyType { get; set; }
+    public ContentBodyType BodyType { get; set; }
     
     public int OrderNum { get; set; }
     
-    public List<AdminContentFileViewModel> Files { get; set; }
+    public List<AdminContentFileViewModel>? Files { get; set; }
     
-    public List<AdminMetaViewModel> Meta { get; set; }
+    public List<AdminMetaViewModel>? Meta { get; set; }
 
-    public SelectListViewModel CategorySelect { get; private set; }
+    public SelectListViewModel? CategorySelect { get; private set; }
     
-    public List<Guid> SelectedCategories { get; set; }
+    public List<Guid>? Categories { get; set; }
+    
+    public SelectListViewModel? TagSelect { get; set; }
 
-    public void SetCategories(SelectListViewModel categories)
+    public List<Guid>? Tags { get; set; }
+    
+    public void SetCategorySelect(SelectListViewModel categories)
     {
         CategorySelect = categories ?? throw new ArgumentNullException(nameof(categories));
     }
@@ -65,7 +68,21 @@ public class UpdateContentViewModel
                 FileName = _.FileName
             }).ToList() ?? new List<AdminContentFileViewModel>(),
             Slug = result.Slug,
-            
+            Summary = result.Summary,
+            Meta = result.Meta?.Select(_=> _.ToViewModel()).ToList(),
+            Title = result.Title,
+            Tags = result.Tags?.Select(_=> _.TagId).ToList(),
+            AltTitle = result.AltTitle,
+            BodyType = result.BodyType,
+            LangCode = result.LangCode,
+            LangId = result.LangId,
+            LangTitle = result.LangTitle,
+            ContentTypeId = result.ContentTypeId,
+            ContentTypeName = result.ContentTypeName,
+            OrderNum = result.OrderNum,
+            Categories = result.Categories?.Select(_=> _.CategoryId).ToList(),
+            ContentTypeTitle = result.ContentTypeTitle,
+            CoverPhotoFilePath = result.CoverPhoto
         };
     }
 }
