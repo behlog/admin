@@ -35,6 +35,10 @@ public class UpdateContentViewModel : BaseViewModel
     
     public int OrderNum { get; set; }
     
+    public string? Password { get; set; }
+    
+    public DateTime? PublishDate { get; set; }
+
     public List<AdminContentFileViewModel>? Files { get; set; }
     
     public List<AdminMetaViewModel>? Meta { get; set; }

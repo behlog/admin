@@ -5,6 +5,11 @@ namespace Behlog.Web.Admin.Controllers;
 [Authorize]
 public class ContentController : BaseAdminController
 {
+    public const string Name = "Content";
+    public const string Action_Index = nameof(Index);
+    public const string Action_New = nameof(New);
+    public const string Action_Edit = nameof(Edit);
+    
     private readonly IAdminContentViewModelProvider _contentViewModelProvider;
     
     public ContentController(
@@ -57,15 +62,20 @@ public class ContentController : BaseAdminController
             model.AddError(""); //TODO : from resource
             return View(model);
         }
-        
+
         var command = new CreateContentCommand(
-            _website.Id, model.Title, model.Slug!, model.ContentTypeId, model.LangId,
-            model.Body!, model.BodyType, model.Summary!, model.AltTitle!, model.OrderNum,
-            model.Categories,
-            model.Meta?.Select(_ => _.ToCommand()).ToList()!,
-            model.Files?.Select(_=> _.ToCommand())!,
-            model.Tags
-        );
+                _website.Id, model.Title, model.Slug!, model.ContentTypeId, model.LangId,
+                model.Body!, model.BodyType, model.Summary!, model.AltTitle!, model.OrderNum,
+                model.Categories,
+                model.Meta?.Select(_ => _.ToCommand()).ToList()!,
+                model.Files?.Select(_ => _.ToCommand())!,
+                model.Tags)
+            {
+                PublishDate = model.PublishDate
+            }
+            .WithContentTypeName(model.ContentTypeName!)
+            .WithPassword(model.Password!)
+            .WithCoverPhotoFile(model.CoverPhotoFile!);
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)
@@ -75,8 +85,7 @@ public class ContentController : BaseAdminController
             return View(model);
         }
 
-        //TODO : redirect to Edit page
-        return View(model);
+        return RedirectToAction(Action_Edit, new { id = result.Value.Id });
     }
 
     [HttpGet("edit/{id:guid}")]
@@ -85,7 +94,8 @@ public class ContentController : BaseAdminController
         var content = await _behlog.PublishAsync(new QueryContentById(id)).ConfigureAwait(false);
         if (content is null) return NotFound();
 
-        var model = await _contentViewModelProvider.LoadUpdateViewModelAsync(content).ConfigureAwait(false);
+        var model = await _contentViewModelProvider
+            .LoadUpdateViewModelAsync(content).ConfigureAwait(false);
         
         return View(model);
     }
@@ -103,8 +113,8 @@ public class ContentController : BaseAdminController
 
         var command = new UpdateContentCommand(model.Id)
         {
-            Body = model.Body,
-            //Password = TODO : add password to model
+            Body = model.Body!,
+            Password = model.Password,
             Slug = model.Slug,
             Summary = model.Summary,
             Title = model.Title,
@@ -115,10 +125,14 @@ public class ContentController : BaseAdminController
             // IsDraft = model.isd
             OrderNum = model.OrderNum,
             // ViewPath = model.view
-            // PublishDate =
+            PublishDate = model.PublishDate,
             ContentTypeId = model.ContentTypeId,
             Categories = model.Categories?.ToList(),
-            // Files = model.Files?.
+            Files = model.Files?.Select(_=> _.ToCommand()).ToList(),
+            Meta = model.Meta?.Select(_=> _.ToCommand()).ToList(),
+            ContentTypeName = model.ContentTypeName,
+            CoverPhotoFile = model.CoverPhotoFile,
+            Tags = model.Tags?.ToList(),
         };
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);

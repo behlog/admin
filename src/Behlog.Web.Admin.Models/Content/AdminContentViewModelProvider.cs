@@ -1,7 +1,6 @@
 using Behlog.Cms;
-using Behlog.Cms.Query;
 using Behlog.Core;
-using Behlog.Extensions;
+using Behlog.Cms.Query;
 using Behlog.Web.Admin.Models;
 using Behlog.Web.Services.Contracts;
 
@@ -72,7 +71,7 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
         
         var model = UpdateContentViewModel.LoadFrom(content);
         model.SetCategorySelect(await _contentCategoryProvider
-            .GetSelectListAsync(content.LangId, content.ContentTypeName).ConfigureAwait(false));
+            .GetSelectListAsync(content.LangId, content.ContentTypeName!).ConfigureAwait(false));
 
         return await Task.FromResult(model);
     }
