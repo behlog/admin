@@ -120,6 +120,14 @@ public class ContentController : BaseAdminController
             Categories = model.Categories?.ToList(),
             // Files = model.Files?.
         };
+
+        var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+        if (result.HasError)
+        {
+            model.WithValidationErrors(result.Errors);
+            model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
+            return View(model);
+        }
         
         return View(model);
     }
