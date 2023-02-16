@@ -9,7 +9,9 @@ namespace Behlog.Web.Admin;
 
 public class ContentCategoryTreeViewModel
 {
-    public ContentCategoryTreeViewModel() { }
+    public ContentCategoryTreeViewModel() { 
+        Items = new List<ContentCategoryTreeItemViewModel>();
+    }
 
     public ContentCategoryTreeViewModel(
         IReadOnlyCollection<ContentCategoryTreeItemViewModel> items) 

@@ -130,5 +130,48 @@ public class ContentCategoryController : BaseAdminController
         //TODO : redirect to index?
         return View(model);
     }
-    
+
+
+    #region private helpers
+
+    private async Task<ContentCategoryTreeViewModel> GetTreeAsync() {
+        var query = new QueryContentCategoryByParentId(null);
+        var rootCats = await _behlog.PublishAsync(query).ConfigureAwait(false);
+        var items = new List<ContentCategoryTreeItemViewModel>();
+        foreach(var root in rootCats) {
+            items.Add(new ContentCategoryTreeItemViewModel(
+                root.Id, root.ParentId, root.Title, , root.Tags));
+            items.AddRange(await GetByParentId(root.Id));
+        }
+    }
+
+    private async Task<IReadOnlyCollection<ContentCategoryTreeItemViewModel>> GetByParentId(Guid? parentId) {
+        var query = new QueryContentCategoryByParentId(parentId);
+        var cats = await _behlog.PublishAsync(query).ConfigureAwait(false);
+        
+        if(cats is null || !cats.Any()) {
+            return new List<ContentCategoryTreeItemViewModel>();
+        }
+
+        var result = new List<ContentCategoryTreeItemViewModel>();
+
+        foreach(var cat in cats) {
+            result.Add(GetTreeItem(cat));
+
+            var childs = await GetByParentId(cat.Id);
+            if (childs.Any()) 
+                result.AddRange(childs);
+        }
+
+        return result;
+    }
+
+    private ContentCategoryTreeItemViewModel GetTreeItem(ContentCategoryResult category) {
+        category.ThrowExceptionIfArgumentIsNull(nameof(category));
+        return new ContentCategoryTreeItemViewModel(
+            category.Id, category.ParentId, category.Title,
+            $"item_{category.Id}", new[] { category.Id.ToString() });
+    }
+
+    #endregion
 }
