@@ -13,18 +13,38 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class=" nav-item">
                 <a asp-controller="@HomeController.Name" asp-action="@HomeController.ActionIndex">
-                    <i class="bx bx-dashboard"></i>
-                    <span class="">داشبورد</span>
+                    <i class="bx bx-dashboard"></i><span class="">داشبورد</span>
                 </a>
-            <ul class="menu-content">
-              <li class="active"><a href="dashboard-ecommerce.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">تجارت الکترونیک</span></a>
-              </li>
-              <li><a href="dashboard-analytics.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Analytics">آمار تحلیلی</span></a>
-              </li>
-            </ul>
-          </li>
-          <li class=" navigation-header"><span>برنامه ها</span>
-          </li>
+            </li>
+            <li class=" navigation-header"><span>مدیریت محتوا</span>
+            </li>
+            <li class=" nav-item">
+                <a href="#">
+                    <i class="bx-book-content"></i>
+                    <span>برگه ها</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="@ContentController.Name" asp-action="@ContentController.Action_New"
+                            asp-route-langCode="fa" asp-route-contentTypeName="page">
+                            <i class="bx bx-plus"></i><span>برگه جدید</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="@ContentController.Name" asp-action="@ContentController.Action_Index"
+                            asp-route-langCode="fa" asp-route-contentTypeName="page">
+                            <i class="bx bxs-edit"></i><span>لیست برگه ها</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="@ContentCategoryController.Name" asp-action="Index"
+                            asp-route-langCode="fa" asp-route-contentTypeName="page">
+                            <i class="bx bx-book-bookmark"></i><span>دسته بندی ها</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
           <li class=" nav-item"><a href="app-email.html"><i class="menu-livicon" data-icon="envelope-pull"></i><span class="menu-title" data-i18n="Email">ایمیل</span></a>
           </li>
           <li class=" nav-item"><a href="app-chat.html"><i class="menu-livicon" data-icon="comments"></i><span class="menu-title" data-i18n="Chat">گفتگو</span></a>
@@ -51,20 +71,7 @@
           </li>
           <li class=" navigation-header"><span>رابط کاربری</span>
           </li>
-          <li class=" nav-item"><a href="#"><i class="menu-livicon" data-icon="retweet"></i><span class="menu-title" data-i18n="Content">محتوا</span></a>
-            <ul class="menu-content">
-              <li><a href="content-grid.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Grid">توری</span></a>
-              </li>
-              <li><a href="content-typography.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Typography">تایپوگرافی</span></a>
-              </li>
-              <li><a href="content-text-utilities.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Text Utilities">ابزار متن</span></a>
-              </li>
-              <li><a href="content-syntax-highlighter.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Syntax Highlighter">هایلایت Syntax</span></a>
-              </li>
-              <li><a href="content-helper-classes.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Helper Classes">کلاس های کمکی</span></a>
-              </li>
-            </ul>
-          </li>
+          
           <li class=" nav-item"><a href="colors.html"><i class="menu-livicon" data-icon="drop"></i><span class="menu-title" data-i18n="Colors">رنگ ها</span></a>
           </li>
           <li class=" nav-item"><a href="#"><i class="menu-livicon" data-icon="bulb"></i><span class="menu-title" data-i18n="Icons">آیکن‌ها</span></a>

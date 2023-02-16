@@ -35,50 +35,20 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <ul class="nav nav-tabs" role="tablist">
-                        @{
-                            var tabPersianClass = "";
-                            var ariaPersian = "false";
-                            var tabEnglishClass = "";
-                            var ariaEnglish = "false";
-                            if(Model.LangCode.ToUpper() == PersianLanguage.Code.ToUpper()) {
-                                tabPersianClass = "active";
-                                ariaPersian = "true";
-                            }
-                            else if(Model.LangCode.ToUpper() == EnglishLanguage.Code.ToUpper()) {
-                                tabEnglishClass = "active";
-                                ariaEnglish = "true";
-                            }
-                        }
-                        <li class="nav-item @tabPersianClass">
-                            <a class="nav-link active" id="tab-persian" data-toggle="tab" href="#persian" aria-controls="persian" role="tab" aria-selected="@ariaPersian">
-                                <i class="bx bx-home align-middle"></i>
-                                <span class="align-middle">
-                                    @PersianLanguage.Title
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item @tabEnglishClass">
-                            <a class="nav-link active" id="tab-english" data-toggle="tab" href="#english" aria-controls="english" role="tab" aria-selected="@ariaEnglish">
-                                <i class="bx bx-home align-middle"></i>
-                                <span class="align-middle">
-                                    @PersianLanguage.Title
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane @tabPersianClass" id="persian" aria-labelledby="tab-persian" role="tabpanel">
 
-                        </div>
 
-                        <div class="tab-pane @tabEnglishClass" id="english" aria-labelledby="tab-english" role="tabpanel">
-
-                        </div>
-                    </div>
 
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+@section header {
+    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/plugins/extensions/ext-component-treeview.css">
+}
+
+@section footer {
+    <script src="~/behlog/assets/vendors/js/extensions/bootstrap-treeview.min.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/js/scripts/extensions/ext-component-treeview.js" type="text/javascript"></script>
+}
