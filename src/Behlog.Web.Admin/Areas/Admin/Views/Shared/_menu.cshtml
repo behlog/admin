@@ -4,14 +4,18 @@
         <ul class="nav navbar-nav flex-row">
           <li class="nav-item mr-auto"><a class="navbar-brand" asp-controller="Home" asp-action="Index">
               <div class="brand-logo"><img class="logo" src="~/behlog/assets/images/logo/logo.png"></div>
-              <h2 class="brand-text mb-0">Behlog</h2></a></li>
+              <h2 class="brand-text mb-0">بهلاگ</h2></a></li>
           <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="bx bx-x d-block d-xl-none font-medium-4 primary"></i><i class="toggle-icon bx bx-disc font-medium-4 d-none d-xl-block primary" data-ticon="bx-disc"></i></a></li>
         </ul>
       </div>
       <div class="shadow-bottom"></div>
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
-          <li class=" nav-item"><a href="../../html/vertical-menu-template/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">2</span></a>
+            <li class=" nav-item">
+                <a asp-controller="@HomeController.Name" asp-action="@HomeController.ActionIndex">
+                    <i class="bx bx-dashboard"></i>
+                    <span class="">داشبورد</span>
+                </a>
             <ul class="menu-content">
               <li class="active"><a href="dashboard-ecommerce.html"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">تجارت الکترونیک</span></a>
               </li>

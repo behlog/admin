@@ -5,7 +5,9 @@ namespace Behlog.Web.Admin.Controllers;
 [Authorize]
 public class HomeController : Controller
 {
-    
+    public const string Name = "Home";
+    public const string ActionIndex = nameof(Index);
+
     public HomeController()
     {
     }
