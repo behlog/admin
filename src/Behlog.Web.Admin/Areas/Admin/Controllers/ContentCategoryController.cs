@@ -140,6 +140,7 @@ public class ContentCategoryController : BaseAdminController
         foreach (var root in rootCats)
         {
             var rootNode = GetTreeItem(root);
+            Console.WriteLine($"adding nodes for {root.Title}");
             AddNodes(rootNode);
             result.Add(rootNode);
         }
@@ -153,7 +154,7 @@ public class ContentCategoryController : BaseAdminController
         var items = new List<ContentCategoryTreeItemViewModel>();
         foreach(var root in rootCats)
         {
-            AddNodes(GetTreeItem(root));
+            await AddNodes(GetTreeItem(root));
         }
 
         return new ContentCategoryTreeViewModel(items);
@@ -168,7 +169,7 @@ public class ContentCategoryController : BaseAdminController
         {
             var node = GetTreeItem(child);
             parent.AddNode(node);
-            AddNodes(node);
+            await AddNodes(node);
         }
     }
 
