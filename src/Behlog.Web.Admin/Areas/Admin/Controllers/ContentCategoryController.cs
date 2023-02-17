@@ -31,7 +31,7 @@ public class ContentCategoryController : BaseAdminController
             ContentTypeId = contentType.Id,
             ContentTypeName = contentType.SystemName,
             ContentTypeTitle = contentType.Title,
-            TreeData = await LoadTreeAsync()
+            TreeData = await LoadTreeAsync(langId)
         };
         
         return View(model);
@@ -132,67 +132,68 @@ public class ContentCategoryController : BaseAdminController
 
     #region private helpers
 
-    private async Task<IReadOnlyCollection<ContentCategoryTreeItemViewModel>> LoadTreeAsync()
+    private async Task<IReadOnlyCollection<ContentCategoryTreeItemViewModel>> LoadTreeAsync(Guid langId)
     {
-        var query = new QueryContentCategoryByParentId(null);
+        var query = new QueryContentCategoryByParentId(langId, parentId: null);
         var rootCats = await _behlog.PublishAsync(query).ConfigureAwait(false);
         var result = new List<ContentCategoryTreeItemViewModel>();
         foreach (var root in rootCats)
         {
             var rootNode = GetTreeItem(root);
             Console.WriteLine($"adding nodes for {root.Title}");
-            AddNodes(rootNode);
+            await AddNodes(rootNode, langId);
             result.Add(rootNode);
         }
 
         return result;
     }
     
-    private async Task<ContentCategoryTreeViewModel> GetTreeAsync() {
-        var query = new QueryContentCategoryByParentId(null);
-        var rootCats = await _behlog.PublishAsync(query).ConfigureAwait(false);
-        var items = new List<ContentCategoryTreeItemViewModel>();
-        foreach(var root in rootCats)
-        {
-            await AddNodes(GetTreeItem(root));
-        }
+    // private async Task<ContentCategoryTreeViewModel> GetTreeAsync() {
+    //     var query = new QueryContentCategoryByParentId(null);
+    //     var rootCats = await _behlog.PublishAsync(query).ConfigureAwait(false);
+    //     var items = new List<ContentCategoryTreeItemViewModel>();
+    //     foreach(var root in rootCats)
+    //     {
+    //         await AddNodes(GetTreeItem(root));
+    //     }
+    //
+    //     return new ContentCategoryTreeViewModel(items);
+    // }
 
-        return new ContentCategoryTreeViewModel(items);
-    }
-
-    private async Task AddNodes(ContentCategoryTreeItemViewModel parent)
+    private async Task AddNodes(ContentCategoryTreeItemViewModel parent, Guid langId)
     {
-        var query = new QueryContentCategoryByParentId(parent.Id);
+        var query = new QueryContentCategoryByParentId(langId, parent.Id);
         var childs = await _behlog.PublishAsync(query).ConfigureAwait(false);
 
         foreach (var child in childs)
         {
             var node = GetTreeItem(child);
+            Console.WriteLine($"adding nodes for {child.Title}");
             parent.AddNode(node);
-            await AddNodes(node);
+            await AddNodes(node, langId);
         }
     }
 
-    private async Task<IReadOnlyCollection<ContentCategoryTreeItemViewModel>> GetByParentId(Guid? parentId) {
-        var query = new QueryContentCategoryByParentId(parentId);
-        var cats = await _behlog.PublishAsync(query).ConfigureAwait(false);
-        
-        if(cats is null || !cats.Any()) {
-            return new List<ContentCategoryTreeItemViewModel>();
-        }
-
-        var result = new List<ContentCategoryTreeItemViewModel>();
-
-        foreach(var cat in cats) {
-            result.Add(GetTreeItem(cat));
-
-            var childs = await GetByParentId(cat.Id);
-            if (childs.Any()) 
-                result.AddRange(childs);
-        }
-
-        return result;
-    }
+    // private async Task<IReadOnlyCollection<ContentCategoryTreeItemViewModel>> GetByParentId(Guid? parentId) {
+    //     var query = new QueryContentCategoryByParentId(parentId);
+    //     var cats = await _behlog.PublishAsync(query).ConfigureAwait(false);
+    //     
+    //     if(cats is null || !cats.Any()) {
+    //         return new List<ContentCategoryTreeItemViewModel>();
+    //     }
+    //
+    //     var result = new List<ContentCategoryTreeItemViewModel>();
+    //
+    //     foreach(var cat in cats) {
+    //         result.Add(GetTreeItem(cat));
+    //
+    //         var childs = await GetByParentId(cat.Id);
+    //         if (childs.Any()) 
+    //             result.AddRange(childs);
+    //     }
+    //
+    //     return result;
+    // }
 
     private ContentCategoryTreeItemViewModel GetTreeItem(ContentCategoryResult category) {
         category.ThrowExceptionIfArgumentIsNull(nameof(category));
