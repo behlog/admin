@@ -23,20 +23,18 @@ public class ContentCategoryController : BaseAdminController
         var contentType = await FindContentTypeAsync(langId, contentTypeName);
         if (contentType is null) return NotFound();
 
-        var query = new QueryContentCategoryByParentId(); 
+        var model = new AdminContentCategoryIndexViewModel
+        {
+            LangCode = langCode,
+            LangTitle = FindLangTitle(langCode),
+            LangId = langId,
+            ContentTypeId = contentType.Id,
+            ContentTypeName = contentType.SystemName,
+            ContentTypeTitle = contentType.Title,
+            TreeData = await LoadTreeAsync()
+        };
         
-        // var query = new QueryContentCategoriesFiltered(
-        //     _website.Id, langId, contentType.Id, null,
-        //     QueryOptions.New()
-        //         .WithPageNumber(page).WithPageSize(10)
-        //         .WillOrderBy("id").WillOrderDesc()
-        // );
-
-        //TODO : read the first level only
-        
-        var model = await _behlog.PublishAsync(query).ConfigureAwait(false);
-
-        return View(new AdminContentCategoryIndexViewModel());
+        return View(model);
     }
 
     [HttpGet("new/{langCode}/{contentTypeName}")]
@@ -134,14 +132,43 @@ public class ContentCategoryController : BaseAdminController
 
     #region private helpers
 
+    private async Task<IReadOnlyCollection<ContentCategoryTreeItemViewModel>> LoadTreeAsync()
+    {
+        var query = new QueryContentCategoryByParentId(null);
+        var rootCats = await _behlog.PublishAsync(query).ConfigureAwait(false);
+        var result = new List<ContentCategoryTreeItemViewModel>();
+        foreach (var root in rootCats)
+        {
+            var rootNode = GetTreeItem(root);
+            AddNodes(rootNode);
+            result.Add(rootNode);
+        }
+
+        return result;
+    }
+    
     private async Task<ContentCategoryTreeViewModel> GetTreeAsync() {
         var query = new QueryContentCategoryByParentId(null);
         var rootCats = await _behlog.PublishAsync(query).ConfigureAwait(false);
         var items = new List<ContentCategoryTreeItemViewModel>();
-        foreach(var root in rootCats) {
-            items.Add(new ContentCategoryTreeItemViewModel(
-                root.Id, root.ParentId, root.Title, , root.Tags));
-            items.AddRange(await GetByParentId(root.Id));
+        foreach(var root in rootCats)
+        {
+            AddNodes(GetTreeItem(root));
+        }
+
+        return new ContentCategoryTreeViewModel(items);
+    }
+
+    private async Task AddNodes(ContentCategoryTreeItemViewModel parent)
+    {
+        var query = new QueryContentCategoryByParentId(parent.Id);
+        var childs = await _behlog.PublishAsync(query).ConfigureAwait(false);
+
+        foreach (var child in childs)
+        {
+            var node = GetTreeItem(child);
+            parent.AddNode(node);
+            AddNodes(node);
         }
     }
 

@@ -35,9 +35,8 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-
-
-
+                    <div id="treeView">
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,4 +50,19 @@
 @section footer {
     <script src="~/behlog/assets/vendors/js/extensions/bootstrap-treeview.min.js" type="text/javascript"></script>
     <script src="~/behlog/assets/js/scripts/extensions/ext-component-treeview.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() { 
+            var $primary = '#5A8DEE'
+            var treeData = '@Model.TreeData.ToJson()'
+            $('#treeView').treeview({
+                selectedBackColor: [$primary],
+                color: [$primary],
+                expandIcon: 'bx bx-chevron-left',
+                collapseIcon: 'bx bx-chevron-down',
+                nodeIcon: 'bx bx-bookmark',
+                data: treeData
+            });
+        });
+    </script>
 }

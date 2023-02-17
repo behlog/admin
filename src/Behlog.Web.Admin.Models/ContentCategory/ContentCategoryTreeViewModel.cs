@@ -34,6 +34,7 @@ public class ContentCategoryTreeItemViewModel {
         this.Text = text;
         this.href = href;
         this.Tags = tags;
+        Nodes = new List<ContentCategoryTreeItemViewModel>();
     }
 
     public Guid Id { get; set; }
@@ -41,5 +42,11 @@ public class ContentCategoryTreeItemViewModel {
     public string Text { get; set; }
     public string href { get; set; }
     public string[] Tags { get; set; }
+    public List<ContentCategoryTreeItemViewModel> Nodes { get; set; }
+
+    public void AddNode(ContentCategoryTreeItemViewModel node)
+    {
+        Nodes.Add(node);
+    }
 }
 
