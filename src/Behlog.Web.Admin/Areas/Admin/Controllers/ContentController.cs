@@ -70,12 +70,14 @@ public class ContentController : BaseAdminController
                 model.Meta?.Select(_ => _.ToCommand()).ToList()!,
                 model.Files?.Select(_ => _.ToCommand())!,
                 model.Tags)
-            {
-                PublishDate = model.PublishDate
-            }
             .WithContentTypeName(model.ContentTypeName!)
             .WithPassword(model.Password!)
             .WithCoverPhotoFile(model.CoverPhotoFile!);
+
+        if (model.PublishDate.HasValue)
+        {
+            command.WillBePublishedOn(model.PublishDate.Value);
+        }
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)
@@ -145,5 +147,31 @@ public class ContentController : BaseAdminController
         
         return View(model);
     }
+
+    [HttpPost("delete/{id:guid}")]
+    public async Task<IActionResult> SoftDelete(Guid id)
+    {
+        var command = new SoftDeleteContentCommand(id);
+        try
+        {
+            await _behlog.PublishAsync(command).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error] : Cannot SoftDelete Content with Id : '{id}' ");
+            Console.WriteLine($"Exception : {ex.GetBaseException().Message}");
+            // return new JsonResult(new
+            // {
+            //     success = false, message = "cannot be soft deleted"
+            // });
+            throw;
+        }
+
+        return new JsonResult(new
+        {
+            success = true
+        });
+    }
+    
     
 }
