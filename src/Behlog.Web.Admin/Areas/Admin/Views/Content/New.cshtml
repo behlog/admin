@@ -44,11 +44,19 @@
                             @Html.Raw(Model.ErrorMessages)
                         </div>
                     }
-                    <form id="my-form" asp-controller="Content" asp-action="New" method="post" class="material-form" asp-antiforgery="true">
+                    <form id="my-form" asp-controller="Content" asp-action="New" 
+                          method="post" class="material-form" asp-antiforgery="true">
+                        <input type="hidden" asp-for="LangId" />
+                        <input type="hidden" asp-for="LangCode" />
+                        <input type="hidden" asp-for="LangTitle" />
+                        <input type="hidden" asp-for="ContentTypeId" />
+                        <input type="hidden" asp-for="ContentTypeName "/>
+                        <input type="hidden" asp-for="ContentTypeTitle" />
+                        
                         <div class="row">
                             <div class="col-md-12 col-12">
                                 <div class="form-group">
-                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته" />
+                                    <input asp-for="Title" class="form-control" placeholder="عنوان نوشته"/>
                                     <label asp-for="Title" class="control-label">عنوان</label><i class="bar"></i>
                                     <span asp-validation-for="Title"></span>
                                 </div>
@@ -56,9 +64,40 @@
 
                             <div class="col-md-12 col-12">
                                 <div class="form-group">
-                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته" />
+                                    <input asp-for="Slug" class="form-control" placeholder="برای URL نوشته"/>
                                     <label asp-for="Slug" class="form-label">نامک</label>
                                     <span asp-validation-for="Slug"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین"/>
+                                    <label asp-for="AltTitle" class="form-label">عنوان جاگزین</label>
+                                    <span asp-validation-for="AltTitle"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    <textarea asp-for="Summary" rows="4"></textarea>
+                                    <label asp-for="Summary"></label>
+                                    <span asp-validation-for="Summary"></span>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    <textarea asp-for="Body" rows="10"></textarea>
+                                    <label asp-for="Body"></label>
+                                    <span asp-validation-for="Body"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
+                                    
                                 </div>
                             </div>
 
