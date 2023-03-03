@@ -89,13 +89,44 @@
                                         <span asp-validation-for="Summary"></span>
                                     </div>
                                 </div>
-
-
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label asp-for="Body">نوشته</label>
-                                        <textarea asp-for="Body" rows="10" class="form-control"></textarea>
-                                        <span asp-validation-for="Body"></span>
+                                        <input type="hidden" asp-for="Body" />
+                                        <div id="editor-container">
+                                            <div class="quill-toolbar">
+                                                <span class="ql-formats">
+                                                    <select class="ql-header">
+                                                        <option value="1">سرتیتر</option>
+                                                        <option value="2">زیرتیتر</option>
+                                                        <option selected>معمولی</option>
+                                                    </select>
+                                                </span>
+                                                <span class="ql-formats">
+                                                    <button class="ql-bold"></button>
+                                                    <button class="ql-italic"></button>
+                                                    <button class="ql-underline"></button>
+                                                </span>
+                                                <span class="ql-formats">
+                                                    <button class="ql-list" value="ordered"></button>
+                                                    <button class="ql-list" value="bullet"></button>
+                                                </span>
+                                                <span class="ql-formats">
+                                                    <button class="ql-link"></button>
+                                                    <button class="ql-image"></button>
+                                                    <button class="ql-video"></button>
+                                                </span>
+                                                <span class="ql-formats">
+                                                    <button class="ql-formula"></button>
+                                                    <button class="ql-code-block"></button>
+                                                </span>
+                                                <span class="ql-formats">
+                                                    <button class="ql-clean"></button>
+                                                </span>
+                                            </div>
+                                            <div class="editor">
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -125,3 +156,23 @@
 
     </section>
 </div>
+
+@section footer
+{
+    <script href="~/behlog/assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        (function (window, document, $) {
+        	'use strict';
+            
+            var editor = new Quill('#editor-container .editor', {
+            		bounds: '#snow-container .editor',
+            		modules: {
+            			'formula': true,
+            			'syntax': true,
+            			'toolbar': '#snow-container .quill-toolbar'
+            		},
+            		theme: 'snow'
+            	});
+        });
+    </script>
+}
