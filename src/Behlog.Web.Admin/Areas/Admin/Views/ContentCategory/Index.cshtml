@@ -43,12 +43,12 @@
                                asp-route-langCode="@Model.LangCode">
                                 <i class="bx bx-plus-circle"></i>
                             </a>
-                            <a class="btn btn-icon btn-outline-primary" href="#">
+                            <a id="btn_edit" class="btn btn-icon btn-outline-primary disabled" href="#">
                                 <i class="bx bx-edit"></i>
                             </a>
-                            <button type="button" class="btn btn-icon btn-outline-primary">
+                            <a id="btn_remove" class="btn btn-icon btn-outline-primary disabled">
                                 <i class="bx bx-x-circle"></i>
-                            </button>
+                            </a>
                         </div>
                         <div class="">
                             <ul class="nav navbar-nav float-right">
@@ -109,7 +109,15 @@
                 color: [$primary],
                 expandIcon: 'bx bx-chevron-left',
                 collapseIcon: 'bx bx-chevron-down',
-                data: treeData
+                data: treeData,
+                onNodeSelected: function(event, node) {
+                    $('#btn_remove').removeClass('disabled');
+                    $('#btn_edit').removeClass('disabled');
+                    alert(node.id);
+                    edit_url = '@Url.Action("Edit")' + '/' + node.id;
+                    $('#btn_edit').attr('href', edit_url);
+                    $('#btn_remove').attr('href', edit_url);
+                }
             });
         });
     </script>
