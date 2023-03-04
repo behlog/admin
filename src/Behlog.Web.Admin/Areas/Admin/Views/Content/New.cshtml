@@ -159,20 +159,24 @@
 
 @section footer
 {
+    <script href="~/behlog/assets/vendors/js/editors/quill/katex.min.js" type="text/javascript"></script>
+    <script href="~/behlog/assets/vendors/js/editors/quill/highlight.min.js" type="text/javascript"></script>
     <script href="~/behlog/assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
+    <script href="~/behlog/assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        (function (window, document, $) {
-        	'use strict';
-            
+        
+        $(document).ready(function() {
+            'use strict';
             var editor = new Quill('#editor-container .editor', {
-            		bounds: '#snow-container .editor',
-            		modules: {
-            			'formula': true,
-            			'syntax': true,
-            			'toolbar': '#snow-container .quill-toolbar'
-            		},
-            		theme: 'snow'
-            	});
+                bounds: '#editor-container .editor',
+                modules: {
+                    'formula': true,
+                    'syntax': true,
+                    'toolbar': '#editor-container .quill-toolbar'
+                },
+                theme: 'snow'
+            });
         });
+        
     </script>
 }
