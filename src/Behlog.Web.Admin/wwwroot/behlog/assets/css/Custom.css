@@ -1524,3 +1524,19 @@ html:not([dir=rtl]) .switches-stacked .switch {
 .ul-erfan input:focus {
     border-bottom: 2px solid #5A8DEE;
 }
+
+#editor-container {
+    height: 100%;
+    /* added these styles */
+    flex: 1;
+    display: flex;
+    flex-direction: column;   
+}
+
+#editor {
+    height: 100%;
+    /* added these styles */
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+}

@@ -56,7 +56,7 @@
                         <input type="hidden" asp-for="ContentTypeName"/>
                         <input type="hidden" asp-for="ContentTypeTitle"/>
 
-                        <div class="col-md-8 col-12">
+                        <div class="col-12 col-md-8">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -85,7 +85,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label asp-for="Summary">خلاصه نوشته</label>
-                                        <textarea asp-for="Summary" class="form-control" rows="4"></textarea>
+                                        <textarea asp-for="Summary" class="form-control" rows="6" style="min-height: 100px;"></textarea>
                                         <span asp-validation-for="Summary"></span>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                                     <button class="ql-clean"></button>
                                                 </span>
                                             </div>
-                                            <div class="editor">
+                                            <div class="editor" style="min-height: 300px">
 
                                             </div>
                                         </div>
@@ -131,23 +131,31 @@
                                 </div>
                             </div>
 
-
                         </div>
-                        <div class="col-md-4 col-6">
+                        
+                        <div class="col-6 col-md-4">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>دسته بندی</label>
-                                    <select class="form-control">
-                                        <option value="0">cat 1</option>
-                                        <option value="1">cat 2</option>
+                                    <select asp-for="Categories" 
+                                            asp-items="@Model.CategorySelect" 
+                                            class="form-control select2" multiple="multiple">
                                     </select>
 
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-start pt-1">
-                            <button type="submit" class="btn btn-primary mr-1 mb-1">ارسال</button>
-                            <a asp-controller="Content" asp-action="Index" class="btn btn-light-secondary mr-1 mb-1">بازگشت</a>
+                            <button type="submit" class="btn btn-primary mr-1 mb-1">
+                                <i class="bx bx-check"></i> ارسال
+                            </button>
+                            <a asp-controller="@ContentController.Name"
+                               asp-action="Index"
+                               asp-route-langCode="@Model.LangCode"
+                               asp-route-contentTypeName="@Model.ContentTypeName"
+                               class="btn btn-light-secondary mr-1 mb-1">
+                                <i class="bx bx-x"></i> بازگشت
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -159,6 +167,7 @@
 
 @section header
 {
+    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/editors/quill/katex.min.css">
     <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/editors/quill/monokai-sublime.min.css">
     <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/editors/quill/quill.snow.css">
@@ -172,6 +181,7 @@
     <script src="~/behlog/assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
     <script src="~/behlog/assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
     <script src="~/behlog/assets/js/scripts/editors/editor.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/js/scripts/forms/select/form-select2.js"></script>
     <script type="text/javascript">
         
     </script>
