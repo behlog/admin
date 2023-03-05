@@ -8,9 +8,6 @@
     <div class="content-header-left col-12 mb-2 mt-1">
         <div class="row breadcrumbs-top">
             <div class="col-12">
-                <h5 class="content-header-title float-left pr-1">
-                    @ViewData["Title"]
-                </h5>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb p-0 mb-0">
                         <li class="breadcrumb-item">
@@ -129,6 +126,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label asp-for="CoverPhotoFile">فایل عکس</label>
+                                        <input asp-for="CoverPhotoFile" type="file" class="form-control"/>
+                                        <span asp-validation-for="CoverPhotoFile"></span>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -172,6 +177,18 @@
     <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/editors/quill/monokai-sublime.min.css">
     <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/editors/quill/quill.snow.css">
     <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/editors/quill/quill.bubble.css">
+    
+    <style>
+        .ql-container {
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+            /* font-size: 13px; */
+            font-size: 12px;
+            height: 100%;
+            margin: 0px;
+            position: relative;
+          }
+    </style>
 }
 
 @section footer
