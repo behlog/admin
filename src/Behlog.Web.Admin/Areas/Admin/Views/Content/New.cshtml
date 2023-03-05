@@ -167,30 +167,12 @@
 
 @section footer
 {
-    <script href="~/behlog/assets/vendors/js/editors/quill/katex.min.js" type="text/javascript"></script>
-    <script href="~/behlog/assets/vendors/js/editors/quill/highlight.min.js" type="text/javascript"></script>
-    <script href="~/behlog/assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
-    <script href="~/behlog/assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/vendors/js/editors/quill/katex.min.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/vendors/js/editors/quill/highlight.min.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
+    <script src="~/behlog/assets/js/scripts/editors/editor.js" type="text/javascript"></script>
     <script type="text/javascript">
-        
-        document.addEventListener('DOMContentLoaded', function (event) {
-           var editor = new Quill('#editor-container .editor', {
-               bounds: '#editor-container .editor',
-               modules: {
-                   'formula': true,
-                   'syntax': true,
-                   'toolbar': '#editor-container .quill-toolbar'
-               },
-               theme: 'snow'
-           }); 
-        });
-        
-        // $(document).ready(function() {
-        //     'use strict';
-        //    
-        //    
-        //     window.Quill = editor;
-        // });
         
     </script>
 }
