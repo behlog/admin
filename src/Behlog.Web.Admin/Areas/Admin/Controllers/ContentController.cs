@@ -52,14 +52,15 @@ public class ContentController : BaseAdminController
         return View(model);
     }
 
-    [HttpPost("[action]")]
-    public async Task<IActionResult> New(CreateContentViewModel model)
+    [HttpPost("new/{langCode}/{contentTypeName}")]
+    public async Task<IActionResult> New(
+        string langCode, string contentTypeName, CreateContentViewModel model)
     {
         if (model is null) return BadRequest();
 
         if (!ModelState.IsValid)
         {
-            model.AddError(""); //TODO : from resource
+            model.AddError("لطفاً خطاهای فرم را بررسی کنید."); //TODO : from resource
             return View(model);
         }
 
