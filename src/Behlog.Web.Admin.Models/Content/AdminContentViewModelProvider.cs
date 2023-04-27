@@ -18,6 +18,13 @@ public interface IAdminContentViewModelProvider
     Task<CreateContentViewModel> NewCreateViewModelAsync(string langCode, string contentTypeName);
 
     /// <summary>
+    /// Populates related data for <see cref="CreateContentViewModel"/> for PostBacks.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    Task LoadCreateViewModelAsync(CreateContentViewModel model);
+
+    /// <summary>
     /// Provides <see cref="UpdateContentViewModel"/> with the data loaded from <see cref="ContentResult"/>
     /// </summary>
     Task<UpdateContentViewModel> LoadUpdateViewModelAsync(ContentResult content);
@@ -27,7 +34,7 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
 {
     private readonly IBehlogMediator _behlog;
     private readonly IContentCategoryProvider _contentCategoryProvider;
-    
+
     public AdminContentViewModelProvider(
         IBehlogMediator behlog, IContentCategoryProvider contentCategoryProvider)
     {
@@ -60,10 +67,23 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
         
         model.SetCategorySelect(await _contentCategoryProvider
             .GetSelectListAsync(langId, contentTypeName).ConfigureAwait(false));
+        
+        model.SetTagSelect(new SelectListViewModel()); //TODO: load from query
 
         return await Task.FromResult(model);
     }
 
+    /// <inheritdoc /> 
+    public async Task LoadCreateViewModelAsync(CreateContentViewModel model)
+    {
+        model.ThrowExceptionIfArgumentIsNull(nameof(model));
+        
+        model.SetCategorySelect(await _contentCategoryProvider
+            .GetSelectListAsync(model.LangId, model.ContentTypeName!).ConfigureAwait(false));
+        
+        model.SetTagSelect(new SelectListViewModel()); //TODO: load from query
+    }
+    
     /// <inheritdoc /> 
     public async Task<UpdateContentViewModel> LoadUpdateViewModelAsync(ContentResult content)
     {

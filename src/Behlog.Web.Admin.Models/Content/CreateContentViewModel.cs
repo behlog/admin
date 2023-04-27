@@ -52,9 +52,9 @@ public class CreateContentViewModel : BaseViewModel
 
     public IEnumerable<SelectListItem> CategorySelect { get; private set; }
     
-    public List<Guid> Categories { get; set; }
+    public List<Guid>? Categories { get; set; }
     
-    public List<Guid> Tags { get; set; }
+    public List<Guid>? Tags { get; set; }
     
     public SelectListViewModel TagSelect { get; private set; }
 

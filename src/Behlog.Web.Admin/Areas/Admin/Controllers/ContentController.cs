@@ -60,7 +60,13 @@ public class ContentController : BaseAdminController
 
         if (!ModelState.IsValid)
         {
-            model.AddError("لطفاً خطاهای فرم را بررسی کنید."); //TODO : from resource
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            string error_messages = "";
+            foreach (var error in errors)
+            {
+                error_messages += error.ErrorMessage + Environment.NewLine;
+            }
+            model.AddError(error_messages); //TODO : from resource
             return View(model);
         }
 
