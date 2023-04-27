@@ -52,7 +52,7 @@ public class ContentController : BaseAdminController
         return View(model);
     }
 
-    [HttpPost]
+    [HttpPost("[action]")]
     public async Task<IActionResult> New(CreateContentViewModel model)
     {
         if (model is null) return BadRequest();

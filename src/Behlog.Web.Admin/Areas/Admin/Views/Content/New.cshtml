@@ -44,7 +44,8 @@
                             @Html.Raw(Model.ErrorMessages)
                         </div>
                     }
-                    <form id="my-form" asp-controller="Content" asp-action="New"
+                    <form id="my-form" asp-area="@WebsiteAreaNames.Admin" 
+                            asp-controller="Content" asp-action="New"
                           method="post" class="row material-form" asp-antiforgery="true">
                         <input type="hidden" asp-for="LangId"/>
                         <input type="hidden" asp-for="LangCode"/>
@@ -181,9 +182,8 @@
     <style>
         .ql-container {
             box-sizing: border-box;
-            font-family: Helvetica, Arial, sans-serif;
-            /* font-size: 13px; */
-            font-size: 12px;
+            font-family: "secondary-font", "Segoe UI", Tahoma, Helvetica, Arial, sans-serif;
+            font-size: 14px;
             height: 100%;
             margin: 0px;
             position: relative;
