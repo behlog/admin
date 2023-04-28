@@ -5,7 +5,8 @@ public abstract class BaseAdminController : Controller
 {
     protected readonly IBehlogMediator _behlog;
     protected readonly BehlogWebsite _website;
-    
+    protected bool _isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
     public BaseAdminController()
     {
     }
