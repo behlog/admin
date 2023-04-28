@@ -48,15 +48,15 @@ public class CreateContentViewModel : BaseViewModel
     
     public List<AdminContentFileViewModel> Files { get; set; }
     
-    public List<AdminMetaViewModel> Meta { get; set; }
+    public List<AdminMetaViewModel>? Meta { get; set; }
 
-    public IEnumerable<SelectListItem> CategorySelect { get; private set; }
+    public IEnumerable<SelectListItem>? CategorySelect { get; private set; }
     
     public List<Guid>? Categories { get; set; }
     
     public List<Guid>? Tags { get; set; }
     
-    public SelectListViewModel TagSelect { get; private set; }
+    public SelectListViewModel? TagSelect { get; private set; }
 
     public void SetCategorySelect(SelectListViewModel categories)
     {

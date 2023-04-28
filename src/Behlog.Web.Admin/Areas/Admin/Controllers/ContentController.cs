@@ -67,6 +67,8 @@ public class ContentController : BaseAdminController
                 error_messages += error.ErrorMessage + Environment.NewLine;
             }
             model.AddError(error_messages); //TODO : from resource
+
+            await _contentViewModelProvider.LoadCreateViewModelAsync(model).ConfigureAwait(false);
             return View(model);
         }
 
