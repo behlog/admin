@@ -44,5 +44,9 @@
       <ProjectReference Include="..\Behlog.Web.Admin.Models\Behlog.Web.Admin.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Content\New.cshtml" />
+    </ItemGroup>
+
 
 </Project>

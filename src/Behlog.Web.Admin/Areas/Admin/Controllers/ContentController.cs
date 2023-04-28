@@ -60,14 +60,18 @@ public class ContentController : BaseAdminController
 
         if (!ModelState.IsValid)
         {
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            string error_messages = "";
-            foreach (var error in errors)
+            if (_isDevelopment)
             {
-                error_messages += error.ErrorMessage + Environment.NewLine;
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                string error_messages = "";
+                foreach (var error in errors)
+                {
+                    error_messages += error.ErrorMessage + Environment.NewLine;
+                }
+                model.AddError(error_messages);
             }
-            model.AddError(error_messages); //TODO : from resource
-
+            
+            model.AddError("");//TODO : from resource
             await _contentViewModelProvider.LoadCreateViewModelAsync(model).ConfigureAwait(false);
             return View(model);
         }

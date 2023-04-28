@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Behlog.Web.Admin.Models;
 
@@ -43,7 +44,7 @@ public class UpdateContentViewModel : BaseViewModel
     
     public List<AdminMetaViewModel>? Meta { get; set; }
 
-    public SelectListViewModel? CategorySelect { get; private set; }
+    public IEnumerable<SelectListItem>? CategorySelect { get; private set; }
     
     public List<Guid>? Categories { get; set; }
     
@@ -53,7 +54,9 @@ public class UpdateContentViewModel : BaseViewModel
     
     public void SetCategorySelect(SelectListViewModel categories)
     {
-        CategorySelect = categories ?? throw new ArgumentNullException(nameof(categories));
+        CategorySelect = categories?.Items
+                             .Select(_=> new SelectListItem(_.Text, _.Value)) 
+                         ?? throw new ArgumentNullException(nameof(categories));
     }
 
     public static UpdateContentViewModel LoadFrom(ContentResult result)
