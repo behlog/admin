@@ -127,28 +127,18 @@ public class ContentController : BaseAdminController
         }
 
         var command = new UpdateContentCommand(model.Id)
-        {
-            Body = model.Body!,
-            Password = model.Password,
-            Slug = model.Slug,
-            Summary = model.Summary,
-            Title = model.Title,
-            AltTitle = model.AltTitle,
-            BodyType = model.BodyType,
-            // IconName = model.icon TODO : add iconName
-            LangId = model.LangId,
-            // IsDraft = model.isd
-            OrderNum = model.OrderNum,
-            // ViewPath = model.view
-            PublishDate = model.PublishDate,
-            ContentTypeId = model.ContentTypeId,
-            Categories = model.Categories?.ToList(),
-            Files = model.Files?.Select(_=> _.ToCommand()).ToList(),
-            Meta = model.Meta?.Select(_=> _.ToCommand()).ToList(),
-            ContentTypeName = model.ContentTypeName,
-            CoverPhotoFile = model.CoverPhotoFile,
-            Tags = model.Tags?.ToList(),
-        };
+            .WithTitle(model.Title)
+            .WithAltTitle(model.AltTitle)
+            .WithSummary(model.Summary)
+            .WithSlug(model.Slug)
+            .WithBodyType(model.BodyType)
+            .WithBody(model.Body)
+            .WithCategories(model.Categories?.ToList())
+            .WithFiles(model.Files?.Select(f => f.ToCommand()).ToList())
+            .WithMeta(model.Meta?.Select(m => m.ToCommand()).ToList())
+            .WithContentTypeName(model.ContentTypeName)
+            .WithCoverPhotoFile(model.CoverPhotoFile)
+            .Build();
 
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)
