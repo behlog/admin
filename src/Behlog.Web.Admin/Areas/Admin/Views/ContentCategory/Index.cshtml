@@ -10,6 +10,98 @@
     }
 }
 
+<div class="content content--top-nav ">
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium ml-auto">
+            @ViewData["Title"]
+        </h2>
+        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <button class="btn btn-primary shadow-md ml-2">
+                دسته بندی جدید
+            </button>
+            <div class="dropdown mr-auto sm:mr-0">
+                <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
+                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i> </span>
+                </button>
+                <div class="dropdown-menu w-40">
+                    <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="file-plus" class="w-4 h-4 ml-2"></i> دسته بندی جدید </a>
+                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="users" class="w-4 h-4 ml-2"></i>گروه جدید </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="intro-y box p-5 mt-5">
+        <ul class="flex">
+            <li class="flex flex-col relative text-center space-y-3">
+                <div class="bg-blue-100 rounded-lg p-3">COMPANY</div>
+              <ul class="flex space-x-3">
+                <li class="flex flex-col relative space-y-3">
+                <div class="bg-teal-300 rounded-lg p-2">Sales Department</div>
+                  <ul class="flex space-x-3">
+                    <li class="flex flex-col relative">
+                              <div class="bg-teal-300 rounded-lg p-2">Sub Sales A</div>
+                    </li>
+                    <li class="flex flex-col relative">
+                    <div class="bg-teal-300 rounded-lg p-2">Sub Sales B</div>
+                    </li>
+                                <li class="flex flex-col relative">
+                    <div class="bg-teal-300 rounded-lg p-2">Sub Sales B</div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="flex flex-col relative space-y-3">
+                                        <div class="bg-teal-300 rounded-lg">Purchase Dept</div>
+                                                  <ul class="flex space-x-3">
+                    <li class="flex flex-col relative">
+                              <div class="bg-teal-300 rounded-lg p-2">Sub Sales A</div>
+                    </li>
+                    <li class="flex flex-col relative">
+                    <div class="bg-teal-300 rounded-lg p-2">Sub Sales B</div>
+                    </li>
+                                <li class="flex flex-col relative">
+                    <div class="bg-teal-300 rounded-lg p-2">Sub Sales B</div>
+                    </li>
+                  </ul>
+        
+                </li>
+                <li class="flex flex-col relative space-y-3">
+                              <div class="bg-orange-300 rounded-lg">Controlling</div>
+                  <ul class="flex">
+                    <li class="flex flex-col relative">
+                                            <div class="bg-orange-200 rounded-lg">Sub-Controlling</div>
+                    </li>
+                                <li class="flex flex-col relative">
+                                            <div class="bg-orange-200 rounded-lg">Sub-Controlling</div>
+                    </li>
+        
+                    <li class="flex flex-col relative">
+                                            <div class="bg-orange-200 rounded-lg">Sub-Controlling</div>
+                    </li>
+        
+                    <li class="flex flex-col relative">
+                                            <div class="bg-orange-200 rounded-lg">Sub-Controlling</div>
+                    </li>
+        
+                    <li class="flex flex-col relative">
+                                            <div class="bg-orange-200 rounded-lg">Sub-Controlling</div>
+                    </li>
+        
+                    <li class="flex flex-col relative">
+                                            <div class="bg-orange-200 rounded-lg">Sub-Controlling with a big ass text</div>
+                    </li>
+        
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+    </div>
+    
+</div>
+
 <div class="content-header row">
     <div class="content-header-left col-12 mb-2 mt-1">
         <div class="row breadcrumbs-top">
@@ -100,12 +192,12 @@
 </div>
 
 @section header {
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/plugins/extensions/ext-component-treeview.css">
+    <link rel="stylesheet" type="text/css" href="~/behlog/css/treeview.css">
 }
 
 @section footer {
-    <script src="~/behlog/assets/vendors/js/extensions/bootstrap-treeview.min.js" type="text/javascript"></script>
-    <script src="~/behlog/assets/js/scripts/extensions/ext-component-treeview.js" type="text/javascript"></script>
+    <script src="~/behlog/js/bootstrap-treeview.min.js" type="text/javascript"></script>
+    <script src="~/behlog/js/ext-component-treeview.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function() { 

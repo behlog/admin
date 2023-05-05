@@ -1,81 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" class="light">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>مدیریت سایت بهلاگ - @ViewData["Title"] </title>
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/vendors.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/ui/prism.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/tables/datatable/datatables.min.css">
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css">
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/tables/datatable/responsive.bootstrap.min.css">
-    <!-- END: Vendor CSS-->
-    <!-- BEGIN: Theme CSS-->
-
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/charts/apexcharts.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/vendors/css/sweetalert2.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/bootstrap-extended.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/colors.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/components.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/themes/dark-layout.css" />
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/themes/semi-dark-layout.css" />
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/core/menu/menu-types/vertical-menu.css" />
-    <!-- END: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="~/behlog/assets/css/custom.css" />
-
+    <link rel="stylesheet" type="text/css" href="~/behlog/css/app.css" />
     @await RenderSectionAsync("header", required: false)
 </head>
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-sticky footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-    <div id="customizer-navbar-colors" style="display:none;">
-        <ul class="list-inline unstyled-list">
-          <li class="color-box bg-white border" data-navbar-default=""> </li>
-          <li class="color-box bg-primary" data-navbar-color="bg-primary"> </li>
-          <li class="color-box bg-success" data-navbar-color="bg-success"> </li>
-          <li class="color-box bg-danger" data-navbar-color="bg-danger"> </li>
-          <li class="color-box bg-info" data-navbar-color="bg-info"> </li>
-          <li class="color-box bg-warning" data-navbar-color="bg-warning"> </li>
-          <li class="color-box bg-dark selected" data-navbar-color="bg-dark"> </li>
-        </ul>
-    </div>
-    <partial name="_header" />
+<body class="main">
+    
+    <partial name="_mobileMenu" />
+    <partial name="_topBar" />
+    <partial name="_navMenu" />
+    
+    @RenderBody()
 
-    <partial name="_menu" />
-
-    <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            @RenderBody()
-        </div>
-    </div>
-
-    <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
-
-    <partial name="_footer" />
-
-    <!-- BEGIN: Vendor JS-->
-    <script type="text/javascript" src="~/behlog/assets/vendors/js/vendors.min.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.min.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/vendors/js/forms/select/select2.full.min.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/vendors/js/sweetalert2.all.min.js"></script>
-
-    <!-- BEGIN Vendor JS-->
-    <!-- BEGIN: Page Vendor JS-->
-    <script type="text/javascript" src="~/behlog/assets/vendors/js/ui/prism.min.js"></script>
-    <!-- END: Page Vendor JS-->
-    <!-- BEGIN: Theme JS-->
-    <script type="text/javascript" src="~/behlog/assets/js/scripts/configs/vertical-menu-light.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/js/core/app-menu.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/js/core/app.js"></script>
-    <script type="text/javascript" src="~/behlog/assets/js/scripts/customizer.js"></script>
-    <!-- END: Them`e JS-->
+    <script type="text/javascript" src="~/behlog/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/behlog/js/app.js"></script>
 
     <partial name="_ValidationScripts" />
 
