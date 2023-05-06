@@ -28,6 +28,13 @@ public interface IAdminContentViewModelProvider
     /// Provides <see cref="UpdateContentViewModel"/> with the data loaded from <see cref="ContentResult"/>
     /// </summary>
     Task<UpdateContentViewModel> LoadUpdateViewModelAsync(ContentResult content);
+
+    /// <summary>
+    /// Populates related data for <see cref="UpdateContentViewModel"/> for PostBacks.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    Task LoadUpdateViewModelAsync(UpdateContentViewModel model);
 }
 
 public class AdminContentViewModelProvider : IAdminContentViewModelProvider
@@ -94,5 +101,16 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
             .GetSelectListAsync(content.LangId, content.ContentTypeName!).ConfigureAwait(false));
 
         return await Task.FromResult(model);
+    }
+    
+    /// <inheritdoc /> 
+    public async Task LoadUpdateViewModelAsync(UpdateContentViewModel model)
+    {
+        model.ThrowExceptionIfArgumentIsNull(nameof(model));
+        
+        model.SetCategorySelect(await _contentCategoryProvider
+            .GetSelectListAsync(model.LangId, model.ContentTypeName).ConfigureAwait(false));
+        
+        // model.SetTagSelect(new SelectListViewModel()); //TODO: load from query
     }
 }

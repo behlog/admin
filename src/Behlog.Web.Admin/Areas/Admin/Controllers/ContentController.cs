@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
+
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
@@ -5,6 +8,7 @@ namespace Behlog.Web.Admin.Controllers;
 [Authorize]
 public class ContentController : BaseAdminController
 {
+    private ILogger<ContentController> _logger;
     public const string Name = "Content";
     public const string Action_Index = nameof(Index);
     public const string Action_New = nameof(New);
@@ -13,10 +17,12 @@ public class ContentController : BaseAdminController
     private readonly IAdminContentViewModelProvider _contentViewModelProvider;
     
     public ContentController(
+        ILogger<ContentController> logger,
         IBehlogMediator behlog, BehlogWebsite website, 
         IAdminContentViewModelProvider contentViewModelProvider) 
         : base(behlog, website)
     {
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contentViewModelProvider = contentViewModelProvider 
                                     ?? throw new ArgumentNullException(nameof(contentViewModelProvider));
     }
@@ -62,13 +68,7 @@ public class ContentController : BaseAdminController
         {
             if (_isDevelopment)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                string error_messages = "";
-                foreach (var error in errors)
-                {
-                    error_messages += error.ErrorMessage + Environment.NewLine;
-                }
-                model.AddError(error_messages);
+                model.AddError(LogModelState(ModelState));
             }
             
             model.AddError("");//TODO : from resource
@@ -122,7 +122,13 @@ public class ContentController : BaseAdminController
 
         if (!ModelState.IsValid)
         {
+            if (_isDevelopment)
+            {
+                model.AddError(LogModelState(ModelState));
+            }
+            
             model.AddError(""); //TODO : from resource
+            await _contentViewModelProvider.LoadUpdateViewModelAsync(model).ConfigureAwait(false);
             return View(model);
         }
 
@@ -143,6 +149,7 @@ public class ContentController : BaseAdminController
         var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
         if (result.HasError)
         {
+            await _contentViewModelProvider.LoadUpdateViewModelAsync(model).ConfigureAwait(false);
             model.WithValidationErrors(result.Errors);
             model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
             return View(model);
@@ -175,6 +182,20 @@ public class ContentController : BaseAdminController
             success = true
         });
     }
-    
-    
+
+
+    private string LogModelState(ModelStateDictionary modelState)
+    {
+        if(modelState is null) throw new ArgumentNullException(nameof(modelState));
+        
+        var errors = modelState.Values.SelectMany(v => v.Errors);
+        string error_messages = "";
+        foreach (var error in errors)
+        {
+            error_messages += error.ErrorMessage + Environment.NewLine;
+        }
+        
+        _logger.LogDebug(error_messages);
+        return error_messages;
+    }
 }
