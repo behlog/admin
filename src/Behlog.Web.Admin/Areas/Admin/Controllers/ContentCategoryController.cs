@@ -23,7 +23,7 @@ public class ContentCategoryController : BaseAdminController
         var contentType = await FindContentTypeAsync(langId, contentTypeName);
         if (contentType is null) return NotFound();
 
-        var model = new AdminContentCategoryIndexViewModel
+        var model = new AdminContentCategoryIndexWithTreeViewModel
         {
             LangCode = langCode,
             LangTitle = FindLangTitle(langCode),
