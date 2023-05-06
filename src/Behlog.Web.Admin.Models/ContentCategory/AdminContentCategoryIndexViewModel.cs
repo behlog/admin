@@ -13,7 +13,7 @@ public class AdminContentCategoryIndexViewModel
 	public string? LangCode { get; set; }
 	public string? LangTitle { get; set; }
 	
-	public IReadOnlyCollection<ContentCategoryTreeItemViewModel> TreeData { get; set; }
+	public IReadOnlyCollection<ContentCategoryTreeItemViewModel> Items { get; set; }
 }
 
 public static class ContentCategoryViewModelExtensions

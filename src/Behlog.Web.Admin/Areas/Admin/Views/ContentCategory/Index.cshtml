@@ -202,7 +202,7 @@
     <script type="text/javascript">
         $(document).ready(function() { 
             var $primary = '#5A8DEE'
-            var treeData = '@Html.Raw(Json.Serialize(Model.TreeData))'
+            var treeData = '@Html.Raw(Json.Serialize(Model.Items))'
             $('#treeView').treeview({
                 selectedBackColor: [$primary],
                 color: [$primary],

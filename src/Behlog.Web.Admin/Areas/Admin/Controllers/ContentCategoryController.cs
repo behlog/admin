@@ -31,7 +31,7 @@ public class ContentCategoryController : BaseAdminController
             ContentTypeId = contentType.Id,
             ContentTypeName = contentType.SystemName,
             ContentTypeTitle = contentType.Title,
-            TreeData = await LoadTreeAsync(langId)
+            Items = await LoadTreeAsync(langId)
         };
         
         return View(model);
