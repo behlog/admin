@@ -11,34 +11,35 @@
 <body class="main">
     
     <partial name="_mobileMenu" />
-    
-     <div class="top-bar-boxed border-b border-theme-3 px-4 md:px-6 mb-14 md:mb-8">
-        <div class="h-full flex items-center">
-            <!-- BEGIN: Logo -->
-            <a href="" class="-intro-x hidden md:flex">
-                <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="~/behlog/images/logo.svg">
-                <span class="text-white text-lg mr-3">Beh<span class="font-medium">log</span> </span>
-            </a>
-            <!-- END: Logo -->
-        <!-- BEGIN: Breadcrumb -->
-            @RenderSectionAsync("breadCrumb", required: false)
-            
-            <!-- END: Breadcrumb -->
-            <!-- BEGIN: Search -->
-            <partial name="_searchBar" />
-            <!-- END: Search -->
-            <!-- BEGIN: Notifications -->
-            <partial name="_notifications" />
-            <!-- END: Notifications -->
-            <!-- BEGIN: Account Menu -->
-            <partial name="_userMenu" />
-            <!-- END: Account Menu -->
-        </div>
-    </div>
-
     <partial name="_navMenu" />
-    
-    @RenderBody()
+
+    <div class="content ">
+        <div class="top-bar-boxed border-b border-theme-3 px-4 md:px-6 mb-14 md:mb-8">
+            <div class="h-full flex items-center">
+                <!-- BEGIN: Logo -->
+                <a href="" class="-intro-x hidden md:flex">
+                    <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="~/behlog/images/logo.svg">
+                    <span class="text-white text-lg mr-3">Beh<span class="font-medium">log</span> </span>
+                </a>
+                <!-- END: Logo -->
+                <!-- BEGIN: Breadcrumb -->
+                @RenderSectionAsync("breadCrumb", required: false)
+                
+                <!-- END: Breadcrumb -->
+                <!-- BEGIN: Search -->
+                <partial name="_searchBar" />
+                <!-- END: Search -->
+                <!-- BEGIN: Notifications -->
+                <partial name="_notifications" />
+                <!-- END: Notifications -->
+                <!-- BEGIN: Account Menu -->
+                <partial name="_userMenu" />
+                <!-- END: Account Menu -->
+            </div>
+        </div>
+        
+        @RenderBody()
+    </div>
 
     <script type="text/javascript" src="~/behlog/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/behlog/js/app.js"></script>
