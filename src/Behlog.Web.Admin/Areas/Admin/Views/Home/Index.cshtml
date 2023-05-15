@@ -2,4 +2,15 @@
     Layout = "_Layout";
 }
 
-<h1>Welcome</h1>
+<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <h1>خوش آمدید!</h1>    
+</div>
+
+
+@section breadCrumb {
+    <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
+        <a href="#">خانه</a> 
+        <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
+        <a href="#" class="breadcrumb--active">داشبرد</a>
+    </div>
+}
