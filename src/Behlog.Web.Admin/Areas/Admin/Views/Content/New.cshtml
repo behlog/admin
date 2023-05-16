@@ -35,10 +35,14 @@
 
 <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
     <div class="intro-y col-span-12 lg:col-span-8">
-        <input type="text" asp-for="Title" class="intro-y form-control py-3 px-4 box pl-10 placeholder-theme-8" placeholder="عنوان نوشته">
-        <span asp-validation-for="Title"></span>
-        <input type="text" asp-for="Slug" placeholder="نامک نوشته در آدرس بار" style="direction: ltr;" class="intro-y form-control py-3 px-4 box pl-10 placeholder-theme-8"/>
-        <span asp-validation-for="Slug"></span>
+        <div>
+            <input type="text" asp-for="Title" class="intro-y form-control py-3 px-4 box pl-10 placeholder-theme-8" placeholder="عنوان نوشته">
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div>
+            <input type="text" asp-for="Slug" placeholder="نامک نوشته در آدرس بار" style="direction: ltr;" class="intro-y form-control py-3 px-4 box pl-10 placeholder-theme-8"/>
+            <span asp-validation-for="Slug"></span>
+        </div>
         <div class="post intro-y overflow-hidden box mt-5">
             <div class="post__tabs nav nav-tabs flex-col sm:flex-row bg-gray-300 dark:bg-dark-2 text-gray-600" role="tablist">
                 <a title="Fill in the article content" data-toggle="tab" data-target="#content" href="javascript:;" class="tooltip w-full sm:w-40 py-4 text-center flex justify-center items-center active" id="content-tab" role="tab" aria-controls="content" aria-selected="true"> <i data-feather="file-text" class="w-4 h-4 ml-2"></i> محتوا </a>
