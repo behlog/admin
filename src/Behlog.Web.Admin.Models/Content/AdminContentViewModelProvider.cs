@@ -75,7 +75,7 @@ public class AdminContentViewModelProvider : IAdminContentViewModelProvider
         model.SetCategorySelect(await _contentCategoryProvider
             .GetSelectListAsync(langId, contentTypeName).ConfigureAwait(false));
         
-        model.SetTagSelect(new SelectListViewModel()); //TODO: load from query
+        model.SetTagSelect(new SelectListViewModel { Items = new List<SelectListItemViewModel>() }); //TODO: load from query
 
         return await Task.FromResult(model);
     }

@@ -56,7 +56,7 @@ public class CreateContentViewModel : BaseViewModel
     
     public List<Guid>? Tags { get; set; }
     
-    public SelectListViewModel? TagSelect { get; private set; }
+    public IEnumerable<SelectListItem>? TagSelect { get; private set; }
 
     public void SetCategorySelect(SelectListViewModel categories)
     {
@@ -67,6 +67,8 @@ public class CreateContentViewModel : BaseViewModel
 
     public void SetTagSelect(SelectListViewModel tags)
     {
-        TagSelect = tags ?? throw new ArgumentNullException(nameof(TagSelect));
+        TagSelect = tags?.Items
+            .Select(_=> new SelectListItem(_.Text, _.Value))
+                        ?? throw new ArgumentNullException(nameof(tags));
     }
 }
