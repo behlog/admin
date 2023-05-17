@@ -2,6 +2,7 @@
 <html lang="en" class="light">
 <head>
     <meta charset="utf-8"/>
+    <link href="~/behlog/images/logo.svg" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>مدیریت سایت بهلاگ - @ViewData["Title"] </title>
@@ -11,32 +12,34 @@
 <body class="main">
     
     <partial name="_mobileMenu" />
+
+    <div class="top-bar-boxed border-b border-theme-3 px-4 md:px-6 mb-14 md:mb-8">
+        <div class="h-full flex items-center">
+            <!-- BEGIN: Logo -->
+            <a href="" class="-intro-x hidden md:flex">
+                <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="~/behlog/images/logo.svg">
+                <span class="text-white text-lg mr-3">Beh<span class="font-medium">log</span> </span>
+            </a>
+            <!-- END: Logo -->
+            <!-- BEGIN: Breadcrumb -->
+            @RenderSectionAsync("breadCrumb", required: false)
+            
+            <!-- END: Breadcrumb -->
+            <!-- BEGIN: Search -->
+            <partial name="_searchBar" />
+            <!-- END: Search -->
+            <!-- BEGIN: Notifications -->
+            <partial name="_notifications" />
+            <!-- END: Notifications -->
+            <!-- BEGIN: Account Menu -->
+            <partial name="_userMenu" />
+            <!-- END: Account Menu -->
+        </div>
+    </div>
     <partial name="_navMenu" />
 
-    <div class="content ">
-        <div class="top-bar-boxed border-b border-theme-3 px-4 md:px-6 mb-14 md:mb-8">
-            <div class="h-full flex items-center">
-                <!-- BEGIN: Logo -->
-                <a href="" class="-intro-x hidden md:flex">
-                    <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="~/behlog/images/logo.svg">
-                    <span class="text-white text-lg mr-3">Beh<span class="font-medium">log</span> </span>
-                </a>
-                <!-- END: Logo -->
-                <!-- BEGIN: Breadcrumb -->
-                @RenderSectionAsync("breadCrumb", required: false)
-                
-                <!-- END: Breadcrumb -->
-                <!-- BEGIN: Search -->
-                <partial name="_searchBar" />
-                <!-- END: Search -->
-                <!-- BEGIN: Notifications -->
-                <partial name="_notifications" />
-                <!-- END: Notifications -->
-                <!-- BEGIN: Account Menu -->
-                <partial name="_userMenu" />
-                <!-- END: Account Menu -->
-            </div>
-        </div>
+    <div class="content content--top-nav ">
+        
         
         @RenderBody()
     </div>
