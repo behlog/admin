@@ -45,6 +45,8 @@ public class CreateContentViewModel : BaseViewModel
     public string? Password { get; set; }
     
     public DateTime? PublishDate { get; set; }
+    public string? PublishDateValue { get; set; }
+    public string? PublishTimeValue { get; set; }
     
     public List<AdminContentFileViewModel> Files { get; set; }
     
