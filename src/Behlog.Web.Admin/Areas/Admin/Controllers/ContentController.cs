@@ -64,6 +64,9 @@ public class ContentController : BaseAdminController
     {
         if (model is null) return BadRequest();
 
+        Console.WriteLine(model.PublishDateValue);
+        Console.WriteLine(model.PublishTimeValue);
+
         if (!ModelState.IsValid)
         {
             if (_isDevelopment)

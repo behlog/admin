@@ -180,9 +180,13 @@
     <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
         <a href="#">خانه</a> 
         <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
-        <a href="#" class="breadcrumb--active">برگه ها</a>
+        <a asp-controller="@ContentController.Name" asp-action="@ContentController.Action_New" 
+            asp-route-lang="@Model.LangCode" asp-route-contentTypeName="@Model.ContentTypeName"
+            class="breadcrumb--active">
+            @Model.ContentTypeTitle
+        </a>
         <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
-        <a href="#" class="breadcrumb--active">برگه جدید</a>
+        <a href="#" class="breadcrumb--active">جدید</a>
     </div>
 }
 

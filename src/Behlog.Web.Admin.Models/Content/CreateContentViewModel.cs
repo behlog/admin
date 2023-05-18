@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Behlog.Web.Admin.Models;
@@ -44,7 +43,15 @@ public class CreateContentViewModel : BaseViewModel
     
     public string? Password { get; set; }
     
-    public DateTime? PublishDate { get; set; }
+    public DateTime? PublishDate {
+        get {
+            return PersianDateCalculator.GetFromString(PublishDateValue, PublishTimeValue);
+        }
+        set {
+
+        }
+    }
+
     public string? PublishDateValue { get; set; }
     public string? PublishTimeValue { get; set; }
     
