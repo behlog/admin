@@ -120,6 +120,7 @@
                                         </span>
                                     </div>
                                     <div id="editor-container"></div>
+                                    <input type="hidden" asp-for="Body" />
                                 </div>
                             </div>
                         </div>
@@ -283,7 +284,7 @@
 {
     <script type="text/javascript" src="~/behlog/lib/quill/quill.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/datepicker/jalalidatepicker.min.js"></script>
-    
+
     <script type="text/javascript">
         jalaliDatepicker.startWatch({
             minDate: "attr",
@@ -303,5 +304,14 @@
         
         editor.format('direction', 'rtl');
         editor.format('align', 'right');
+        
+        $('#my-form').on('submit', function () {
+            
+            var html = editor.root.innerHTML;
+            console.log(html);
+            $('#Body').val(html);
+            
+            return false;
+        });
     </script>
 }
