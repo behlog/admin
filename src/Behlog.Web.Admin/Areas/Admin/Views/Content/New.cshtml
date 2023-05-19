@@ -226,6 +226,10 @@
           #editor-container {
             height: 350px;
           }
+          
+        .ql-editor {
+            font-family: 'IRANYekan-L', 'Tahoma';
+        }
     </style>
 }
 
@@ -245,9 +249,9 @@
 
 @section footer
 {
-    <script></script>
+    <script type="text/javascript" src="~/behlog/lib/quill/quill.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/datepicker/jalalidatepicker.min.js"></script>
-
+    
     <script type="text/javascript">
         jalaliDatepicker.startWatch({
             minDate: "attr",
