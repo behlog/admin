@@ -38,7 +38,17 @@ public class UpdateContentViewModel : BaseViewModel
     
     public string? Password { get; set; }
     
-    public DateTime? PublishDate { get; set; }
+    public DateTime? PublishDate {
+        get {
+            return PersianDateCalculator.GetFromString(PublishDateValue, PublishTimeValue);
+        }
+        set {
+
+        }
+    }
+    
+    public string? PublishDateValue { get; set; }
+    public string? PublishTimeValue { get; set; }
 
     public List<AdminContentFileViewModel>? Files { get; set; }
     
@@ -48,7 +58,7 @@ public class UpdateContentViewModel : BaseViewModel
     
     public List<Guid>? Categories { get; set; }
     
-    public SelectListViewModel? TagSelect { get; set; }
+    public IEnumerable<SelectListItem>? TagSelect { get; set; }
 
     public List<Guid>? Tags { get; set; }
     
