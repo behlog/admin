@@ -13,6 +13,7 @@ public class ContentController : BaseAdminController
     public const string Action_Index = nameof(Index);
     public const string Action_New = nameof(New);
     public const string Action_Edit = nameof(Edit);
+    public const string ACTION_Delete = nameof(SoftDelete);
     
     private readonly IAdminContentViewModelProvider _contentViewModelProvider;
     
@@ -185,8 +186,7 @@ public class ContentController : BaseAdminController
             success = true
         });
     }
-
-
+    
     private string LogModelState(ModelStateDictionary modelState)
     {
         if(modelState is null) throw new ArgumentNullException(nameof(modelState));
