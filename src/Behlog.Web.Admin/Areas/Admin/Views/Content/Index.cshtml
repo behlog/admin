@@ -2,14 +2,21 @@
 @{
     ViewData["Title"] = $"لیست {Model.ContentTypeTitle} ({Model.LangTitle})";
 
-    string get_index_url(string langCode)
+    string get_index_url(string langCode) => Url.Action(ContentController.Action_Index, new
     {
-        return Url.Action(ContentController.Action_Index, new
-        {
-            langCode = Model.LangCode,
-            contentTypeName = Model.ContentTypeName 
-        })!;
-    }
+        langCode,
+        contentTypeName = Model.ContentTypeName 
+    })!;
+
+    string get_new_url(string langCode) => Url.Action(ContentController.Action_New, new
+    {
+        langCode, 
+        contentTypeName = Model.ContentTypeName
+    })!;
+
+    string get_edit_url(Guid id) => Url.Action(ContentController.Action_Edit, new { id })!;
+
+    string get_delete_url(Guid id) => Url.Action(ContentController.ACTION_Delete, new { id })!;
 }
 
 <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
