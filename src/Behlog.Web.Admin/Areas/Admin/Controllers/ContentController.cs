@@ -61,6 +61,7 @@ public class ContentController : BaseAdminController
                 Summary = _.Summary,
                 Title = _.Title,
                 AltTitle = _.AltTitle,
+                Status = _.Status,
                 ContentTypeId = _.ContentTypeId,
                 CreatedDate = _.CreatedDate,
                 IconName = _.IconName,

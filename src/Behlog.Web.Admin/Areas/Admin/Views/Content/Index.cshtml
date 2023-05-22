@@ -30,9 +30,8 @@
     
 }
 
-<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    
-    <h2 class="intro-y text-lg font-medium mt-10">
+
+    <h2 class="intro-y text-lg font-medium ml-auto" style="padding-top: 20px;">
         @ViewData["Title"]
     </h2>
     
@@ -41,23 +40,32 @@
             <a href="@get_new_url(Model.LangCode)" class="btn btn-primary shadow-md ml-2">
                 <i class="w-4 h-4 ml-2" data-feather="plus"></i> افزودن نوشته جدید
             </a>
-            <div class="dropdown-menu w-40">
-                <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                    @if (Model.LangCode == PersianLanguage.Code)
-                    {
-                        <a href="@get_index_url(EnglishLanguage.Code)" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                            <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">@EnglishLanguage.Title</span>
-                        </a>
-                    }
-                    else if (Model.LangCode == EnglishLanguage.Code)
-                    {
-                        <a href="@get_index_url(PersianLanguage.Code)" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                            <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">@PersianLanguage.Title</span>
-                        </a>
-                    }
-                </div>
-            </div>
             <div class="dropdown">
+                <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
+                    <span class="w-5 h-5 flex items-center justify-center">
+                         <i class="w-4 h-4" data-feather="file-text"></i> @Model.LangTitle
+                    </span>
+                </button>
+                <div class="dropdown-menu w-40">
+                    <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                        @if (Model.LangCode == PersianLanguage.Code)
+                        {
+                            <a href="@get_index_url(EnglishLanguage.Code)" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                <i data-feather="activity" class="w-4 h-4 ml-2"></i> 
+                                <span class="truncate">@EnglishLanguage.Title</span>
+                            </a>
+                        }
+                        else if (Model.LangCode == EnglishLanguage.Code)
+                        {
+                            <a href="@get_index_url(PersianLanguage.Code)" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                <i data-feather="activity" class="w-4 h-4 ml-2"></i> 
+                                <span class="truncate">@PersianLanguage.Title</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+             </div>
+            <div class="dropdown" style="padding-right: 10px;">
                 <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i> </span>
                 </button>
@@ -134,7 +142,7 @@
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
                                     <a class="flex items-center ml-3" href="javascript:;"> <i data-feather="check-square" class="w-4 h-4 ml-1"></i> ویرایش</a>
-                                    <div class="text-gray-600 text-xs whitespace-nowrap mt-0.5">ورزشی</div><a class="flex items-center text-theme-21" href="javascript:;" data-toggle="modal" data-target="#delete-confirmation-modal"> <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف </a>
+                                    <a class="flex items-center text-theme-21" href="javascript:;" data-toggle="modal" data-target="#delete-confirmation-modal"> <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف </a>
                                 </div>
                             </td>
                         </tr>
@@ -183,7 +191,6 @@
             </select>
         </div>
     </div>
-</div>
 
 @section breadCrumb {
     <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
