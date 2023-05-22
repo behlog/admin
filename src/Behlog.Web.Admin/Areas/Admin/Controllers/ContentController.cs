@@ -37,13 +37,46 @@ public class ContentController : BaseAdminController
         
         var options = QueryOptions.New()
             .WithPageNumber(page).WithPageSize(10)
-            .WillOrderBy("id").WillOrderDesc();
+            .WillOrderBy("CreatedDate").WillOrderDesc();
         
         var query = new QueryContentByWebsiteAndContentType(
             _website.Id, langId, contentType.Id, null, options);
         var result = await _behlog.PublishAsync(query).ConfigureAwait(false);
-
-        return View(result);
+        var model = new AdminContentIndexViewModel
+        {
+            LangId = langId,
+            LangCode = langCode,
+            LangTitle = FindLangTitle(langCode),
+            PageNumber = result.PageNumber,
+            PageSize = result.PageSize,
+            ContentTypeId = contentType.Id,
+            ContentTypeName = contentType.SystemName,
+            ContentTypeSlug = contentType.Slug,
+            TotalCount = result.TotalCount,
+            ContentTypeTitle = contentType.Title,
+            Data = result.Results.Select(_=> new AdminContentIndexItemViewModel
+            {
+                Id = _.Id,
+                Slug = _.Slug,
+                Summary = _.Summary,
+                Title = _.Title,
+                AltTitle = _.AltTitle,
+                ContentTypeId = _.ContentTypeId,
+                CreatedDate = _.CreatedDate,
+                IconName = _.IconName,
+                LangId = _.LangId,
+                LastUpdated = _.LastUpdated,
+                LikesCount = _.LikesCount,
+                OrderNum = _.OrderNum,
+                AuthorUserId = _.AuthorUserId,
+                AuthorUserName = _.AuthorUserName,
+                ContentTypeName = _.ContentTypeName,
+                ContentTypeTitle = _.ContentTypeTitle,
+                AuthorUserDisplayName = _.AuthorUserDisplayName
+            }).ToList()
+        };
+        
+        return View(model);
     }
 
 
