@@ -11,6 +11,8 @@ public class AdminContentIndexItemViewModel
     public string Slug { get; set; }
     public string? Summary { get; set; }
     public string? AltTitle { get; set; }
+    public ContentStatusEnum Status { get; set; }
+    public string StatusDisplay => Status.ToString(); //TODO : implement ToDisplay()
     public int OrderNum { get; set; }
     public Guid LangId { get; set; }
     public Guid ContentTypeId { get; set; }

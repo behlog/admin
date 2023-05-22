@@ -5,7 +5,7 @@
     <link href="~/behlog/images/logo.svg" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>مدیریت سایت بهلاگ - @ViewData["Title"] </title>
+    <title>مدیریت سایت بهلاگ - @Html.Raw(ViewData["Title"])) </title>
     <link rel="stylesheet" type="text/css" href="~/behlog/css/app.css" />
     @await RenderSectionAsync("header", required: false)
 </head>
