@@ -2,6 +2,7 @@ namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
 [Route("[area]/Files")]
+[Authorize]
 public class FilesController : BaseAdminController
 {
     public const string Name = "Files";
@@ -27,6 +28,12 @@ public class FilesController : BaseAdminController
         if (data.HasError)
             return NotFound();
         
+        return NotFound();
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Get(Guid id)
+    {
         return NotFound();
     }
 }
