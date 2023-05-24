@@ -6,7 +6,7 @@
 
 <form id="my-form" asp-area="@WebsiteAreaNames.Admin"
       asp-controller="Content" asp-action="New"
-      method="post" asp-antiforgery="true">
+      method="post" asp-antiforgery="true" onsubmit="return saveContent();">
     
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
 
@@ -270,10 +270,10 @@
     <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
         <a href="#">خانه</a> 
         <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
-        <a asp-controller="@ContentController.Name" asp-action="@ContentController.Action_New" 
-            asp-route-lang="@Model.LangCode" asp-route-contentTypeName="@Model.ContentTypeName"
+        <a asp-controller="@ContentController.Name" asp-action="@ContentController.Action_Index"
+           asp-route-langCode="@Model.LangCode" asp-route-contentTypeName="@Model.ContentTypeName"
             class="breadcrumb--active">
-            @Model.ContentTypeTitle
+            لیست @Model.ContentTypeTitle
         </a>
         <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
         <a href="#" class="breadcrumb--active">جدید</a>
@@ -304,14 +304,13 @@
         
         editor.format('direction', 'rtl');
         editor.format('align', 'right');
-        
-        $('#my-form').on('submit', function () {
-            alert('ok');
-            var html = editor.root.innerHTML;
+
+        function saveContent() {            
+            const html = document.querySelector('.ql-editor').innerHTML;
             console.log(html);
-            $('#Body').val(html);
+            document.querySelector('Body').value = html;
             
-            return false;
-        });
+            return true;
+        }
     </script>
 }
