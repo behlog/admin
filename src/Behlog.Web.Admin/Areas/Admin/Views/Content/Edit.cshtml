@@ -119,7 +119,10 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="editor-container"></div>
+                                    <div id="editor-container">
+                                        @Html.Raw(Model.Body)
+                                    </div>
+                                    <input type="hidden" asp-for="Body" />
                                 </div>
                             </div>
                         </div>
@@ -283,27 +286,35 @@
 {
     <script type="text/javascript" src="~/behlog/lib/quill/quill.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/datepicker/jalalidatepicker.min.js"></script>
-    
+
     <script type="text/javascript">
-        jalaliDatepicker.startWatch({
-            minDate: "attr",
-            maxDate: "attr", 
-            time:true
+        
+        
+        $(document).ready(function(){
+            jalaliDatepicker.startWatch({
+                minDate: "attr",
+                maxDate: "attr", 
+                time:true
+            });
+            
+            const editor = new Quill('#editor-container', {
+                modules: {
+                  formula: true,
+                  syntax: true,
+                  toolbar: '#toolbar-container'
+                },
+                placeholder: 'اینجا بنویسید...',
+                theme: 'snow'
+              });
+            
+            editor.format('direction', 'rtl');
+            editor.format('align', 'right');
+            // editor.setText('Html.Raw(Model.Body)');
+            //$('.ql-editor').html('Html.Raw(Model.Body)');
+            
+            document.querySelector('.ql-editor').innerHTML = '@Html.Raw(Model.Body)';
+            $('#Title').focus();
         });
         
-        var editor = new Quill('#editor-container', {
-            modules: {
-              formula: true,
-              syntax: true,
-              toolbar: '#toolbar-container'
-            },
-            placeholder: 'اینجا بنویسید...',
-            theme: 'snow'
-          });
-        
-        editor.format('direction', 'rtl');
-        editor.format('align', 'right');
-        
-        editor.setText('@Model.Body');
     </script>
 }

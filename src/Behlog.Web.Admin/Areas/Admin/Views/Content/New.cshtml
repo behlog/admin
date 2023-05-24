@@ -292,6 +292,10 @@
             time:true
         });
         
+        $(document).ready(function(){
+            $('#Title').focus();
+        });
+        
         var editor = new Quill('#editor-container', {
             modules: {
               formula: true,
@@ -307,9 +311,8 @@
 
         function saveContent() {            
             const html = document.querySelector('.ql-editor').innerHTML;
-            console.log(html);
-            document.querySelector('Body').value = html;
-            
+            const body = document.getElementById('Body');
+            body.value = html
             return true;
         }
     </script>
