@@ -1,3 +1,4 @@
+using Behlog.Cms.Exceptions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
@@ -110,15 +111,26 @@ public class ContentController : BaseAdminController
             command.WillBePublishedOn(model.PublishDate.Value);
         }
 
-        var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
-        if (result.HasError)
+        try
         {
-            model.WithValidationErrors(result.Errors);
-            model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
+            var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+            if (result.HasError)
+            {
+                model.WithValidationErrors(result.Errors);
+                model.ModelMessage = "خطاها را برطرف کنید"; //TODO : from resource.
+                return View(model);
+            }
+            
+            return RedirectToAction(Action_Edit, new { id = result.Value.Id });    
+        }
+        catch(ContentSlugAlreadyExistedException)
+        {
+            model.AddError($"دایی این نامک '{model.Slug}' قبلاً برای نوشته ای دیگر ثبت شده است. لطفاً تغییرش بده");
             return View(model);
         }
-
-        return RedirectToAction(Action_Edit, new { id = result.Value.Id });
+        
+        model.AddError("خطای ناشناخته داریم!");
+        return View(model);
     }
 
     [HttpGet("edit/{id:guid}")]
