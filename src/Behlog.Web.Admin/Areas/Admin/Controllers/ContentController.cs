@@ -54,27 +54,7 @@ public class ContentController : BaseAdminController
             ContentTypeSlug = contentType.Slug,
             TotalCount = result.TotalCount,
             ContentTypeTitle = contentType.Title,
-            Data = result.Results.Select(_=> new AdminContentIndexItemViewModel
-            {
-                Id = _.Id,
-                Slug = _.Slug,
-                Summary = _.Summary,
-                Title = _.Title,
-                AltTitle = _.AltTitle,
-                Status = _.Status,
-                ContentTypeId = _.ContentTypeId,
-                CreatedDate = _.CreatedDate,
-                IconName = _.IconName,
-                LangId = _.LangId,
-                LastUpdated = _.LastUpdated,
-                LikesCount = _.LikesCount,
-                OrderNum = _.OrderNum,
-                AuthorUserId = _.AuthorUserId,
-                AuthorUserName = _.AuthorUserName,
-                ContentTypeName = _.ContentTypeName,
-                ContentTypeTitle = _.ContentTypeTitle,
-                AuthorUserDisplayName = _.AuthorUserDisplayName
-            }).ToList()
+            Data = result.Results.Select(_=> _.Map()).ToList()
         };
         
         return View(model);
