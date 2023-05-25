@@ -1,0 +1,8 @@
+﻿.input-validation-error {
+    --tw-border-opacity: 1;
+    border-color: rgba(211, 41, 41, var(--tw-border-opacity));
+}
+
+.field-validation-error {
+    color: red;
+}

@@ -52,6 +52,8 @@ public class CreateContentViewModel : BaseViewModel
         }
     }
 
+    public string PublishMode { get; set; }
+    
     public string? PublishDateValue { get; set; }
     public string? PublishTimeValue { get; set; }
     

@@ -22,7 +22,9 @@
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
             <div class="dropdown ml-2">
-                <button class="dropdown-toggle btn box text-gray-700 dark:text-gray-300 flex items-center" aria-expanded="false"> انگلیسی <i class="w-4 h-4 mr-2" data-feather="chevron-down"></i> </button>
+                <button class="dropdown-toggle btn box text-gray-700 dark:text-gray-300 flex items-center" aria-expanded="false">
+                     انگلیسی <i class="w-4 h-4 mr-2" data-feather="chevron-down"></i>
+                </button>
                 <div class="dropdown-menu w-40">
                     <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                         <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">انگلیسی</span> </a>
@@ -30,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn box text-gray-700 dark:text-gray-300 mr-2 flex items-center mr-auto sm:mr-0"> <i class="w-4 h-4 ml-2" data-feather="eye"></i> ارسال </button>
+            <button type="submit" class="btn btn-primary box text-gray-700 dark:text-gray-300 mr-2 flex items-center mr-auto sm:mr-0"> <i class="w-4 h-4 ml-2" data-feather="eye"></i> ارسال </button>
             <div class="dropdown">
                 <button class=" mr-2 dropdown-toggle btn btn-primary shadow-md flex items-center" aria-expanded="false"> ذخیره<i class="w-4 h-4 mr-2" data-feather="chevron-down"></i> </button>
                 <div class="dropdown-menu w-40">
@@ -219,31 +221,31 @@
 
         <div class="col-span-12 lg:col-span-4">
             <div class="intro-y box p-5">
-                <div class="flex flex-col sm:flex-row mt-2">
-                    <div class="form-check ml-2">
-                        <input id="radio-switch-4" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-chris-evans">
-                        <label class="form-check-label" for="radio-switch-4">
+                <div class="mt-3">
+                    <div class="form-check mt-2">
+                        <input asp-for="PublishMode" id="optDraft" class="form-check-input" type="radio" value="draft">
+                        <label class="form-check-label" for="optDraft">
                             ذخیره پیش نویس
                         </label>
                     </div>
-                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                        <input id="radio-switch-5" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-liam-neeson">
-                        <label class="form-check-label" for="radio-switch-5">
+                    <div class="form-check mt-2">
+                        <input asp-for="PublishMode" id="optPublish" class="form-check-input" type="radio" value="publish">
+                        <label class="form-check-label" for="optPublish">
                             انتشار پس از ذخیره
                         </label>
                     </div>
-                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                        <input id="radio-switch-6" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-daniel-craig">
-                        <label class="form-check-label" for="radio-switch-6">
+                    <div class="form-check mt-2">
+                        <input asp-for="PublishMode" id="optPlanned" class="form-check-input" type="radio" value="planned">
+                        <label class="form-check-label" for="optPlanned">
                             انتشار زمان بندی شده
                         </label>
                     </div>
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 pub-date">
                     <label asp-for="PublishDateValue" class="form-label">تاریخ انتشار</label>
                     <input type="text" asp-for="PublishDateValue" data-jdp class="form-control" data-jdp-only-date readonly="readonly">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 pub-date">
                     <label asp-for="PublishTimeValue" class="form-label">زمان انتشار</label>
                     <input type="text" asp-for="PublishTimeValue" data-jdp class="form-control" data-jdp-only-time readonly="readonly">
                 </div>
@@ -279,7 +281,6 @@
           #editor-container {
             height: 350px;
           }
-          
         .ql-editor {
             font-family: 'IRANYekan-L', 'Tahoma';
         }
@@ -314,9 +315,20 @@
         
         $(document).ready(function(){
             $('#Title').focus();
+            $('#optDraft').prop('checked', true);
+            togglePubDateTime(false);
+            $('input[name=PublishMode]').change(function() {
+                const value = $('input[name=PublishMode]:checked').val();
+                if(value === 'draft' || value === 'publish') {
+                    togglePubDateTime(false);
+                }
+                else {
+                    togglePubDateTime(true);
+                }
+            });
         });
         
-        var editor = new Quill('#editor-container', {
+        const editor = new Quill('#editor-container', {
             modules: {
               formula: true,
               syntax: true,
@@ -334,6 +346,15 @@
             const body = document.getElementById('Body');
             body.value = html
             return true;
+        }
+
+        function togglePubDateTime(display) {
+            if(display) {
+                $('.pub-date').each(function() { $(this).show(); });
+            }
+            else {
+                $('.pub-date').each(function() { $(this).hide(); });   
+            }
         }
     </script>
 }
