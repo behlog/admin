@@ -11,7 +11,7 @@ public static class PersianDateCalculator
     /// <param name="date">The Date part</param>
     /// <param name="time">The Time part</param>
     /// <returns>DateTime in according to the string values.</returns>
-    public static DateTime? GetFromString(string? date, string? time) {
+    public static DateTime? GetFromString(this string? date, string? time) {
         if (string.IsNullOrWhiteSpace(date))
             return null;
 
@@ -30,5 +30,29 @@ public static class PersianDateCalculator
         int sec = int.Parse(time.Substring(6, 2));
 
         return persian.ToDateTime(year, month, day, hour, min, sec, 0);
+    }
+
+    public static string? GetPersianDate(this DateTime? dateTime)
+    {
+        if (dateTime is null) return null;
+        
+        var persian = new PersianCalendar();
+        var localDate = dateTime.Value.ToLocalTime();
+        int year = persian.GetYear(localDate);
+        int month = persian.GetMonth(localDate);
+        int day = persian.GetDayOfMonth(localDate);
+
+        return $"{year}/{month}/{day}";
+    }
+
+    public static string? GetPersianTime(this DateTime? dateTime)
+    {
+        if (dateTime is null) return null;
+        
+        int hour = dateTime.Value.Hour;
+        int min = dateTime.Value.Minute;
+        int sec = dateTime.Value.Second;
+
+        return $"{hour}:{min}:{sec}";
     }
 }

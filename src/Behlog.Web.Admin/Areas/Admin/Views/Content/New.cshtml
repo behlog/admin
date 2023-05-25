@@ -219,6 +219,26 @@
 
         <div class="col-span-12 lg:col-span-4">
             <div class="intro-y box p-5">
+                <div class="flex flex-col sm:flex-row mt-2">
+                    <div class="form-check ml-2">
+                        <input id="radio-switch-4" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-chris-evans">
+                        <label class="form-check-label" for="radio-switch-4">
+                            ذخیره پیش نویس
+                        </label>
+                    </div>
+                    <div class="form-check mr-2 mt-2 sm:mt-0">
+                        <input id="radio-switch-5" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-liam-neeson">
+                        <label class="form-check-label" for="radio-switch-5">
+                            انتشار پس از ذخیره
+                        </label>
+                    </div>
+                    <div class="form-check mr-2 mt-2 sm:mt-0">
+                        <input id="radio-switch-6" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-daniel-craig">
+                        <label class="form-check-label" for="radio-switch-6">
+                            انتشار زمان بندی شده
+                        </label>
+                    </div>
+                </div>
                 <div class="mt-3">
                     <label asp-for="PublishDateValue" class="form-label">تاریخ انتشار</label>
                     <input type="text" asp-for="PublishDateValue" data-jdp class="form-control" data-jdp-only-date readonly="readonly">

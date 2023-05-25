@@ -19,7 +19,7 @@ public class CreateContentViewModel : BaseViewModel
     public string? ContentTypeName { get; set; }
     public string? ContentTypeTitle { get; set; }
     
-
+    
     [Required]
     [MaxLength(1000)]
     public string Title { get; set; }
@@ -44,11 +44,11 @@ public class CreateContentViewModel : BaseViewModel
     public string? Password { get; set; }
     
     public DateTime? PublishDate {
-        get {
-            return PersianDateCalculator.GetFromString(PublishDateValue, PublishTimeValue);
-        }
-        set {
-
+        get => PersianDateCalculator.GetFromString(PublishDateValue, PublishTimeValue);
+        set
+        {
+            PublishDateValue = value.GetPersianDate();
+            PublishTimeValue = value.GetPersianTime();
         }
     }
 
