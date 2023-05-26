@@ -26,18 +26,28 @@
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
             <div class="dropdown ml-2">
-                <button class="dropdown-toggle btn box text-gray-700 dark:text-gray-300 flex items-center" aria-expanded="false">
-                     زبان : @Model.LangTitle <i class="w-4 h-4 mr-2" data-feather="chevron-down"></i>
+                <button id="btnLang" class="dropdown-toggle btn box text-gray-700 dark:text-gray-300 flex items-center" aria-expanded="false">
+                     زبان : @Model.LangTitle <i class="w-4 h-4 mr-2" data-feather="globe"></i>
                 </button>
                 <div class="dropdown-menu w-40">
                     <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">انگلیسی</span> </a>
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">اندونیزایی</span> </a>
+                        @if (Model.LangCode == EnglishLanguage.Code)
+                        {
+                            <a href="#" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">@PersianLanguage.Title</span>
+                            </a>
+                        }
+                        else if(Model.LangCode == PersianLanguage.Code)
+                        {
+                            <a href="#" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">@EnglishLanguage.Title</span>
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
             <a href="@cancel_url" class="btn btn-primary box text-gray-700 dark:text-gray-300 mr-2 flex items-center mr-auto sm:mr-0">
-                 <i class="w-4 h-4 ml-2" data-feather="eye"></i> انصراف
+                 <i class="w-4 h-4 ml-2" data-feather="x-square"></i> انصراف
             </a>
             <button type="submit" class="btn btn-primary   mr-2 flex items-center">
                 <i class="w-4 h-4 ml-2" data-feather="save"></i> ذخیره
@@ -336,7 +346,7 @@
     <script type="text/javascript" src="~/behlog/lib/quill/quill.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/datepicker/jalalidatepicker.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/sweetalert2/sweetalert2.all.min.js"></script>
-    
+
     @if (Model.HasError)
     {
         <script type="text/javascript">
@@ -403,5 +413,18 @@
                 $('.pub-date').each(function() { $(this).hide(); });   
             }
         }
+        
+        function toggleLang(langCode) {
+            if(langCode === 'fa') {
+                document.getElementById('LangCode').value = '@PersianLanguage.Code';
+                document.getElementById('LangId').value = '@PersianLanguage.Id.ToString()';
+                document.getElementById('LangTitle').value = '@PersianLanguage.Title';
+            }
+            else if(langCode === 'en') {
+                document.getElementById('LangCode').value = '@EnglishLanguage.Code';
+                document.getElementById('LangId').value = '@EnglishLanguage.Id.ToString()';
+                document.getElementById('LangTitle').value = '@EnglishLanguage.Title';
+            }
+        }
     </script>
-}
+    }
