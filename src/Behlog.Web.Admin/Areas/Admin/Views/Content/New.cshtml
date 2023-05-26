@@ -289,7 +289,7 @@
 {
     <link rel="stylesheet" href="~/behlog/lib/datepicker/jalalidatepicker.min.css">
     <link rel="stylesheet" href="~/behlog/lib/quill/quill.snow.css">
-    
+    <link rel="stylesheet" href="~/behlog/lib/sweetalert2/sweetalert2.min.css">
     <style>
         body > #quill-container {
             margin: 50px auto;
@@ -320,12 +320,15 @@
 {
     <script type="text/javascript" src="~/behlog/lib/quill/quill.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/datepicker/jalalidatepicker.min.js"></script>
+    <script type="text/javascript" src="~/behlog/lib/sweetalert2/sweetalert2.all.min.js"></script>
     
     @if (Model.HasError)
     {
         <script type="text/javascript">
-            $(document).ready(function() {
-                document.getElementById('run-error').click();
+            Swal.fire({
+              icon: 'error',
+              title: 'خطا...',
+              text: '@Html.Raw(Model.ErrorMessages)',
             });
         </script>
     }
