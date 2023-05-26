@@ -123,9 +123,10 @@ public class ContentController : BaseAdminController
             
             return RedirectToAction(Action_Edit, new { id = result.Value.Id });    
         }
-        catch(ContentSlugAlreadyExistedException)
+        catch(ContentSlugAlreadyExistedException ex)
         {
-            model.AddError($"دایی این نامک '{model.Slug}' قبلاً برای نوشته ای دیگر ثبت شده است. لطفاً تغییرش بده");
+            model.AddError($"دایی این نامک '{model.Slug}' قبلاً برای نوشته ای دیگر ثبت شده است. لطفاً تغییرش بده", "slug");
+            model.ErrorFieldName = nameof(model.Slug);
             return View(model);
         }
         
