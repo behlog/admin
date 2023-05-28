@@ -39,13 +39,15 @@ public class UpdateContentViewModel : BaseViewModel
     public string? Password { get; set; }
     
     public DateTime? PublishDate {
-        get {
-            return PersianDateCalculator.GetFromString(PublishDateValue, PublishTimeValue);
-        }
-        set {
-
+        get => PersianDateCalculator.GetFromString(PublishDateValue, PublishTimeValue);
+        set
+        {
+            PublishDateValue = value.GetPersianDate();
+            PublishTimeValue = value.GetPersianTime();
         }
     }
+
+    public string PublishMode { get; set; }
     
     public string? PublishDateValue { get; set; }
     public string? PublishTimeValue { get; set; }
@@ -67,6 +69,13 @@ public class UpdateContentViewModel : BaseViewModel
         CategorySelect = categories?.Items
                              .Select(_=> new SelectListItem(_.Text, _.Value)) 
                          ?? throw new ArgumentNullException(nameof(categories));
+    }
+    
+    public void SetTagSelect(SelectListViewModel tags)
+    {
+        TagSelect = tags?.Items
+                        .Select(_=> new SelectListItem(_.Text, _.Value))
+                    ?? throw new ArgumentNullException(nameof(tags));
     }
 
     public static UpdateContentViewModel LoadFrom(ContentResult result)

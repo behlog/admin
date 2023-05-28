@@ -2,6 +2,7 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "نوشته جدید - " + Model.ContentTypeTitle;
+    
     var cancel_url = Url.Action(ContentController.Action_Index, new
     {
         langCode = Model.LangCode, contentTypeName = Model.ContentTypeName
@@ -315,6 +316,7 @@
     <link rel="stylesheet" href="~/behlog/lib/datepicker/jalalidatepicker.min.css">
     <link rel="stylesheet" href="~/behlog/lib/quill/quill.snow.css">
     <link rel="stylesheet" href="~/behlog/lib/sweetalert2/sweetalert2.min.css">
+    
     <style>
         body > #quill-container {
             margin: 50px auto;

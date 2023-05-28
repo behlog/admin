@@ -2,6 +2,11 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "ویرایش نوشته - " + Model.Title;
+    
+    var cancel_url = Url.Action(ContentController.Action_Index, new
+    {
+        langCode = Model.LangCode, contentTypeName = Model.ContentTypeName
+    });
 }
 <form id="my-form" asp-area="@WebsiteAreaNames.Admin"
       asp-controller="@ContentController.Name" 
@@ -22,39 +27,52 @@
         </h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
             <div class="dropdown ml-2">
-                <button class="dropdown-toggle btn box text-gray-700 dark:text-gray-300 flex items-center" aria-expanded="false"> انگلیسی <i class="w-4 h-4 mr-2" data-feather="chevron-down"></i> </button>
+                <button id="btnLang" class="dropdown-toggle btn box text-gray-700 dark:text-gray-300 flex items-center" aria-expanded="false">
+                     زبان : @Model.LangTitle <i class="w-4 h-4 mr-2" data-feather="globe"></i>
+                </button>
                 <div class="dropdown-menu w-40">
                     <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">انگلیسی</span> </a>
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">اندونیزایی</span> </a>
+                        @if (Model.LangCode == EnglishLanguage.Code)
+                        {
+                            <a href="#" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">@PersianLanguage.Title</span>
+                            </a>
+                        }
+                        else if(Model.LangCode == PersianLanguage.Code)
+                        {
+                            <a href="#" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                <i data-feather="activity" class="w-4 h-4 ml-2"></i> <span class="truncate">@EnglishLanguage.Title</span>
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn box text-gray-700 dark:text-gray-300 mr-2 flex items-center mr-auto sm:mr-0"> <i class="w-4 h-4 ml-2" data-feather="eye"></i> ارسال </button>
-            <div class="dropdown">
-                <button class=" mr-2 dropdown-toggle btn btn-primary shadow-md flex items-center" aria-expanded="false"> ذخیره<i class="w-4 h-4 mr-2" data-feather="chevron-down"></i> </button>
-                <div class="dropdown-menu w-40">
-                    <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                            <i data-feather="file-text" class="w-4 h-4 ml-2"></i> ذخیره پیش نویس
-                        </a>
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                            <i data-feather="file-text" class="w-4 h-4 ml-2"></i>ذخیره و بازگشت
-                        </a>
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                            <i data-feather="file-text" class="w-4 h-4 ml-2"></i> ذخیره و جدید
-                        </a>
-                        <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                            <i data-feather="file-text" class="w-4 h-4 ml-2"></i>ذخیره و انتشار
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <a href="@cancel_url" class="btn btn-primary box text-gray-700 dark:text-gray-300 mr-2 flex items-center mr-auto sm:mr-0">
+                 <i class="w-4 h-4 ml-2" data-feather="x-square"></i> انصراف
+            </a>
+            <button type="submit" class="btn btn-primary   mr-2 flex items-center">
+                <i class="w-4 h-4 ml-2" data-feather="save"></i> ذخیره
+            </button>
         </div>
     </div>
 
     <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
         <div class="intro-y col-span-12 lg:col-span-8">
+            @if (Model.HasError)
+            {
+                <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
+                    <div class="mt-3">
+                        <i data-feather="alert-octagon" class="w-6 h-6 ml-2"></i>
+                        <ul style="list-style: disc; padding-right: 40px;">
+                            @foreach (var err in Model.Errors)
+                            {
+                                <li>@Html.Raw(err.Value) </li>
+                            }
+                        </ul>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> <i data-feather="x" class="w-4 h-4"></i> </button>
+                </div>
+            }
             <div class="mt-3">
                 <input type="text" asp-for="Title" class="intro-y form-control py-3 px-4 box pl-10 placeholder-theme-8" placeholder="عنوان نوشته" required>
                 <span asp-validation-for="Title"></span>
@@ -122,7 +140,7 @@
                                     <div id="editor-container">
                                         @Html.Raw(Model.Body)
                                     </div>
-                                    <input type="hidden" asp-for="Body" />
+                                    <input type="hidden" asp-for="Body"/>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +180,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div id="about" class="tab-pane p-5" role="tabpanel" aria-labelledby="about-tab">
                         <div class="border border-gray-200 dark:border-dark-5 rounded-md p-5 mt-5">
                             <div class="font-medium flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
@@ -188,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div id="settings" class="tab-pane p-5" role="tabpanel" aria-labelledby="settings-tab">
                         <div class="border border-gray-200 dark:border-dark-5 rounded-md p-5 mt-5">
                             <div class="font-medium flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
@@ -202,7 +220,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <label asp-for="Password">کلمه عبور</label>
-                                    <input asp-for="Password" type="text" class="form-control" placeholder="کلمه عبور..." />
+                                    <input asp-for="Password" type="text" class="form-control" placeholder="کلمه عبور..."/>
                                 </div>
                             </div>
                         </div>
@@ -210,7 +228,7 @@
                             <div class="mt-5">
                                 <div class="mt-3">
                                     <label asp-for="OrderNum">ترتیب نمایش</label>
-                                    <input type="number" asp-for="OrderNum" class="form-control" />
+                                    <input type="number" asp-for="OrderNum" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -222,10 +240,30 @@
         <div class="col-span-12 lg:col-span-4">
             <div class="intro-y box p-5">
                 <div class="mt-3">
+                    <div class="form-check mt-2">
+                        <input asp-for="PublishMode" id="optDraft" class="form-check-input" type="radio" value="draft">
+                        <label class="form-check-label" for="optDraft">
+                            ذخیره پیش نویس
+                        </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input asp-for="PublishMode" id="optPublish" class="form-check-input" type="radio" value="publish">
+                        <label class="form-check-label" for="optPublish">
+                            انتشار پس از ذخیره
+                        </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input asp-for="PublishMode" id="optPlanned" class="form-check-input" type="radio" value="planned">
+                        <label class="form-check-label" for="optPlanned">
+                            انتشار زمان بندی شده
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-3 pub-date">
                     <label asp-for="PublishDateValue" class="form-label">تاریخ انتشار</label>
                     <input type="text" asp-for="PublishDateValue" data-jdp class="form-control" data-jdp-only-date readonly="readonly">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 pub-date">
                     <label asp-for="PublishTimeValue" class="form-label">زمان انتشار</label>
                     <input type="text" asp-for="PublishTimeValue" data-jdp class="form-control" data-jdp-only-time readonly="readonly">
                 </div>
@@ -252,6 +290,7 @@
 {
     <link rel="stylesheet" href="~/behlog/lib/datepicker/jalalidatepicker.min.css">
     <link rel="stylesheet" href="~/behlog/lib/quill/quill.snow.css">
+    <link rel="stylesheet" href="~/behlog/lib/sweetalert2/sweetalert2.min.css">
     
     <style>
         body > #quill-container {
@@ -272,10 +311,8 @@
     <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
         <a href="#">خانه</a> 
         <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
-        <a asp-controller="@ContentController.Name" asp-action="@ContentController.Action_New" 
-            asp-route-lang="@Model.LangCode" asp-route-contentTypeName="@Model.ContentTypeName"
-            class="breadcrumb--active">
-            @Model.ContentTypeTitle
+         <a href="@cancel_url">
+            لیست @Model.ContentTypeTitle
         </a>
         <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
         <a href="#" class="breadcrumb--active">جدید</a>
@@ -286,15 +323,42 @@
 {
     <script type="text/javascript" src="~/behlog/lib/quill/quill.min.js"></script>
     <script type="text/javascript" src="~/behlog/lib/datepicker/jalalidatepicker.min.js"></script>
+    <script type="text/javascript" src="~/behlog/lib/sweetalert2/sweetalert2.all.min.js"></script>
 
+    @if (Model.HasError)
+    {
+        <script type="text/javascript">
+            const field = '@Model.ErrorFieldName';
+            Swal.fire({
+              icon: 'error',
+              title: 'خطا...',
+              confirmButtonText: 'باشه',
+              text: `@Html.Raw(Model.ErrorMessages)`,
+            });
+            
+            document.getElementById(field).classList.add('input-validation-error');
+        </script>
+    }
+    
     <script type="text/javascript">
-        
-        
         $(document).ready(function(){
             jalaliDatepicker.startWatch({
                 minDate: "attr",
                 maxDate: "attr", 
                 time:true
+            });
+            
+            $('#Title').focus();
+            $('#optDraft').prop('checked', true);
+            togglePubDateTime(false);
+            $('input[name=PublishMode]').change(function() {
+                const value = $('input[name=PublishMode]:checked').val();
+                if(value === 'draft' || value === 'publish') {
+                    togglePubDateTime(false);
+                }
+                else {
+                    togglePubDateTime(true);
+                }
             });
             
             const editor = new Quill('#editor-container', {
@@ -315,6 +379,35 @@
             document.querySelector('.ql-editor').innerHTML = '@Html.Raw(Model.Body)';
             $('#Title').focus();
         });
+        
+        function saveContent() {            
+            const html = document.querySelector('.ql-editor').innerHTML;
+            const body = document.getElementById('Body');
+            body.value = html
+            return true;
+        }
+
+        function togglePubDateTime(display) {
+            if(display) {
+                $('.pub-date').each(function() { $(this).show(); });
+            }
+            else {
+                $('.pub-date').each(function() { $(this).hide(); });   
+            }
+        }
+        
+        function toggleLang(langCode) {
+            if(langCode === 'fa') {
+                document.getElementById('LangCode').value = '@PersianLanguage.Code';
+                document.getElementById('LangId').value = '@PersianLanguage.Id.ToString()';
+                document.getElementById('LangTitle').value = '@PersianLanguage.Title';
+            }
+            else if(langCode === 'en') {
+                document.getElementById('LangCode').value = '@EnglishLanguage.Code';
+                document.getElementById('LangId').value = '@EnglishLanguage.Id.ToString()';
+                document.getElementById('LangTitle').value = '@EnglishLanguage.Title';
+            }
+        }
         
     </script>
 }
