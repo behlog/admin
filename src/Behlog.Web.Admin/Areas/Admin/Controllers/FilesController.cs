@@ -20,15 +20,24 @@ public class FilesController : BaseAdminController
     public async Task<IActionResult> Index(int page = 1)
     {
         var query = new QueryFileUploadsByWebsiteId(
-            _website.Id,
-            QueryOptions.New().WithPageNumber(page));
+            _website.Id, QueryOptions.New()
+                .WithPageNumber(page)
+                .WithPageSize(10)
+                .WillOrderBy("CreatedDate")
+                .WillOrderDesc());
         
         var data = await _behlog.PublishAsync(query).ConfigureAwait(false);
+        var model = new AdminFileUploadIndexViewModel
+        {
+            PageNumber = page,
+            PageSize = query.Options.PageSize,
+            Search = query.Options.Search,
+            TotalCount = data.TotalCount,
+            FileType = null,
+            Data = data.Results.Select(_ => _.Map()).ToList()
+        };
 
-        if (data.HasError)
-            return NotFound();
-        
-        return NotFound();
+        return View(model);
     }
 
     [HttpGet("{id:guid}")]
