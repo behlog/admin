@@ -37,7 +37,7 @@
                 </a>
                 <a href="" class="flex items-center px-3 py-2 mt-2 rounded-md">
                     <div class="w-2 h-2 bg-theme-21 rounded-full ml-3"></div>
-                   هفته بعد  
+                    هفته بعد  
                 </a>
                 <a href="" class="flex items-center px-3 py-2 mt-2 rounded-md"> <i class="w-4 h-4 ml-2" data-feather="plus"></i>افزودن برچسب جدید </a>
             </div>
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="w-full sm:w-auto flex">
-                <button class="btn btn-primary shadow-md ml-2">بارگذاری فایل های جدید</button>
+                <a data-toggle="modal" data-target="#upload-modal" class="btn btn-primary shadow-md ml-2">بارگذاری فایل های جدید</a>
                 <div class="dropdown">
                     <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
                         <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i> </span>
@@ -174,3 +174,40 @@
     </div>
     
 </div>
+
+
+<!-- BEGIN: Modal Content -->
+<div id="upload-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> 
+        <div class="modal-content">
+            <!-- BEGIN: Modal Header -->
+            <div class="modal-header">
+                <h2 class="font-medium text-base ml-auto">
+                    افزودن فایل جدید
+                </h2>
+                <button class="btn btn-outline-secondary hidden sm:flex"> <i data-feather="file" class="w-4 h-4 ml-2"></i> دانلود فایل ها </button>
+                <div class="dropdown sm:hidden">
+                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-600 dark:text-gray-600"></i> </a>
+                    <div class="dropdown-menu w-40">
+                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                            <a href="javascript:;" class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="file" class="w-4 h-4 ml-2"></i> دانلود فایل ها </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- BEGIN: Modal Body -->
+            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                
+            </div>
+            <!-- END: Modal Body -->
+            <!-- BEGIN: Modal Footer -->
+            <div class="modal-footer text-right">
+                <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 ml-1">لغو</button>
+                <button type="button" class="btn btn-primary w-20">ارسال</button>
+            </div>
+            <!-- END: Modal Footer -->
+        </div>
+    </div>
+</div>
+<!-- END: Modal Content -->
