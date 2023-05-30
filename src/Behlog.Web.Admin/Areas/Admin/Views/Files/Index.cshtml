@@ -198,7 +198,19 @@
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                
+                <div id="multiple-file-upload" class="p-5">
+                    <div class="preview">
+                        <form action="/file-upload" class="dropzone">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple/>
+                            </div>
+                            <div class="dz-message" data-dz-message>
+                                <div class="text-lg font-medium">فایل خود را اینجا بکشید و رها کنید</div>
+                                    <div class="text-gray-600">این تنها یک دمو از دراپ زون است<span class="font-medium"> نه </span>فایل آپلود شده</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <!-- END: Modal Body -->
             <!-- BEGIN: Modal Footer -->
