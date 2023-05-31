@@ -6,7 +6,7 @@ public class CreateFileUploadViewModel
 {
     public IFormFile FileData { get; set; }
     public FileTypeEnum FileType { get; set; }
-    public string Title { get; set; }
+    public string? Title { get; set; }
     public IFormFile AlternateFileData { get; set; }
     public string? AltTitle { get; set; }
     public string? Description { get; set; }

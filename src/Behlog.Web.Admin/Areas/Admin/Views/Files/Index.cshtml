@@ -176,3 +176,30 @@
 </div>
 
 <partial name="_uploadView" model="new CreateFileUploadViewModel()" />
+
+@section header
+{
+    <link rel="stylesheet" href="~/behlog/lib/sweetalert2/sweetalert2.min.css">
+}
+
+@section breadCrumb {
+    <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
+        <a href="#">خانه</a>
+        <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
+        <a href="#" class="breadcrumb--active">مدیریت فایل</a>
+    </div>
+}
+
+@section footer
+{
+    <script type="text/javascript" src="~/behlog/lib/sweetalert2/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+        $('#btnUpload').one('click', function() {
+            if($('#FileData').val() == '') {
+                $('#upload-msg').text('هیچ فایلی برای آپلود انتخاب نشد. لطفاَ‌ فایل خود را وارد کنید.');
+                document.getElementById('upload-msg').classList.add('field-validation-error');
+            }
+        });
+    </script>
+}

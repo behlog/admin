@@ -8,15 +8,6 @@
                 <h2 class="font-medium text-base ml-auto">
                     افزودن فایل جدید
                 </h2>
-                <button class="btn btn-outline-secondary hidden sm:flex"> <i data-feather="file" class="w-4 h-4 ml-2"></i> دانلود فایل ها </button>
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-600 dark:text-gray-600"></i> </a>
-                    <div class="dropdown-menu w-40">
-                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                            <a href="javascript:;" class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="file" class="w-4 h-4 ml-2"></i> دانلود فایل ها </a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
@@ -29,7 +20,11 @@
                                     <input asp-for="FileData" type="file" />
                                 </div>
                                 <div class="dz-message" data-dz-message>
-                                    <div class="text-lg font-medium">فایل خود را اینجا بکشید و رها کنید</div>
+                                    <div class="text-lg font-medium">
+                                        <span id="upload-msg">
+                                            فایل خود را اینجا بکشید و رها کنید
+                                        </span> 
+                                    </div>
                                     <div class="text-gray-600">
                                         تقریبا هر نوعی فایلی قابل قبول است. جز فایل های مخرب!
                                     </div>
@@ -60,7 +55,7 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
                 <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 ml-1">لغو</button>
-                <button type="button" class="btn btn-primary w-20">ارسال</button>
+                <button id="btnUpload" type="button" class="btn btn-primary w-20">ارسال</button>
             </div>
             <!-- END: Modal Footer -->
         </div>

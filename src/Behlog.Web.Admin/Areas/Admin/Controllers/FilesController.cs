@@ -39,6 +39,7 @@ public class FilesController : BaseAdminController
 
         return View(model);
     }
+    
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id)
