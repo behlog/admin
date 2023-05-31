@@ -12,50 +12,46 @@
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body p-5">
-                <form id="upload-form">
-                    <div id="multiple-file-upload" class="p-5">
-                        <div class="preview">
-                            <div class="dropzone">
-                                <div class="fallback">
-                                    <input asp-for="FileData" type="file" />
-                                </div>
-                                <div class="dz-message" data-dz-message>
-                                    <div class="text-lg font-medium">
-                                        <span id="upload-msg">
-                                            فایل خود را اینجا بکشید و رها کنید
-                                        </span> 
-                                    </div>
-                                    <div class="text-gray-600">
-                                        تقریبا هر نوعی فایلی قابل قبول است. جز فایل های مخرب!
-                                    </div>
-                                </div>
+                <div class="preview">
+                    <div class="dropzone">
+                        <div class="fallback">
+                            <input asp-for="FileData" type="file" />
+                        </div>
+                        <div class="dz-message" data-dz-message>
+                            <div class="text-lg font-medium">
+                                <span id="upload-msg">
+                                    فایل خود را اینجا بکشید و رها کنید
+                                </span> 
+                            </div>
+                            <div class="text-gray-600">
+                                تقریبا هر نوعی فایلی قابل قبول است. جز فایل های مخرب!
                             </div>
                         </div>
                     </div>
-                    <div class="preview">
-                        <div>
-                            <label asp-for="Title" class="form-label">عنوان</label>
-                            <input asp-for="Title" class="form-control" placeholder="عنوان نمایشی فایل" />
-                            <span asp-validation-for="Title"></span>
-                        </div>
-                        <div>
-                            <label asp-for="AltTitle" class="form-label">عنوان جاگزین</label>
-                            <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین برای نمایش" />
-                            <span asp-validation-for="AltTitle"></span>
-                        </div>
-                        <div>
-                            <label asp-for="Description" class="form-label">توضیحات</label>
-                            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                            <span asp-validation-for="Description"></span>
-                        </div>
+                </div>
+                <div class="preview">
+                    <div>
+                        <label asp-for="Title" class="form-label">عنوان</label>
+                        <input asp-for="Title" class="form-control" placeholder="عنوان نمایشی فایل" />
+                        <span asp-validation-for="Title"></span>
                     </div>
-                </form>
+                    <div>
+                        <label asp-for="AltTitle" class="form-label">عنوان جاگزین</label>
+                        <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین برای نمایش" />
+                        <span asp-validation-for="AltTitle"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Description" class="form-label">توضیحات</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                </div>
             </div>
             <!-- END: Modal Body -->
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
                 <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 ml-1">لغو</button>
-                <button id="btnUpload" type="button" class="btn btn-primary w-20">ارسال</button>
+                <button id="btnUpload" onclick="return create_upload_click(this);" type="button" class="btn btn-primary w-20">ارسال</button>
             </div>
             <!-- END: Modal Footer -->
         </div>

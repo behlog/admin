@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Behlog.Web.Admin.Models;
 
-public class CreateFileUploadViewModel
+public class CreateFileUploadViewModel : BaseViewModel
 {
     public IFormFile FileData { get; set; }
     public FileTypeEnum FileType { get; set; }

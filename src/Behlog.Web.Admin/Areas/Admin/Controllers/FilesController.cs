@@ -39,7 +39,34 @@ public class FilesController : BaseAdminController
 
         return View(model);
     }
-    
+
+    [HttpPost]
+    public async Task<IActionResult> Post(CreateFileUploadViewModel model)
+    {
+        if (model is null) return BadRequest();
+
+        if (model.FileData is null || model.FileData.Length == 0)
+        {
+            model.AddError("هیچ فایلی برای آپلود انتخاب نشد. لطفاَ‌ فایل خود را وارد کنید.", nameof(model.FileData));
+            return new JsonResult(model);
+        }
+
+        var command = new CreateFileUploadCommand(
+            model.FileData, FileTypeEnum.Downloads, _website.Id,
+            model.AlternateFileData, model.Title, model.AltTitle, model.Description);
+        try
+        {
+            var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+            model.Succeed("آپلود فایل با موفقیت انجام گرفت.");
+            return new JsonResult(model);
+        }
+        catch (Exception ex)
+        {
+            model.AddError("خطای ناشناخته :ـ(");
+            return new JsonResult(model);
+        }
+
+    }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id)
