@@ -212,8 +212,13 @@
             request.fileData = document.getElementById('FileData').files[0];
             request.description = document.getElementById('Description').value;
             
-            console.log(request);
-            
+            fetch('@Url.Action("Post")', {
+               method: 'POST',
+               body: request
+            }).then(res => res.text())
+            .then(function(data) {
+                console.log(data);
+            });
         }
     </script>
 }

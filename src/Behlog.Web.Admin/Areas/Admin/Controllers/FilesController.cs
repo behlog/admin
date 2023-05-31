@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace Behlog.Web.Admin.Controllers;
 
 [Area(WebsiteAreaNames.Admin)]
@@ -6,14 +8,17 @@ namespace Behlog.Web.Admin.Controllers;
 public class FilesController : BaseAdminController
 {
     public const string Name = "Files";
+    private readonly ILogger<FilesController> _logger;
 
     public FilesController()
     {
     }
 
-    public FilesController(IBehlogMediator mediator, BehlogWebsite website)
+    public FilesController(
+        IBehlogMediator mediator, BehlogWebsite website, ILogger<FilesController> logger)
         : base(mediator, website)
     {
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     [HttpGet("{page:int=1}")]
@@ -62,6 +67,7 @@ public class FilesController : BaseAdminController
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex.GetBaseException().Message);
             model.AddError("خطای ناشناخته :ـ(");
             return new JsonResult(model);
         }
