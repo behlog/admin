@@ -3,3 +3,61 @@
     ViewData["Title"] = "فایل جدید";
 }
 
+<div class="intro-y flex items-center mt-8">
+    <h2 class="text-lg font-medium ml-auto">
+        @ViewData["Title"]
+    </h2>
+</div>
+
+<div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="intro-y col-span-12 lg:col-span-6">
+        <form asp-controller="@FilesController.Name"
+              
+            data-single="true" class="intro-y box">
+            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                <h2 class="font-medium text-base ml-auto">
+                    @ViewData["Title"]
+                </h2>
+                <div class="form-check w-full sm:w-auto sm:mr-auto mt-3 sm:mt-0">
+                    <label class="form-check-label ml-0 sm:ml-2" for="show-example-1">نمایش کد</label>
+                    <input id="show-example-1" data-target="#input" class="show-code form-check-switch mr-0 mr-3" type="checkbox">
+                </div>
+            </div>
+            
+            <div class="p-5">
+                <div class="preview dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" />
+                    </div>
+                    <div class="dz-message" data-dz-message>
+                        <div class="text-lg font-medium">فایل خود را اینجا بکشید و رها کنید</div>
+                        <div class="text-gray-600">این تنها یک دمو از دراپ زون است<span class="font-medium"> نه </span>فایل آپلود شده</div>
+                    </div>
+                </div>
+                <div class="preview">
+                    <div>
+                        <label asp-for="Title" class="form-label">عنوان</label>
+                        <input asp-for="Title" class="form-control" placeholder="عنوان فایل" />
+                        <span asp-validation-for="Title" class="form-help"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AltTitle" class="form-label">عنوان جایگزین</label>
+                        <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین"/>
+                        <span asp-validation-for="AltTitle" class="form-help"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Description" class="form-label">توضیحات</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5 border-t border-gray-200 dark:border-dark-5 flex">
+                <button type="button" class="btn btn-primary py-1 px-2">
+                    <i data-feather="save"></i> ذخیره
+                </button>
+                <a class="btn btn-outline-secondary py-1 px-2 mr-auto">انصراف </a>
+            </div>
+        </form>
+    </div>
+</div>

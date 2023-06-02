@@ -8,6 +8,8 @@ namespace Behlog.Web.Admin.Controllers;
 public class FilesController : BaseAdminController
 {
     public const string Name = "Files";
+    public const string ACTION_New = nameof(New);
+
     private readonly ILogger<FilesController> _logger;
 
     public FilesController()
@@ -78,5 +80,12 @@ public class FilesController : BaseAdminController
     public async Task<IActionResult> Get(Guid id)
     {
         return NotFound();
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> New()
+    {
+        var model = new CreateFileUploadViewModel();
+        return await Task.FromResult(View(model));
     }
 }
