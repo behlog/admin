@@ -10,7 +10,7 @@ public class CreateFileUploadViewModel : BaseViewModel
     public FileTypeEnum FileType { get; set; }
     
     public string? Title { get; set; }
-    public IFormFile AlternateFileData { get; set; }
+    public IFormFile? AlternateFileData { get; set; }
     public string? AltTitle { get; set; }
     public string? Description { get; set; }
     public Guid WebsiteId { get; set; }
