@@ -8,8 +8,9 @@ namespace Behlog.Web.Admin.Controllers;
 public class FilesController : BaseAdminController
 {
     public const string Name = "Files";
-    public const string ACTION_New = nameof(New);
-
+    public const string Action_Index = nameof(Index);
+    public const string Action_New = nameof(New);
+    
     private readonly ILogger<FilesController> _logger;
 
     public FilesController()
@@ -87,5 +88,44 @@ public class FilesController : BaseAdminController
     {
         var model = new CreateFileUploadViewModel();
         return await Task.FromResult(View(model));
+    }
+    
+    [HttpPost("[action]")]
+    public async Task<IActionResult> New(CreateFileUploadViewModel model)
+    {
+        if (model is null) return BadRequest();
+        
+        if (!ModelState.IsValid)
+        {
+            model.AddError("Model is not valid!");
+            return View(model);
+        }
+        
+        if (model.FileData is null || model.FileData.Length == 0)
+        {
+            model.AddError("هیچ فایلی برای آپلود انتخاب نشد. لطفاَ‌ فایل خود را وارد کنید.", nameof(model.FileData));
+            return View(model);
+        }
+
+        var command = new CreateFileUploadCommand(
+            model.FileData, FileTypeEnum.Downloads, _website.Id,
+            model.AlternateFileData, model.Title, model.AltTitle, model.Description);
+        try
+        {
+            var result = await _behlog.PublishAsync(command).ConfigureAwait(false);
+            if (result.HasError)
+            {
+                AddErrorsToModel(model, result.Errors, _logger);
+                return View(model);
+            }
+            model.Succeed("آپلود فایل با موفقیت انجام گرفت.");
+        }
+        catch (Exception ex)
+        {
+            LogError(_logger, Name, Action_New, ex);
+            model.AddError("خطای ناشناخته :ـ(");
+        }
+
+        return View(model);
     }
 }
