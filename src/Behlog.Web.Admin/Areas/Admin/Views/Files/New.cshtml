@@ -23,15 +23,27 @@
             </div>
             <div class="p-5">
                 <div class="preview">
-                    @* <div class="fallback"> *@
-                    @*     <input name="file" type="file" /> *@
-                    @* </div> *@
-                    @* <div class="dz-message" data-dz-message> *@
-                    @*     <div class="text-lg font-medium">فایل خود را اینجا بکشید و رها کنید</div> *@
-                    @*     <div class="text-gray-600">این تنها یک دمو از دراپ زون است<span class="font-medium"> نه </span>فایل آپلود شده</div> *@
-                    @* </div> *@
-                    <input asp-for="FileData" class="form-control" />
-                    <span asp-validation-for="FileData" class="form-help"></span>
+                    @if (Model.Success)
+                    {
+                        <div class="input-group mt-2">
+                            <input asp-for="FileUrl" class="form-control" />
+                            <a class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
+                                <i data-feather="copy"></i>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <label asp-for="FileData" class="form-label">انتخاب فایل</label>
+                        <input asp-for="FileData" class="form-control"/>
+                        <span asp-validation-for="FileData" class="form-help"></span>   
+                    }
+                    <div class="input-group mt-2">
+                        <input asp-for="FileUrl" class="form-control" />
+                        <a class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
+                            <i data-feather="copy"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="preview">
                     <div class="mt-3">

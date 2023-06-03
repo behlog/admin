@@ -128,4 +128,32 @@ public class FilesController : BaseAdminController
 
         return View(model);
     }
+
+    [HttpGet("edit/{id:guid}")]
+    public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var fileUpload = await _behlog.PublishAsync(
+                new QueryFileUploadById(id), cancellationToken).ConfigureAwait(false);
+
+            var model = new UpdateFileUploadViewModel
+            {
+                Id = fileUpload.Id,
+                Title = fileUpload.Title,
+                Hidden = fileUpload.Status == FileUploadStatus.Hidden,
+                Description = fileUpload.Description,
+                Url = fileUpload.Url,
+                AltTitle = fileUpload.AltTitle,
+                FilePath = fileUpload.FilePath,
+                FileUrl = fileUpload.FileUrl
+            };
+            
+            return View(model);
+        }
+        catch (NullReferenceException)
+        {
+            return NotFound();
+        }
+    }
 }

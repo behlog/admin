@@ -16,5 +16,6 @@ public class CreateFileUploadViewModel : BaseViewModel
     public Guid WebsiteId { get; set; }
     public string? Url { get; set; }
     
-    public string? UploadFilePathResult { get; set; }
+    public string? FileUrl { get; set; }
+    public string? FilePath { get; set; }
 }
