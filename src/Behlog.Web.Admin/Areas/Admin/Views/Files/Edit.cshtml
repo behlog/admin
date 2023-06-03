@@ -1,7 +1,96 @@
 @model UpdateFileUploadViewModel
 @{
     ViewData["Title"] = "ویرایش فایل";
+    var cancel_url = Url.Action(FilesController.Action_Index);
 }
 
+<div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="intro-y col-span-12 lg:col-span-6">
+        <form asp-controller="@FilesController.Name"
+              asp-action="@FilesController.ACTION_Edit"
+              method="POST" enctype="multipart/form-data"
+              class="intro-y box">
+            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                <h2 class="font-medium text-base ml-auto">
+                    @ViewData["Title"]
+                </h2>
+            </div>
+            <div class="p-5">
+                <div class="preview">
+                    <div class="input-group mt-2">
+                        <label asp-for="FileUrl" class="form-label">آدرس فایل</label>
+                        <input asp-for="FileUrl" class="form-control" readonly="readonly"/>
+                        <a class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
+                            <i data-feather="copy"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="preview">
+                    <div class="mt-3">
+                        <label asp-for="Title" class="form-label">عنوان</label>
+                        <input asp-for="Title" class="form-control" placeholder="عنوان فایل" />
+                        <span asp-validation-for="Title" class="form-help"></span>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="AltTitle" class="form-label">عنوان جایگزین</label>
+                        <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین"/>
+                        <span asp-validation-for="AltTitle" class="form-help"></span>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="Description" class="form-label">توضیحات</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5 border-t border-gray-200 dark:border-dark-5 flex">
+                <button type="submit" class="btn btn-primary mr-2 flex py-1 px-2">
+                    <i class="w-4 h-4 ml-2" data-feather="save"></i> ذخیره
+                </button>
+                <a class="btn btn-outline-secondary py-1 px-2 mr-auto">
+                    <i class="w-4 h-4 ml-2" data-feather="x-square"></i>  انصراف
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 
+@section breadCrumb
+{
+    <div class="-intro-x breadcrumb breadcrumb--light ml-auto">
+        <a asp-controller="Home" asp-action="Index">خانه</a> 
+        <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
+        <a href="@cancel_url">
+            مدیریت فایل
+        </a>
+        <i data-feather="chevron-left" class="breadcrumb__icon"></i> 
+        <a href="#" class="breadcrumb--active">
+            @ViewData["Title"]
+        </a>
+    </div>
+}
 
+@section footer {
+    <script type="text/javascript" src="~/behlog/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#Title').focus();
+        });
+    </script>
+    
+    @if (Model.HasError)
+    {
+        <script type="text/javascript">
+            const field = '@Model.ErrorFieldName';
+            Swal.fire({
+                icon: 'error',
+                title: 'خطا...',
+                confirmButtonText: 'باشه',
+                text: `@Html.Raw(Model.ErrorMessages)`,
+            });
+            
+            document.getElementById(field).classList.add('input-validation-error');
+        </script>
+    }
+}

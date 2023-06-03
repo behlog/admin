@@ -10,6 +10,7 @@ public class FilesController : BaseAdminController
     public const string Name = "Files";
     public const string Action_Index = nameof(Index);
     public const string Action_New = nameof(New);
+    public const string ACTION_Edit = nameof(Edit);
     
     private readonly ILogger<FilesController> _logger;
 

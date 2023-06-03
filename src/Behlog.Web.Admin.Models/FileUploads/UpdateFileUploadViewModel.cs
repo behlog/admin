@@ -1,6 +1,6 @@
 namespace Behlog.Web.Admin.Models;
 
-public class UpdateFileUploadViewModel
+public class UpdateFileUploadViewModel : BaseViewModel
 {
     public Guid Id { get; set; }
     public string? Title { get; set; }
