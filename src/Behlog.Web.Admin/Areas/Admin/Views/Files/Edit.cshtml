@@ -17,7 +17,7 @@
             </div>
             <div class="p-5">
                 <div class="preview">
-                    <div class="input-group mt-2">
+                    <div class="input-group mt-3">
                         <label asp-for="FileUrl" class="form-label">آدرس فایل</label>
                         <input asp-for="FileUrl" class="form-control" readonly="readonly"/>
                         <a id="btnCopyFileUrl" class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
@@ -34,6 +34,7 @@
                     @if (Model.AlternateFilePath.IsNotNullOrEmpty())
                     {
                         <div class="input-group mt-3">
+                            <label asp-for="AltFileUrl" class="form-label">آدرس فایل دوم</label>
                             <input asp-for="AltFileUrl" class="form-control" readonly="readonly"/>
                             <a id="btnCopyAltFileUrl" class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
                                 <i data-feather="copy"></i>

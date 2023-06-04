@@ -61,7 +61,7 @@ public class FilesController : BaseAdminController
         }
 
         var command = new CreateFileUploadCommand(
-            model.FileData, FileTypeEnum.Downloads, _website.Id,
+            model.FileData, "uploads", FileTypeEnum.Downloads, _website.Id,
             model.AlternateFileData, model.Title, model.AltTitle, model.Description);
         try
         {
@@ -109,7 +109,7 @@ public class FilesController : BaseAdminController
         }
 
         var command = new CreateFileUploadCommand(
-            model.FileData, FileTypeEnum.Downloads, _website.Id,
+            model.FileData, "uploads", FileTypeEnum.Downloads, _website.Id,
             model.AlternateFileData, model.Title, model.AltTitle, model.Description);
         try
         {
