@@ -17,26 +17,10 @@
             </div>
             <div class="p-5">
                 <div class="preview">
-                    @if (Model.Success)
-                    {
-                        <div class="input-group mt-2">
-                            <input asp-for="FileUrl" class="form-control" />
-                            <a class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
-                                <i data-feather="copy"></i>
-                            </a>
-                        </div>
-                    }
-                    else
-                    {
+                    <div class="mt-2">
                         <label asp-for="FileData" class="form-label">انتخاب فایل</label>
                         <input asp-for="FileData" class="form-control"/>
-                        <span asp-validation-for="FileData" class="form-help"></span>   
-                    }
-                    <div class="input-group mt-2">
-                        <input asp-for="FileUrl" class="form-control" />
-                        <a class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
-                            <i data-feather="copy"></i>
-                        </a>
+                        <span asp-validation-for="FileData" class="form-help"></span>       
                     </div>
                 </div>
                 <div class="preview">
@@ -45,6 +29,13 @@
                         <input asp-for="Title" class="form-control" placeholder="عنوان فایل" />
                         <span asp-validation-for="Title" class="form-help"></span>
                     </div>
+                    
+                    <div class="mt-3">
+                        <label asp-for="AlternateFileData" class="form-label">فایل دوم (جایگزین)</label>
+                        <input asp-for="AlternateFileData" class="form-control file form-file"/>
+                        <span asp-validation-for="AlternateFileData" class="form-help"></span>       
+                    </div>
+                    
                     <div class="mt-3">
                         <label asp-for="AltTitle" class="form-label">عنوان جایگزین</label>
                         <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین"/>
@@ -58,7 +49,7 @@
                 </div>
             </div>
             <div class="p-5 border-t border-gray-200 dark:border-dark-5 flex">
-                <button type="submit" class="btn btn-primary mr-2 flex py-1 px-2">
+                <button type="submit" class="btn btn-lg btn-success mr-2 flex py-1 px-2">
                     <i class="w-4 h-4 ml-2" data-feather="save"></i> ذخیره
                 </button>
                 <a class="btn btn-outline-secondary py-1 px-2 mr-auto">

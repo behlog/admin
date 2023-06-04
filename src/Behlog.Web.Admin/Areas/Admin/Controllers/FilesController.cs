@@ -120,14 +120,15 @@ public class FilesController : BaseAdminController
                 return View(model);
             }
             model.Succeed("آپلود فایل با موفقیت انجام گرفت.");
+
+            return RedirectToAction(ACTION_Edit, new {id = result.Value.Id});
         }
         catch (Exception ex)
         {
             LogError(_logger, Name, Action_New, ex);
             model.AddError("خطای ناشناخته :ـ(");
+            return View(model);
         }
-
-        return View(model);
     }
 
     [HttpGet("edit/{id:guid}")]
@@ -147,7 +148,12 @@ public class FilesController : BaseAdminController
                 Url = fileUpload.Url,
                 AltTitle = fileUpload.AltTitle,
                 FilePath = fileUpload.FilePath,
-                FileUrl = fileUpload.FileUrl
+                FileUrl = fileUpload.FileUrl,
+                AltFileUrl = fileUpload.AltFileUrl,
+                AlternateFilePath = fileUpload.AlternateFilePath,
+                Extension = fileUpload.Extension,
+                FileSize = fileUpload.FileSize,
+                AltFileSize = fileUpload.AltFileSize,
             };
             
             return View(model);

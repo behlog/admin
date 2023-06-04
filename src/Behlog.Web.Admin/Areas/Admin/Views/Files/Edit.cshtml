@@ -20,7 +20,7 @@
                     <div class="input-group mt-2">
                         <label asp-for="FileUrl" class="form-label">آدرس فایل</label>
                         <input asp-for="FileUrl" class="form-control" readonly="readonly"/>
-                        <a class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
+                        <a id="btnCopyFileUrl" class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
                             <i data-feather="copy"></i>
                         </a>
                     </div>
@@ -31,6 +31,23 @@
                         <input asp-for="Title" class="form-control" placeholder="عنوان فایل" />
                         <span asp-validation-for="Title" class="form-help"></span>
                     </div>
+                    @if (Model.AlternateFilePath.IsNotNullOrEmpty())
+                    {
+                        <div class="input-group mt-3">
+                            <input asp-for="AltFileUrl" class="form-control" readonly="readonly"/>
+                            <a id="btnCopyAltFileUrl" class="input-group-btn input-group-text tooltip btn" title="برای کپی کلیک کنید">
+                                <i data-feather="copy"></i>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-3">
+                            <label asp-for="AlternateFileData" class="form-label">فایل دوم (جایگزین)</label>
+                            <input asp-for="AlternateFileData" class="form-control file form-file"/>
+                            <span asp-validation-for="AlternateFileData" class="form-help"></span>       
+                        </div>
+                    }
                     <div class="mt-3">
                         <label asp-for="AltTitle" class="form-label">عنوان جایگزین</label>
                         <input asp-for="AltTitle" class="form-control" placeholder="عنوان جایگزین"/>
@@ -76,6 +93,22 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#Title').focus();
+            
+            $('#btnCopyFileUrl').click(function (e) {
+                // $('#FileUrl').removeAttr('disabled');
+                let fileUrl = $('#FileUrl').prop('value');
+                console.log(fileUrl);
+                $('#FileUrl').select();
+                document.execCommand("copy");
+            });
+             
+             $('#btnCopyAltFileUrl').click(function (e) {
+                 // $('#FileUrl').removeAttr('disabled');
+                 let altFileUrl = $('#AltFileUrl').prop('value');
+                 console.log(altFileUrl);
+                 $('#AltFileUrl').select();
+                 document.execCommand("copy");
+             });
         });
     </script>
     

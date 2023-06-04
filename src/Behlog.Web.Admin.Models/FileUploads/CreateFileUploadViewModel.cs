@@ -18,4 +18,6 @@ public class CreateFileUploadViewModel : BaseViewModel
     
     public string? FileUrl { get; set; }
     public string? FilePath { get; set; }
+    public string? AltFileUrl { get; set; }
+    public string? AlternateFilePath { get; set; }
 }
