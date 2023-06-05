@@ -1,3 +1,4 @@
+using Behlog.Web.Admin.Models.Resources;
 using Microsoft.Extensions.Logging;
 
 namespace Behlog.Web.Admin.Controllers;
@@ -56,7 +57,7 @@ public class FilesController : BaseAdminController
 
         if (model.FileData is null || model.FileData.Length == 0)
         {
-            model.AddError("هیچ فایلی برای آپلود انتخاب نشد. لطفاَ‌ فایل خود را وارد کنید.", nameof(model.FileData));
+            model.AddError(ViewErrors.FileData_Required, nameof(model.FileData));
             return new JsonResult(model);
         }
 
@@ -72,7 +73,7 @@ public class FilesController : BaseAdminController
         catch (Exception ex)
         {
             _logger.LogError(ex.GetBaseException().Message);
-            model.AddError("خطای ناشناخته :ـ(");
+            model.AddError(ViewErrors.Unknown_Error);
             return new JsonResult(model);
         }
 
@@ -91,20 +92,20 @@ public class FilesController : BaseAdminController
         return await Task.FromResult(View(model));
     }
     
-    [HttpPost("[action]")]
+    [HttpPost("[action]"), ValidateAntiForgeryToken]
     public async Task<IActionResult> New(CreateFileUploadViewModel model)
     {
         if (model is null) return BadRequest();
         
         if (!ModelState.IsValid)
         {
-            model.AddError("Model is not valid!");
+            model.AddError(ViewErrors.ModelState);
             return View(model);
         }
         
         if (model.FileData is null || model.FileData.Length == 0)
         {
-            model.AddError("هیچ فایلی برای آپلود انتخاب نشد. لطفاَ‌ فایل خود را وارد کنید.", nameof(model.FileData));
+            model.AddError(ViewErrors.FileData_Required, nameof(model.FileData));
             return View(model);
         }
 
@@ -121,18 +122,18 @@ public class FilesController : BaseAdminController
             }
             model.Succeed("آپلود فایل با موفقیت انجام گرفت.");
 
-            return RedirectToAction(ACTION_Edit, new {id = result.Value.Id});
+            return RedirectToAction(ACTION_Edit, new {id = result.Value.Id, success = true });
         }
         catch (Exception ex)
         {
             LogError(_logger, Name, Action_New, ex);
-            model.AddError("خطای ناشناخته :ـ(");
+            model.AddError(ViewErrors.Unknown_Error);
             return View(model);
         }
     }
 
     [HttpGet("edit/{id:guid}")]
-    public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Edit(Guid id, bool success, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -155,12 +156,58 @@ public class FilesController : BaseAdminController
                 FileSize = fileUpload.FileSize,
                 AltFileSize = fileUpload.AltFileSize,
             };
-            
+
+            if(success) {
+                model.ModelMessage = "success";
+            }
+
             return View(model);
         }
         catch (NullReferenceException)
         {
             return NotFound();
         }
+    }
+
+    [HttpPost("edit/{id:guid}"), ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(
+        Guid id, UpdateFileUploadViewModel model, CancellationToken cancellationToken = default) 
+    {
+        if (model is null) return BadRequest();
+
+        if(!ModelState.IsValid) {
+            model.AddError(ViewErrors.ModelState);
+            return View(model);
+        }
+
+        var command = new UpdateFileUploadCommand(
+            model.Id, model.Title, model.AlternateFileData, 
+            model.AltTitle, model.Url, model.Description, model.Hidden);
+
+        try 
+        {
+            var result = await _behlog.PublishAsync(command, cancellationToken).ConfigureAwait(false);
+            if(result.HasError) {
+                AddErrorsToModel(model, result.Errors, _logger);
+                return View(model);
+            }
+
+            return RedirectToAction(Action_Index);
+        }
+        catch(NullReferenceException ex) {
+            LogError(_logger, ex);
+            return NotFound();
+        }
+        catch(BehlogException ex) {
+            LogError(_logger, ex); //TODO: add errorCode
+            model.AddError(ViewErrors.Unknown_Error);
+            return View(model);
+        }
+        catch(Exception ex) {
+            LogError(_logger, ex);
+            model.AddError(ViewErrors.Unknown_Error);
+            return View(model);
+        }
+
     }
 }

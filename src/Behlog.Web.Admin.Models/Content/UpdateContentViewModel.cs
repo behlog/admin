@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using Behlog.Cms.Extensions;
+
 namespace Behlog.Web.Admin.Models;
 
 public class UpdateContentViewModel : BaseViewModel
@@ -33,6 +35,10 @@ public class UpdateContentViewModel : BaseViewModel
     public string? AltTitle { get; set; }
     
     public ContentBodyType BodyType { get; set; }
+    public string BodyTypeDisplay => BodyType.ToDisplay();
+
+    public ContentStatusEnum Status { get; set; }
+    public string StatusDisplay => Status.ToDisplay();
     
     public int OrderNum { get; set; }
     
@@ -99,6 +105,7 @@ public class UpdateContentViewModel : BaseViewModel
             Title = result.Title,
             Tags = result.Tags?.Select(_=> _.TagId).ToList(),
             AltTitle = result.AltTitle,
+            Status = result.Status,
             BodyType = result.BodyType,
             LangCode = result.LangCode,
             LangId = result.LangId,

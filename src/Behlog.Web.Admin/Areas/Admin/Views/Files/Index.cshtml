@@ -110,11 +110,20 @@
                             <div class="absolute right-0 top-0 mt-3 mr-3">
                                 <input class="form-check-input border border-gray-500" type="checkbox">
                             </div>
-                            <a href="" class="w-3/5 file__icon file__icon--empty-directory mx-auto"></a> <a href="" class="block font-medium mt-4 text-center truncate">
-                                @file.Title
-                            </a>
+                            
+                            @if(file.FileType == FileTypeEnum.Image) {
+                                <div class="preview">
+                                    <img src="@file.FileUrl" alt="@file.Title" />
+                                </div>
+                            }
+                            else {
+                                <a href="" class="w-3/5 file__icon file__icon--empty-directory mx-auto"></a> <a href="" class="block font-medium mt-4 text-center truncate">
+                                    @file.Title
+                                </a>
+                            }
+                            
                             <div class="text-gray-600 text-xs text-center mt-0.5">
-                                @file.FileSize.ToString()
+                                @file.FileSize.ToString() | @file.FileTypeDisplay
                             </div>
                             <div class="absolute top-0 left-0 ml-2 mt-2 dropdown mr-auto">
                                 <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-vertical" class="w-5 h-5 text-gray-600"></i> </a>

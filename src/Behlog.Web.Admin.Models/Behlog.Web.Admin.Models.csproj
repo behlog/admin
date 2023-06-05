@@ -30,4 +30,19 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Resources\ViewErrors.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ViewErrors.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\ViewErrors.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>ViewErrors.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>
